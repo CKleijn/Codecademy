@@ -67,9 +67,8 @@ public class StudentCreateScene {
 		Button createStudentButton = new Button("+ Add student");
 		createStudentButton.setPrefSize(120, 40);
 		createStudentButton.setOnAction((event) -> {
-			Student student = new Student(email2.getText(), name2.getText(), birthdate2.getText(), gender2.getText(), address2.getText(), residence2.getText(), country2.getText());
-			student.addStudent(student);
-			window.setScene(studentOverviewScene.studentOverviewScene(window));
+			// Student student = new Student(email2.getText(), name2.getText(), birthdate2.getText(), gender2.getText(), address2.getText(), residence2.getText(), country2.getText());
+			// window.setScene(studentOverviewScene.studentOverviewScene(window));
 		});
 		
 		

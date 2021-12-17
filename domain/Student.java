@@ -1,7 +1,5 @@
 package domain;
 
-import database.StudentSQL;
-
 public class Student {
 
     private String email;
@@ -22,29 +20,32 @@ public class Student {
         this.country = country;
     }
 
-    public void getStudents(){
-        StudentSQL sql = new StudentSQL();
-        sql.getStudentSQL("SELECT * FROM Student");
+    public String getEmail() {
+        return email;
     }
 
-    public void getStudent(Student student){
-        StudentSQL sql = new StudentSQL();
-        sql.getStudentSQL("SELECT * FROM Student WHERE StudentEmail = '" + student.email + "'");
+    public String getName() {
+        return name;
     }
 
-    public void addStudent(Student student){
-        StudentSQL sql = new StudentSQL();
-        sql.getStudentSQL("INSERT INTO Student VALUES (" + "'" + student.email + "'" + ", " + "'" + student.name + "'" + ", " + "'" + student.dateOfBirth + "'" + ", " + "'" + student.gender + "'" + ", " + "'" + student.address + "'" + ", " + "'" + student.livingPlace  + "'" + ", " + "'" + student.country + "'" + ")");
+    public String getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void updateStudent(Student student){
-        StudentSQL sql = new StudentSQL();
-        sql.getStudentSQL("UPDATE Student SET StudentEmail = '" + student.email + "'" + ", " + "StudentName = '" + student.name + "'" + ", " + "StudentBirthdate = '" + student.dateOfBirth + "'" + ", " + "StudentGender = '" + student.gender + "'" + ", " + "StudentAddress = '" + student.address + "'" + ", " + "StudentResidence = '" + student.livingPlace  + "'" + ", " + "StudentCountry = '" + student.country + "'" + "WHERE StudentEmail = '" + student.email + "'");
+    public String getGender() {
+        return gender;
     }
 
-    public void deleteStudent(Student student){
-        StudentSQL sql = new StudentSQL();
-        sql.getStudentSQL("DELETE FROM Student WHERE StudentEmail = '" + student.email + "'");
+    public String getAddress() {
+        return address;
     }
-    
+
+    public String getLivingPlace() {
+        return livingPlace;
+    }
+
+    public String getCountry() {
+        return country;
+    }   
+   
 }
