@@ -1,5 +1,6 @@
 package GUI;
 
+import database.StudentSQL;
 import domain.*;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
@@ -15,6 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class StudentCreateScene {
+	private StudentSQL sql = new StudentSQL();
 	
 	public Scene studentCreateScene(Stage window) {
 		StudentOverviewScene studentOverviewScene = new StudentOverviewScene();
@@ -67,8 +69,9 @@ public class StudentCreateScene {
 		Button createStudentButton = new Button("+ Add student");
 		createStudentButton.setPrefSize(120, 40);
 		createStudentButton.setOnAction((event) -> {
-			// Student student = new Student(email2.getText(), name2.getText(), birthdate2.getText(), gender2.getText(), address2.getText(), residence2.getText(), country2.getText());
-			// window.setScene(studentOverviewScene.studentOverviewScene(window));
+			Student student = new Student(email2.getText(), name2.getText(), birthdate2.getText(), gender2.getText(), address2.getText(), residence2.getText(), country2.getText());
+			sql.createStudent(student);
+			window.setScene(studentOverviewScene.studentOverviewScene(window));
 		});
 		
 		

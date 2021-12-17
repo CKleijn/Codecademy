@@ -41,5 +41,18 @@ public class StudentSQL {
         }
         return studentList;
     }
+
+    public void createStudent(Student student) {
+        Connection conn = getConnection();
+        String query = "INSERT INTO Student VALUES ('" + student.getEmail() + "', '" + student.getName() + "', '" + student.getDateOfBirth() + "', '" + student.getGender() + "', '" + student.getAddress() + "', '" + student.getLivingPlace()  + "', '" + student.getCountry() + "')";
+        Statement st;
+        try {
+            st = conn.createStatement();
+            st.executeQuery(query);
+            System.out.println("Student created!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
 
