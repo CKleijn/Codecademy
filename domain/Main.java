@@ -1,4 +1,4 @@
-package GUI;
+package domain;
 
 import javafx.application.Application;
 

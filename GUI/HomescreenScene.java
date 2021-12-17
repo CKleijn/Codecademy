@@ -47,16 +47,11 @@ public class HomescreenScene{
 		Label welcome2 = new Label("Codecademy Application");
 		welcome2.setFont(new Font("Verdana", 35));
 		
-		Label descriptionLabel = new Label("Een applicatie voor het online leerplatform Codecademy waarin studenten en docenten makkelijk hun cursussen kunnen bekijken en de voortgang en nieuwe studenten, cursussen en certificaten toe kunnen voegen aan het systeem.");
-		descriptionLabel.setFont(new Font("Verdana", 11));
-		descriptionLabel.setWrapText(true);
-		
-		
 		HBox menu = new HBox(studentButton, courseButton, moduleButton);
 		menu.setSpacing(10);
 		
 		
-		VBox welcome = new VBox(welcome1, welcome2, descriptionLabel);
+		VBox welcome = new VBox(welcome1, welcome2);
 		welcome.setSpacing(5);
 		welcome.setAlignment(Pos.BASELINE_CENTER);
 		welcome.setPadding(new Insets(50, 50, 50, 50));
