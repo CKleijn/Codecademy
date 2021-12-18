@@ -54,5 +54,31 @@ public class StudentSQL {
             e.printStackTrace();
         }
     }
+
+    public void updateStudent(Student student) {
+        Connection conn = getConnection();
+        String query = "UPDATE Student SET StudentEmail = '" + student.getEmail() + "', StudentName = '" + student.getName() + "', StudentBirthdate = '" + student.getDateOfBirth() + "', StudentGender = '" + student.getGender() + "', StudentAddress = '" + student.getAddress() + "', StudentResidence = '" + student.getLivingPlace()  + "', StudentCountry = '" + student.getCountry() + "' WHERE StudentEmail = '" + student.getEmail() + "'";
+        Statement st;
+        try {
+            st = conn.createStatement();
+            st.executeQuery(query);
+            System.out.println("Student created!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteStudent(Student student) {
+        Connection conn = getConnection();
+        String query = "DELETE FROM Student WHERE StudentEmail = '" + student.getEmail() + "'";
+        Statement st;
+        try {
+            st = conn.createStatement();
+            st.executeQuery(query);
+            System.out.println("Student created!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
 
