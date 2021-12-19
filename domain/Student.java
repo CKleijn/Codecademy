@@ -4,19 +4,29 @@ public class Student {
 
     private String email;
     private String name;
-    private String dateOfBirth;
+    private int birthDay;
+    private int birthMonth;
+    private int birthYear;
     private String gender;
-    private String address;
-    private String livingPlace;
+    private String street;
+    private String houseNumber;
+    private String houseNumberAddition;
+    private String postalCode;
+    private String residence;
     private String country;
 
-    public Student(String email, String name, String dateOfBirth, String gender, String address, String livingPlace, String country){
+    public Student(String email, String name, int birthDay, int birthMonth, int birthYear, String gender, String street, String houseNumber, String houseNumberAddition, String postalCode, String residence, String country){
         this.email = email;
         this.name = name;
-        this.dateOfBirth = dateOfBirth;
+        this.birthDay = birthDay;
+        this.birthMonth = birthMonth;
+        this.birthYear = birthYear;
         this.gender = gender;
-        this.address = address;
-        this.livingPlace = livingPlace;
+        this.street = street;
+        this.houseNumber = houseNumber;
+        this.houseNumberAddition = houseNumberAddition;
+        this.postalCode = postalCode;
+        this.residence = residence;
         this.country = country;
     }
 
@@ -28,20 +38,40 @@ public class Student {
         return name;
     }
 
-    public String getDateOfBirth() {
-        return dateOfBirth;
+    public int getBirthDay() {
+        return birthDay;
+    }
+
+    public int getBirthMonth() {
+        return birthMonth;
+    }
+
+    public int getBirthYear() {
+        return birthYear;
     }
 
     public String getGender() {
         return gender;
     }
 
-    public String getAddress() {
-        return address;
+    public String getStreet() {
+        return street;
     }
 
-    public String getLivingPlace() {
-        return livingPlace;
+    public String getHouseNumber() {
+        return houseNumber;
+    }
+
+    public String getHouseNumberAddition() {
+        return houseNumberAddition;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public String getResidence() {
+        return residence;
     }
 
     public String getCountry() {

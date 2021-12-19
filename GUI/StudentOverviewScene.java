@@ -1,5 +1,11 @@
 package GUI;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import javax.swing.text.DateFormatter;
+
 import database.StudentSQL;
 import domain.Student;
 import javafx.collections.ObservableList;
@@ -7,6 +13,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -43,38 +50,58 @@ public class StudentOverviewScene {
         menu.setSpacing(10);
 
         //Student
-		Label email = new Label("Email: ");
-		TextArea email2 = new TextArea();
-		email2.setPrefHeight(12);
+		Label emailLabel = new Label("Email: ");
+		TextArea emailTextArea = new TextArea();
+		emailTextArea.setPrefHeight(12);
 		
-		Label name = new Label("Name: ");
-		TextArea name2 = new TextArea();
-		name2.setPrefHeight(12);
+		Label nameLabel = new Label("Name: ");
+		TextArea nameTextArea = new TextArea();
+		nameTextArea.setPrefHeight(12);
 		
-		Label birthdate = new Label("Birthdate: ");
-		TextArea birthdate2 = new TextArea();
-		birthdate2.setPrefHeight(12);
+		Label birthDayLabel = new Label("Birthday: ");
+		TextArea birthDayTextArea = new TextArea();
+		birthDayTextArea.setPrefHeight(12);
+
+        Label birthMonthLabel = new Label("Birthmonth: ");
+		TextArea birthMonthTextArea = new TextArea();
+		birthMonthTextArea.setPrefHeight(12);
+
+        Label birthYearLabel = new Label("Birthyear: ");
+		TextArea birthYearTextArea = new TextArea();
+		birthYearTextArea.setPrefHeight(12);
 		
-		Label gender = new Label("Gender: ");
-		TextArea gender2 = new TextArea();
-		gender2.setPrefHeight(12);
+		Label genderLabel = new Label("Gender: ");
+		TextArea genderTextArea = new TextArea();
+		genderTextArea.setPrefHeight(12);
 		
-		Label address = new Label("Address: ");
-		TextArea address2 = new TextArea();
-		address2.setPrefHeight(12);
+		Label streetLabel = new Label("Street: ");
+		TextArea streetTextArea = new TextArea();
+		streetTextArea.setPrefHeight(12);
+
+        Label houseNumberLabel = new Label("House number: ");
+		TextArea houseNumberTextArea = new TextArea();
+		houseNumberTextArea.setPrefHeight(12);
+
+        Label houseNumberAdditionLabel = new Label("House number addition: ");
+		TextArea houseNumberAdditionTextArea = new TextArea();
+		houseNumberAdditionTextArea.setPrefHeight(12);
+
+        Label postalCodeLabel = new Label("Postal code: ");
+		TextArea postalCodeTextArea = new TextArea();
+		postalCodeTextArea.setPrefHeight(12);
 		
-		Label residence = new Label("Residence: ");
-		TextArea residence2 = new TextArea();
-		residence2.setPrefHeight(12);
+		Label residenceLabel = new Label("Residence: ");
+		TextArea residenceTextArea = new TextArea();
+		residenceTextArea.setPrefHeight(12);
 		
-		Label country = new Label("Country: ");
-		TextArea country2 = new TextArea();
-		country2.setPrefHeight(12);
-		
+		Label countryLabel = new Label("Country: ");
+		TextArea countryTextArea = new TextArea();
+		countryTextArea.setPrefHeight(12);
+
 		Button createStudentButton = new Button("Add student");
 		createStudentButton.setPrefSize(120, 40);
 		createStudentButton.setOnAction((event) -> {
-			Student student = new Student(email2.getText(), name2.getText(), birthdate2.getText(), gender2.getText(), address2.getText(), residence2.getText(), country2.getText());
+			Student student = new Student(emailTextArea.getText(), nameTextArea.getText(), Integer.parseInt(birthDayTextArea.getText()), Integer.parseInt(birthMonthTextArea.getText()), Integer.parseInt(birthYearTextArea.getText()), genderTextArea.getText(), streetTextArea.getText(), houseNumberTextArea.getText(), houseNumberAdditionTextArea.getText(), postalCodeTextArea.getText(), residenceTextArea.getText(), countryTextArea.getText());
 			sql.createStudent(student);
 			window.setScene(studentOverviewScene.studentOverviewScene(window));
 		});
@@ -82,7 +109,7 @@ public class StudentOverviewScene {
         Button editStudentButton = new Button("Update student");
 		editStudentButton.setPrefSize(120, 40);
 		editStudentButton.setOnAction((event) -> {
-			Student student = new Student(email2.getText(), name2.getText(), birthdate2.getText(), gender2.getText(), address2.getText(), residence2.getText(), country2.getText());
+			Student student = new Student(emailTextArea.getText(), nameTextArea.getText(), Integer.parseInt(birthDayTextArea.getText()), Integer.parseInt(birthMonthTextArea.getText()), Integer.parseInt(birthYearTextArea.getText()), genderTextArea.getText(), streetTextArea.getText(), houseNumberTextArea.getText(), houseNumberAdditionTextArea.getText(), postalCodeTextArea.getText(), residenceTextArea.getText(), countryTextArea.getText());
 			sql.updateStudent(student);
 			window.setScene(studentOverviewScene.studentOverviewScene(window));
 		});
@@ -90,7 +117,7 @@ public class StudentOverviewScene {
         Button deleteStudentButton = new Button("Delete student");
 		deleteStudentButton.setPrefSize(120, 40);
 		deleteStudentButton.setOnAction((event) -> {
-			Student student = new Student(email2.getText(), name2.getText(), birthdate2.getText(), gender2.getText(), address2.getText(), residence2.getText(), country2.getText());
+			Student student = new Student(emailTextArea.getText(), nameTextArea.getText(), Integer.parseInt(birthDayTextArea.getText()), Integer.parseInt(birthMonthTextArea.getText()), Integer.parseInt(birthYearTextArea.getText()), genderTextArea.getText(), streetTextArea.getText(), houseNumberTextArea.getText(), houseNumberAdditionTextArea.getText(), postalCodeTextArea.getText(), residenceTextArea.getText(), countryTextArea.getText());
 			sql.deleteStudent(student);
 			window.setScene(studentOverviewScene.studentOverviewScene(window));
 		});
@@ -101,32 +128,47 @@ public class StudentOverviewScene {
         TableView<Student> table = new TableView<Student>();
         TableColumn<Student, String> emailCol = new TableColumn<Student, String>("Student email");
         TableColumn<Student, String> nameCol = new TableColumn<Student, String>("Student name");
-        TableColumn<Student, String> birthdateCol = new TableColumn<Student, String>("Student birthdate");
+        TableColumn<Student, String> birthDayCol = new TableColumn<Student, String>("Student birthday");
+        TableColumn<Student, String> birthMonthCol = new TableColumn<Student, String>("Student birthmonth");
+        TableColumn<Student, String> birthYearCol = new TableColumn<Student, String>("Student birthyear");
         TableColumn<Student, String> genderCol = new TableColumn<Student, String>("Student gender");
-        TableColumn<Student, String> addressCol = new TableColumn<Student, String>("Student address");
+        TableColumn<Student, String> streetCol = new TableColumn<Student, String>("Student street");
+        TableColumn<Student, String> houseNumberCol = new TableColumn<Student, String>("Student house number");
+        TableColumn<Student, String> houseNumberAdditionCol = new TableColumn<Student, String>("Student house number addition");
+        TableColumn<Student, String> postalCodeCol = new TableColumn<Student, String>("Student postal code");
         TableColumn<Student, String> residenceCol = new TableColumn<Student, String>("Student residence");
         TableColumn<Student, String> countryCol = new TableColumn<Student, String>("Student country");
-        table.getColumns().addAll(emailCol, nameCol, birthdateCol, genderCol, addressCol, residenceCol, countryCol);
+        table.getColumns().addAll(emailCol, nameCol, birthDayCol, birthMonthCol, birthYearCol, genderCol, streetCol, houseNumberCol, houseNumberAdditionCol, postalCodeCol, residenceCol, countryCol);
 
         ObservableList<Student> list = sql.getStudentList();
 
         emailCol.setCellValueFactory(new PropertyValueFactory<Student, String>("email"));
         nameCol.setCellValueFactory(new PropertyValueFactory<Student, String>("name"));
-        birthdateCol.setCellValueFactory(new PropertyValueFactory<Student, String>("dateOfBirth"));
+        birthDayCol.setCellValueFactory(new PropertyValueFactory<Student, String>("birthDay"));
+        birthMonthCol.setCellValueFactory(new PropertyValueFactory<Student, String>("birthMonth"));
+        birthYearCol.setCellValueFactory(new PropertyValueFactory<Student, String>("birthYear"));
         genderCol.setCellValueFactory(new PropertyValueFactory<Student, String>("gender"));
-        addressCol.setCellValueFactory(new PropertyValueFactory<Student, String>("address"));
-        residenceCol.setCellValueFactory(new PropertyValueFactory<Student, String>("livingPlace"));
+        streetCol.setCellValueFactory(new PropertyValueFactory<Student, String>("street"));
+        houseNumberCol.setCellValueFactory(new PropertyValueFactory<Student, String>("houseNumber"));
+        houseNumberAdditionCol.setCellValueFactory(new PropertyValueFactory<Student, String>("houseNumberAddition"));
+        postalCodeCol.setCellValueFactory(new PropertyValueFactory<Student, String>("postalCode"));
+        residenceCol.setCellValueFactory(new PropertyValueFactory<Student, String>("residence"));
         countryCol.setCellValueFactory(new PropertyValueFactory<Student, String>("country"));
         
         table.setOnMouseClicked((event) -> {
             Student student = table.getSelectionModel().getSelectedItem();
-            email2.setText(student.getEmail());
-            name2.setText(student.getName());
-            birthdate2.setText(student.getDateOfBirth());
-            gender2.setText(student.getGender());
-            address2.setText(student.getAddress());
-            residence2.setText(student.getLivingPlace());
-            country2.setText(student.getCountry());
+            emailTextArea.setText(student.getEmail());
+            nameTextArea.setText(student.getName());
+            birthDayTextArea.setText(String.valueOf(student.getBirthDay()));
+            birthMonthTextArea.setText(String.valueOf(student.getBirthMonth()));
+            birthYearTextArea.setText(String.valueOf(student.getBirthYear()));
+            genderTextArea.setText(student.getGender());
+            streetTextArea.setText(student.getStreet());
+            houseNumberTextArea.setText(student.getHouseNumber());
+            houseNumberAdditionTextArea.setText(student.getHouseNumberAddition());
+            postalCodeTextArea.setText(student.getPostalCode());
+            residenceTextArea.setText(student.getResidence());
+            countryTextArea.setText(student.getCountry());
         });
 
         table.setItems(list);
@@ -136,22 +178,32 @@ public class StudentOverviewScene {
 		grid.setPadding(new Insets(50, 50, 50, 50));
 		grid.setHgap(5);
 		grid.setVgap(5);
-		grid.add(email, 0, 0 , 1, 1);
-		grid.add(email2, 1, 0 , 1, 1);
-		grid.add(name, 0, 1 , 1, 1);
-		grid.add(name2, 1, 1 , 1, 1);
-		grid.add(birthdate, 0, 2 , 1, 1);
-		grid.add(birthdate2, 1, 2 , 1, 1);
-		grid.add(gender, 0, 3 , 1, 1);
-		grid.add(gender2, 1, 3 , 1, 1);
-		grid.add(address, 0, 4 , 1, 1);
-		grid.add(address2, 1, 4 , 1, 1);
-		grid.add(residence, 0, 5 , 1, 1);
-		grid.add(residence2, 1, 5 , 1, 1);
-		grid.add(country, 0, 6 , 1, 1);
-		grid.add(country2, 1, 6 , 1, 1);
-		grid.add(buttonHBox, 1, 7 , 1, 1);
-        grid.add(table, 1, 8 , 1, 1);
+		grid.add(emailLabel, 0, 0 , 1, 1);
+		grid.add(emailTextArea, 1, 0 , 1, 1);
+		grid.add(nameLabel, 0, 1 , 1, 1);
+		grid.add(nameTextArea, 1, 1 , 1, 1);
+		grid.add(birthDayLabel, 0, 2 , 1, 1);
+		grid.add(birthDayTextArea, 1, 2 , 1, 1);
+        grid.add(birthMonthLabel, 0, 3 , 1, 1);
+		grid.add(birthMonthTextArea, 1, 3 , 1, 1);
+        grid.add(birthYearLabel, 0, 4 , 1, 1);
+		grid.add(birthYearTextArea, 1, 4 , 1, 1);
+		grid.add(genderLabel, 0, 5 , 1, 1);
+		grid.add(genderTextArea, 1, 5 , 1, 1);
+		grid.add(streetLabel, 0, 6 , 1, 1);
+		grid.add(streetTextArea, 1, 6 , 1, 1);
+        grid.add(houseNumberLabel, 0, 7 , 1, 1);
+		grid.add(houseNumberTextArea, 1, 7 , 1, 1);
+        grid.add(houseNumberAdditionLabel, 0, 8 , 1, 1);
+		grid.add(houseNumberAdditionTextArea, 1, 8 , 1, 1);
+        grid.add(postalCodeLabel, 0, 9 , 1, 1);
+		grid.add(postalCodeTextArea, 1, 9 , 1, 1);
+		grid.add(residenceLabel, 0, 10 , 1, 1);
+		grid.add(residenceTextArea, 1, 10 , 1, 1);
+		grid.add(countryLabel, 0, 11, 1, 1);
+		grid.add(countryTextArea, 1, 11, 1, 1);
+		grid.add(buttonHBox, 1, 12, 1, 1);
+        grid.add(table, 1, 13, 1, 1);
 
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(10, 10, 10, 10));
