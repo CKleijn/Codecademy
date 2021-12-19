@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Calendar;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,7 +29,7 @@ public class StudentSQL {
         String query = "SELECT * FROM Student";
         Statement st;
         ResultSet rs;
-
+        
         try {
             st = conn.createStatement();
             rs = st.executeQuery(query);
@@ -47,12 +48,15 @@ public class StudentSQL {
         Connection conn = getConnection();
         String query = "INSERT INTO Student VALUES ('" + student.getEmail() + "', '" + student.getName() + "', '" + student.getBirthDay() + "', '" + student.getBirthMonth() + "', '" + student.getBirthYear() + "', '" + student.getGender() + "', '" + student.getStreet() + "', '" + student.getHouseNumber() + "', '" + student.getHouseNumberAddition() + "', '" + student.getPostalCode() + "', '" + student.getResidence()  + "', '" + student.getCountry() + "')";
         Statement st;
-        try {
-            st = conn.createStatement();
-            st.executeQuery(query);
-            System.out.println("Student created!");
-        } catch (Exception e) {
-            e.printStackTrace();
+
+        if(!checkEmail(student.getEmail()) && checkDate(student.getBirthDay(), student.getBirthMonth(), student.getBirthYear())){
+            try {
+                st = conn.createStatement();
+                st.executeQuery(query);
+                System.out.println("Student created!");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -60,12 +64,15 @@ public class StudentSQL {
         Connection conn = getConnection();
         String query = "UPDATE Student SET StudentEmail = '" + student.getEmail() + "', StudentName = '" + student.getName() + "', StudentBirthDay = '" + student.getBirthDay() + "', StudentBirthMonth = '" + student.getBirthMonth() + "', StudentBirthYear = '" + student.getBirthYear() + "', StudentGender = '" + student.getGender() + "', StudentStreet = '" + student.getStreet() + "', StudentHouseNumber = '" + student.getHouseNumber() + "', StudentHouseNumberAddition = '" + student.getHouseNumberAddition() + "', StudentPostalCode = '" + student.getPostalCode() + "', StudentResidence = '" + student.getResidence()  + "', StudentCountry = '" + student.getCountry() + "' WHERE StudentEmail = '" + student.getEmail() + "'";
         Statement st;
-        try {
-            st = conn.createStatement();
-            st.executeQuery(query);
-            System.out.println("Student updated!");
-        } catch (Exception e) {
-            e.printStackTrace();
+
+        if(!checkEmail(student.getEmail()) && checkDate(student.getBirthDay(), student.getBirthMonth(), student.getBirthYear())){
+            try {
+                st = conn.createStatement();
+                st.executeQuery(query);
+                System.out.println("Student updated!");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -81,5 +88,33 @@ public class StudentSQL {
             e.printStackTrace();
         }
     }
+    
+    public boolean checkEmail(String email){
+        String regex = "^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+        if(email.matches(regex)){
+            System.out.println("Your email is correct");
+            return false;
+        }
+        System.out.println("Your email needs to contain a '@'");
+        return true;
+    }
+
+    public boolean checkDate(int day, int month, int year){
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+
+        if(day > 31 || day <= 0){
+            System.out.println("your date can't be right");
+            return false;
+        } else if (month > 12 || month <= 0) {
+            System.out.println("your date can't be right");
+            return false;
+        } else if (currentYear <= year || year < currentYear-120){
+            System.out.println("your date can't be right");
+            return false;
+        }
+        System.out.println("your date is right");
+        return true;
+    }
 }
+
 
