@@ -22,7 +22,7 @@ public class StudentCreateScene {
         StudentOverviewScene studentOverviewScene = new StudentOverviewScene();
 
         // Background image of the startSceen
-        Image image = new Image("resources/background_image.jpg");
+        Image image = new Image("resources/backgroundImage.jpg");
         ImageView imageView = new ImageView(image);
         Group root = new Group();
         root.getChildren().addAll(imageView);

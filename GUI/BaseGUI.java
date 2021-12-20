@@ -10,11 +10,15 @@ public class BaseGUI extends Application{
 	@Override
 	public void start(Stage window) throws Exception {
 		
+		//Icon of the application (If the icon can't be found it gives and exception)
 		try {
 			window.getIcons().add(new Image(getClass().getResourceAsStream("../resources/icon.png")));
 		}catch(Exception e) {}
 		
+		
 		window.setTitle("Codecademy");
+		window.setFullScreen(true);
+		window.setFullScreenExitHint("");
 		window.setScene(homeScreen.homeScene(window));
 		window.show();
 	}
