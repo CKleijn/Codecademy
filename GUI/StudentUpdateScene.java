@@ -2,7 +2,6 @@ package GUI;
 
 import database.StudentSQL;
 import domain.Student;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
