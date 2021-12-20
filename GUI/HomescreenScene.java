@@ -63,7 +63,7 @@ public class HomescreenScene{
 		pane.setTop(menu);
 		pane.setCenter(welcome);
 		
-		Scene homescreenScene = new Scene(pane, 1000, 600);
+		Scene homescreenScene = new Scene(pane);
 		
 		return homescreenScene;
 	}

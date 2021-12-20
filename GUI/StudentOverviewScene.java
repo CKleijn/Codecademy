@@ -1,11 +1,5 @@
 package GUI;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
-import javax.swing.text.DateFormatter;
-
 import database.StudentSQL;
 import domain.Student;
 import javafx.collections.ObservableList;
@@ -13,25 +7,26 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 public class StudentOverviewScene {
     private StudentSQL sql = new StudentSQL();
+    
 
     public Scene studentOverviewScene(Stage window) {
         HomescreenScene homescreenScene = new HomescreenScene();
         StudentOverviewScene studentOverviewScene = new StudentOverviewScene();
+        StudentCreateScene studentCreateScene = new StudentCreateScene();
+        StudentUpdateScene studentUpdateScene = new StudentUpdateScene();
 
         // Background image of the startSceen
         Image image = new Image("resources/background_image.jpg");
@@ -46,84 +41,14 @@ public class StudentOverviewScene {
             window.setScene(homescreenScene.homeScene(window));
         });
 
-        HBox menu = new HBox(backButton);
+        Button createButton = new Button("Create");
+        createButton.setPrefSize(80, 37);
+        createButton.setOnAction((event) -> {
+            window.setScene(studentCreateScene.studentInputScene(window));
+        });
+
+        HBox menu = new HBox(backButton, createButton);
         menu.setSpacing(10);
-
-        //Student
-		Label emailLabel = new Label("Email: ");
-		TextArea emailTextArea = new TextArea();
-		emailTextArea.setPrefHeight(12);
-		
-		Label nameLabel = new Label("Name: ");
-		TextArea nameTextArea = new TextArea();
-		nameTextArea.setPrefHeight(12);
-		
-		Label birthDayLabel = new Label("Birthday: ");
-		TextArea birthDayTextArea = new TextArea();
-		birthDayTextArea.setPrefHeight(12);
-
-        Label birthMonthLabel = new Label("Birthmonth: ");
-		TextArea birthMonthTextArea = new TextArea();
-		birthMonthTextArea.setPrefHeight(12);
-
-        Label birthYearLabel = new Label("Birthyear: ");
-		TextArea birthYearTextArea = new TextArea();
-		birthYearTextArea.setPrefHeight(12);
-		
-		Label genderLabel = new Label("Gender: ");
-		TextArea genderTextArea = new TextArea();
-		genderTextArea.setPrefHeight(12);
-		
-		Label streetLabel = new Label("Street: ");
-		TextArea streetTextArea = new TextArea();
-		streetTextArea.setPrefHeight(12);
-
-        Label houseNumberLabel = new Label("House number: ");
-		TextArea houseNumberTextArea = new TextArea();
-		houseNumberTextArea.setPrefHeight(12);
-
-        Label houseNumberAdditionLabel = new Label("House number addition: ");
-		TextArea houseNumberAdditionTextArea = new TextArea();
-		houseNumberAdditionTextArea.setPrefHeight(12);
-
-        Label postalCodeLabel = new Label("Postal code: ");
-		TextArea postalCodeTextArea = new TextArea();
-		postalCodeTextArea.setPrefHeight(12);
-		
-		Label residenceLabel = new Label("Residence: ");
-		TextArea residenceTextArea = new TextArea();
-		residenceTextArea.setPrefHeight(12);
-		
-		Label countryLabel = new Label("Country: ");
-		TextArea countryTextArea = new TextArea();
-		countryTextArea.setPrefHeight(12);
-
-		Button createStudentButton = new Button("Add student");
-		createStudentButton.setPrefSize(120, 40);
-		createStudentButton.setOnAction((event) -> {
-			Student student = new Student(emailTextArea.getText(), nameTextArea.getText(), Integer.parseInt(birthDayTextArea.getText()), Integer.parseInt(birthMonthTextArea.getText()), Integer.parseInt(birthYearTextArea.getText()), genderTextArea.getText(), streetTextArea.getText(), houseNumberTextArea.getText(), houseNumberAdditionTextArea.getText(), postalCodeTextArea.getText(), residenceTextArea.getText(), countryTextArea.getText());
-			sql.createStudent(student);
-			window.setScene(studentOverviewScene.studentOverviewScene(window));
-		});
-
-        Button editStudentButton = new Button("Update student");
-		editStudentButton.setPrefSize(120, 40);
-		editStudentButton.setOnAction((event) -> {
-			Student student = new Student(emailTextArea.getText(), nameTextArea.getText(), Integer.parseInt(birthDayTextArea.getText()), Integer.parseInt(birthMonthTextArea.getText()), Integer.parseInt(birthYearTextArea.getText()), genderTextArea.getText(), streetTextArea.getText(), houseNumberTextArea.getText(), houseNumberAdditionTextArea.getText(), postalCodeTextArea.getText(), residenceTextArea.getText(), countryTextArea.getText());
-			sql.updateStudent(student);
-			window.setScene(studentOverviewScene.studentOverviewScene(window));
-		});
-
-        Button deleteStudentButton = new Button("Delete student");
-		deleteStudentButton.setPrefSize(120, 40);
-		deleteStudentButton.setOnAction((event) -> {
-			Student student = new Student(emailTextArea.getText(), nameTextArea.getText(), Integer.parseInt(birthDayTextArea.getText()), Integer.parseInt(birthMonthTextArea.getText()), Integer.parseInt(birthYearTextArea.getText()), genderTextArea.getText(), streetTextArea.getText(), houseNumberTextArea.getText(), houseNumberAdditionTextArea.getText(), postalCodeTextArea.getText(), residenceTextArea.getText(), countryTextArea.getText());
-			sql.deleteStudent(student);
-			window.setScene(studentOverviewScene.studentOverviewScene(window));
-		});
-
-        HBox buttonHBox = new HBox();
-        buttonHBox.getChildren().addAll(createStudentButton, editStudentButton, deleteStudentButton);
 
         TableView<Student> table = new TableView<Student>();
         TableColumn<Student, String> emailCol = new TableColumn<Student, String>("Student email");
@@ -138,7 +63,9 @@ public class StudentOverviewScene {
         TableColumn<Student, String> postalCodeCol = new TableColumn<Student, String>("Student postal code");
         TableColumn<Student, String> residenceCol = new TableColumn<Student, String>("Student residence");
         TableColumn<Student, String> countryCol = new TableColumn<Student, String>("Student country");
-        table.getColumns().addAll(emailCol, nameCol, birthDayCol, birthMonthCol, birthYearCol, genderCol, streetCol, houseNumberCol, houseNumberAdditionCol, postalCodeCol, residenceCol, countryCol);
+        TableColumn deleteCol = new TableColumn("Delete");      
+        
+        table.getColumns().addAll(emailCol, nameCol, birthDayCol, birthMonthCol, birthYearCol, genderCol, streetCol, houseNumberCol, houseNumberAdditionCol, postalCodeCol, residenceCol, countryCol, deleteCol);
 
         ObservableList<Student> list = sql.getStudentList();
 
@@ -154,64 +81,51 @@ public class StudentOverviewScene {
         postalCodeCol.setCellValueFactory(new PropertyValueFactory<Student, String>("postalCode"));
         residenceCol.setCellValueFactory(new PropertyValueFactory<Student, String>("residence"));
         countryCol.setCellValueFactory(new PropertyValueFactory<Student, String>("country"));
+        deleteCol.setCellValueFactory(new PropertyValueFactory<>("Delete"));
         
         table.setOnMouseClicked((event) -> {
             Student student = table.getSelectionModel().getSelectedItem();
-            emailTextArea.setText(student.getEmail());
-            nameTextArea.setText(student.getName());
-            birthDayTextArea.setText(String.valueOf(student.getBirthDay()));
-            birthMonthTextArea.setText(String.valueOf(student.getBirthMonth()));
-            birthYearTextArea.setText(String.valueOf(student.getBirthYear()));
-            genderTextArea.setText(student.getGender());
-            streetTextArea.setText(student.getStreet());
-            houseNumberTextArea.setText(student.getHouseNumber());
-            houseNumberAdditionTextArea.setText(student.getHouseNumberAddition());
-            postalCodeTextArea.setText(student.getPostalCode());
-            residenceTextArea.setText(student.getResidence());
-            countryTextArea.setText(student.getCountry());
+            window.setScene(studentUpdateScene.studentUpdateScene(window, student));
         });
+        
+        Callback<TableColumn<Student, String>, TableCell<Student, String>> cellFactory = new Callback<TableColumn<Student, String>, TableCell<Student, String>>() {
+            @Override
+            public TableCell call(final TableColumn<Student, String> param) {
+                final TableCell<Student, String> cell = new TableCell<Student, String>() {
+
+                    final Button deleteBtn = new Button("Delete");
+
+                    @Override
+                    public void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            deleteBtn.setOnAction(event -> {
+                                Student student = getTableView().getItems().get(getIndex());
+                                sql.deleteStudent(student);
+                                window.setScene(studentOverviewScene.studentOverviewScene(window));
+                            });
+                            setGraphic(deleteBtn);
+                        }
+                    }
+                };
+                return cell;
+            }
+        };
+
+        deleteCol.setCellFactory(cellFactory);
 
         table.setItems(list);
-        table.setPrefWidth(600);
-
-        GridPane grid = new GridPane();
-		grid.setPadding(new Insets(50, 50, 50, 50));
-		grid.setHgap(5);
-		grid.setVgap(5);
-		grid.add(emailLabel, 0, 0 , 1, 1);
-		grid.add(emailTextArea, 1, 0 , 1, 1);
-		grid.add(nameLabel, 0, 1 , 1, 1);
-		grid.add(nameTextArea, 1, 1 , 1, 1);
-		grid.add(birthDayLabel, 0, 2 , 1, 1);
-		grid.add(birthDayTextArea, 1, 2 , 1, 1);
-        grid.add(birthMonthLabel, 0, 3 , 1, 1);
-		grid.add(birthMonthTextArea, 1, 3 , 1, 1);
-        grid.add(birthYearLabel, 0, 4 , 1, 1);
-		grid.add(birthYearTextArea, 1, 4 , 1, 1);
-		grid.add(genderLabel, 0, 5 , 1, 1);
-		grid.add(genderTextArea, 1, 5 , 1, 1);
-		grid.add(streetLabel, 0, 6 , 1, 1);
-		grid.add(streetTextArea, 1, 6 , 1, 1);
-        grid.add(houseNumberLabel, 0, 7 , 1, 1);
-		grid.add(houseNumberTextArea, 1, 7 , 1, 1);
-        grid.add(houseNumberAdditionLabel, 0, 8 , 1, 1);
-		grid.add(houseNumberAdditionTextArea, 1, 8 , 1, 1);
-        grid.add(postalCodeLabel, 0, 9 , 1, 1);
-		grid.add(postalCodeTextArea, 1, 9 , 1, 1);
-		grid.add(residenceLabel, 0, 10 , 1, 1);
-		grid.add(residenceTextArea, 1, 10 , 1, 1);
-		grid.add(countryLabel, 0, 11, 1, 1);
-		grid.add(countryTextArea, 1, 11, 1, 1);
-		grid.add(buttonHBox, 1, 12, 1, 1);
-        grid.add(table, 1, 13, 1, 1);
+        table.setMaxSize(1485, 400);
 
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(10, 10, 10, 10));
         pane.getChildren().add(imageView);
         pane.setTop(menu);
-        pane.setCenter(grid);
+        pane.setCenter(table);
 
-        Scene sscene = new Scene(pane, 1000, 600);
+        Scene sscene = new Scene(pane);
         return sscene;
     }
 }

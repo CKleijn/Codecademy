@@ -95,7 +95,7 @@ public class StudentSQL {
             System.out.println("Your email is correct");
             return false;
         }
-        System.out.println("Your email needs to contain a '@'");
+        System.out.println("Your email format is incorrect");
         return true;
     }
 
@@ -103,16 +103,16 @@ public class StudentSQL {
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 
         if(day > 31 || day <= 0){
-            System.out.println("your date can't be right");
+            System.out.println("Day needs to be <= 31");
             return false;
         } else if (month > 12 || month <= 0) {
-            System.out.println("your date can't be right");
+            System.out.println("Month needs to be <= 12");
             return false;
         } else if (currentYear <= year || year < currentYear-120){
-            System.out.println("your date can't be right");
+            System.out.println("Year needs to be <= 2022");
             return false;
         }
-        System.out.println("your date is right");
+        System.out.println("Your date is right");
         return true;
     }
 }
