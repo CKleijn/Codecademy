@@ -57,20 +57,20 @@ public class HomescreenScene{
 
 		Label welcome2 = new Label("Codecademy Application");
 		welcome2.setFont(font);
-		welcome2.setStyle("-fx-background-color: #0B9EC3; -fx-text-fill: #FFFFFF; -fx-font-size: 35;");
+		welcome2.setStyle("-fx-padding: 10; -fx-background-color: #0B9EC3; -fx-text-fill: #FFFFFF; -fx-font-size: 35;");
 
 
-		Label discription = new Label("discription of the application");
-		discription.setFont(font);
-		discription.setStyle("-fx-text-fill: #FFFFFF; -fx-font-size: 18;");
-		discription.setPadding(new Insets(50, 0, 0, 0));
+		Label description = new Label("description of the application");
+		description.setFont(font);
+		description.setStyle("-fx-text-fill: #FFFFFF; -fx-font-size: 18;");
+		description.setPadding(new Insets(50, 0, 0, 0));
 
 		
 		HBox menu = new HBox(studentButton, courseButton, moduleButton);
 		menu.setSpacing(10);
 		
 		
-		VBox front = new VBox(welcome1, welcome2, discription);
+		VBox front = new VBox(welcome1, welcome2, description);
 		front.setSpacing(5);
 		front.setAlignment(Pos.BASELINE_CENTER);
 		front.setPadding(new Insets(150, 0, 0, 0));
