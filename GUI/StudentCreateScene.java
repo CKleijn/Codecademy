@@ -16,7 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class StudentCreateScene {
+public class StudentCreateScene extends domain.StudentValidation{
     private StudentSQL sql = new StudentSQL();
 
     public Scene studentInputScene(Stage window) {
@@ -98,10 +98,17 @@ public class StudentCreateScene {
 		createStudentButton.setPrefSize(120, 40);
 		createStudentButton.setFont(font);
 		createStudentButton.setStyle("-fx-background-color: #0B9EC3; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
+
 		createStudentButton.setOnAction((event) -> {
-			Student student = new Student(emailTextArea.getText(), nameTextArea.getText(), Integer.parseInt(birthDayTextArea.getText()), Integer.parseInt(birthMonthTextArea.getText()), Integer.parseInt(birthYearTextArea.getText()), genderTextArea.getText(), streetTextArea.getText(), houseNumberTextArea.getText(), houseNumberAdditionTextArea.getText(), postalCodeTextArea.getText(), residenceTextArea.getText(), countryTextArea.getText());
-			sql.createStudent(student);
-			window.setScene(studentOverviewScene.studentOverviewScene(window));
+			if(!checkEmail(emailTextArea.getText()) && checkDate(Integer.parseInt(birthDayTextArea.getText()), Integer.parseInt(birthMonthTextArea.getText()), Integer.parseInt(birthYearTextArea.getText())) 
+			&& checkPostalCode(postalCodeTextArea.getText()) && checkGender(genderTextArea.getText()) && !nameTextArea.getText().isEmpty() && !streetTextArea.getText().isEmpty() && !houseNumberTextArea.getText().isEmpty() && !residenceTextArea.getText().isEmpty() && !countryTextArea.getText().isEmpty()){
+				
+				Student student = new Student(emailTextArea.getText(), nameTextArea.getText(), Integer.parseInt(birthDayTextArea.getText()), Integer.parseInt(birthMonthTextArea.getText()), Integer.parseInt(birthYearTextArea.getText()), 
+				genderTextArea.getText(), streetTextArea.getText(), houseNumberTextArea.getText(), houseNumberAdditionTextArea.getText(), postalCodeTextArea.getText(), residenceTextArea.getText(), countryTextArea.getText());
+				sql.createStudent(student);
+				window.setScene(studentOverviewScene.studentOverviewScene(window));
+
+			}
 		});
 
         HBox buttonHBox = new HBox();

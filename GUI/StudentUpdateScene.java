@@ -16,7 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class StudentUpdateScene {
+public class StudentUpdateScene extends domain.StudentValidation {
     private StudentSQL sql = new StudentSQL();
 
     public Scene studentUpdateScene(Stage window, Student old_student) {
@@ -104,9 +104,14 @@ public class StudentUpdateScene {
         Button editStudentButton = new Button("Update student");
 		editStudentButton.setPrefSize(120, 40);
 		editStudentButton.setOnAction((event) -> {
-			Student student = new Student(emailTextArea.getText(), nameTextArea.getText(), Integer.parseInt(birthDayTextArea.getText()), Integer.parseInt(birthMonthTextArea.getText()), Integer.parseInt(birthYearTextArea.getText()), genderTextArea.getText(), streetTextArea.getText(), houseNumberTextArea.getText(), houseNumberAdditionTextArea.getText(), postalCodeTextArea.getText(), residenceTextArea.getText(), countryTextArea.getText());
-			sql.updateStudent(student);
-			window.setScene(studentOverviewScene.studentOverviewScene(window));
+
+			if(!checkEmail(emailTextArea.getText()) && checkDate(Integer.parseInt(birthDayTextArea.getText()), Integer.parseInt(birthMonthTextArea.getText()), Integer.parseInt(birthYearTextArea.getText())) 
+			&& checkPostalCode(postalCodeTextArea.getText()) && checkGender(genderTextArea.getText()) && !nameTextArea.getText().isEmpty() && !streetTextArea.getText().isEmpty() && !houseNumberTextArea.getText().isEmpty() && !residenceTextArea.getText().isEmpty() && !countryTextArea.getText().isEmpty()){
+				
+				Student student = new Student(emailTextArea.getText(), nameTextArea.getText(), Integer.parseInt(birthDayTextArea.getText()), Integer.parseInt(birthMonthTextArea.getText()), Integer.parseInt(birthYearTextArea.getText()), genderTextArea.getText(), streetTextArea.getText(), houseNumberTextArea.getText(), houseNumberAdditionTextArea.getText(), postalCodeTextArea.getText(), residenceTextArea.getText(), countryTextArea.getText());
+				sql.updateStudent(student);
+				window.setScene(studentOverviewScene.studentOverviewScene(window));
+			}
 		});
 
         HBox buttonHBox = new HBox();
