@@ -17,8 +17,6 @@ public class BaseGUI extends Application{
 		
 		
 		window.setTitle("Codecademy");
-		window.setFullScreen(true);
-		window.setFullScreenExitHint("");
 		window.setScene(homeScreen.homeScene(window));
 		window.show();
 	}

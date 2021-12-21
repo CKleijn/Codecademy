@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class StudentUpdateScene {
@@ -21,7 +22,10 @@ public class StudentUpdateScene {
     public Scene studentUpdateScene(Stage window, Student old_student) {
         StudentOverviewScene studentOverviewScene = new StudentOverviewScene();
 
-        // Background image of the startSceen
+		//Layout of the text in the buttons
+        Font font = Font.font("Verdana");
+
+        // Background image
         Image image = new Image("resources/backgroundImage.jpg");
         ImageView imageView = new ImageView(image);
         Group root = new Group();
@@ -30,12 +34,11 @@ public class StudentUpdateScene {
         // Button to go back to the homeScene.
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
+		backButton.setFont(font);
+		backButton.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
         backButton.setOnAction((event) -> {
             window.setScene(studentOverviewScene.studentOverviewScene(window));
         });
-
-        HBox menu = new HBox(backButton);
-        menu.setSpacing(10);
 
         //Student
 		Label emailLabel = new Label("Email: ");
@@ -140,12 +143,12 @@ public class StudentUpdateScene {
 		grid.add(buttonHBox, 1, 12, 1, 1);
 
         BorderPane pane = new BorderPane();
-        pane.setPadding(new Insets(10, 10, 10, 10));
+        pane.setPadding(new Insets(15, 15, 15, 15));
         pane.getChildren().add(imageView);
-        pane.setTop(menu);
+        pane.setTop(backButton);
         pane.setCenter(grid);
 
-        Scene sscene = new Scene(pane);
+        Scene sscene = new Scene(pane, 1080, 620);
         return sscene;
     }
 }

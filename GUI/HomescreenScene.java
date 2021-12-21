@@ -11,7 +11,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -83,7 +82,7 @@ public class HomescreenScene{
 		pane.setCenter(front);
 		
 
-		Scene homescreenScene = new Scene(pane);
+		Scene homescreenScene = new Scene(pane, 1080, 620);
 		
 		return homescreenScene;
 	}
