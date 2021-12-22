@@ -56,12 +56,8 @@ public class StudentCreateScene extends domain.StudentValidation{
 		Label birthDayLabel = new Label("Birthday: ");
 		TextArea birthDayTextArea = new TextArea();
 		birthDayTextArea.setPrefHeight(heightTextAreas);
-
-        Label birthMonthLabel = new Label("Birthmonth: ");
 		TextArea birthMonthTextArea = new TextArea();
 		birthMonthTextArea.setPrefHeight(heightTextAreas);
-
-        Label birthYearLabel = new Label("Birthyear: ");
 		TextArea birthYearTextArea = new TextArea();
 		birthYearTextArea.setPrefHeight(heightTextAreas);
 		
@@ -119,23 +115,21 @@ public class StudentCreateScene extends domain.StudentValidation{
 		grid.setHgap(5);
 		grid.setVgap(2);
 		grid.add(emailLabel, 0, 0 , 1, 1);
-		grid.add(emailTextArea, 1, 0 , 1, 1);
+		grid.add(emailTextArea, 1, 0, 1, 1);
 		grid.add(nameLabel, 0, 1 , 1, 1);
-		grid.add(nameTextArea, 1, 1 , 1, 1);
-		grid.add(birthDayLabel, 0, 2 , 1, 1);
-		grid.add(birthDayTextArea, 1, 2 , 1, 1);
-        grid.add(birthMonthLabel, 0, 3 , 1, 1);
-		grid.add(birthMonthTextArea, 1, 3 , 1, 1);
-        grid.add(birthYearLabel, 0, 4 , 1, 1);
-		grid.add(birthYearTextArea, 1, 4 , 1, 1);
-		grid.add(genderLabel, 0, 5 , 1, 1);
-		grid.add(genderTextArea, 1, 5 , 1, 1);
-		grid.add(streetLabel, 0, 6 , 1, 1);
-		grid.add(streetTextArea, 1, 6 , 1, 1);
-        grid.add(houseNumberLabel, 0, 7 , 1, 1);
-		grid.add(houseNumberTextArea, 1, 7 , 1, 1);
-        grid.add(houseNumberAdditionLabel, 0, 8 , 1, 1);
-		grid.add(houseNumberAdditionTextArea, 1, 8 , 1, 1);
+		grid.add(nameTextArea, 1, 1, 1, 1);
+		grid.add(birthDayLabel, 0, 2, 1, 1);
+		grid.add(birthDayTextArea, 1, 2, 1, 1);
+		grid.add(birthMonthTextArea, 2, 2, 1, 1);
+		grid.add(birthYearTextArea, 3, 2, 1, 1);
+		grid.add(genderLabel, 0, 3 , 1, 1);
+		grid.add(genderTextArea, 1, 3 , 1, 1);
+		grid.add(streetLabel, 0, 4, 1, 1);
+		grid.add(streetTextArea, 1, 4 , 1, 1);
+        grid.add(houseNumberLabel, 0, 5 , 1, 1);
+		grid.add(houseNumberTextArea, 1, 5 , 1, 1);
+        grid.add(houseNumberAdditionLabel, 0, 6 , 1, 1);
+		grid.add(houseNumberAdditionTextArea, 1, 6 , 1, 1);
         grid.add(postalCodeLabel, 0, 9 , 1, 1);
 		grid.add(postalCodeTextArea, 1, 9 , 1, 1);
 		grid.add(residenceLabel, 0, 10 , 1, 1);
