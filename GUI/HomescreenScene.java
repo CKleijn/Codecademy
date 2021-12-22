@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 
 public class HomescreenScene{
 	StudentOverviewScene studentOverviewScene = new StudentOverviewScene();
+	ExternalPersonOverviewScene externalPersonOverviewScene = new ExternalPersonOverviewScene();
 	
 	public Scene homeScene(Stage window) {
 
@@ -38,17 +39,14 @@ public class HomescreenScene{
 		});
 		
 		//Second button which leads to nothing yet.
-		Button courseButton = new Button("Courses");
-		courseButton.setPrefSize(80, 37);
-		courseButton.setFont(font);
-		courseButton.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
-		
-		//Third button which leads to nothing yet.
-		Button moduleButton = new Button("Modules");
-		moduleButton.setPrefSize(80, 37);
-		moduleButton.setFont(font);
-		moduleButton.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
-		
+		Button personButton = new Button("Persons");
+		personButton.setPrefSize(80, 37);
+		personButton.setFont(font);
+		personButton.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
+		personButton.setOnAction((event) -> {
+			window.setScene(externalPersonOverviewScene.externalPersonOverviewScene(window));
+		});
+			
 		
 		Label welcome1 = new Label("Welcome to the");
 		welcome1.setFont(font);
@@ -66,7 +64,7 @@ public class HomescreenScene{
 		description.setPadding(new Insets(50, 0, 0, 0));
 
 		
-		HBox menu = new HBox(studentButton, courseButton, moduleButton);
+		HBox menu = new HBox(studentButton, personButton);
 		menu.setSpacing(10);
 		
 		

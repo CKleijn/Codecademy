@@ -52,7 +52,7 @@ public class StudentOverviewScene {
         createButton.setFont(font);
 		createButton.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
         createButton.setOnAction((event) -> {
-            window.setScene(studentCreateScene.studentInputScene(window));
+            window.setScene(studentCreateScene.studentCreateScene(window));
         });
 
         HBox menu = new HBox(backButton, createButton);

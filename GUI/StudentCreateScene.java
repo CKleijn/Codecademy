@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 public class StudentCreateScene extends domain.StudentValidation{
     private StudentSQL sql = new StudentSQL();
 
-    public Scene studentInputScene(Stage window) {
+    public Scene studentCreateScene(Stage window) {
         StudentOverviewScene studentOverviewScene = new StudentOverviewScene();
 
         //Layout of the text in the buttons
