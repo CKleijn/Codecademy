@@ -3,25 +3,13 @@ package database;
 import domain.Student;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class StudentSQL {
-    public Connection getConnection() {
-        Connection conn;
-        try {
-            conn = DriverManager.getConnection("jdbc:sqlserver://localhost;databaseName=Codecademy;integratedSecurity=true;");
-            return conn;
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-            return null;
-        }
-    }
-
+public class StudentSQL extends ConnectToDatabase {
     public ObservableList<Student> getStudentList() {
         ObservableList<Student> studentList = FXCollections.observableArrayList();
         Connection conn = getConnection();
