@@ -2,10 +2,12 @@ package GUI;
 
 import database.CourseSQL;
 import domain.Course;
+import domain.Level;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
@@ -55,12 +57,8 @@ public class CourseCreateScene {
 		introductionTextArea.setPrefHeight(12);
 
         Label levelLabel = new Label("Level: ");
-		TextArea levelTextArea = new TextArea();
-		levelTextArea.setPrefHeight(12);
-
-        Label hasRelevantLabel = new Label("Has Relevant course(s): ");
-		TextArea hasRelevantTextArea = new TextArea();
-		hasRelevantTextArea.setPrefHeight(12);
+		ComboBox<Level> cbxLevel = new ComboBox<>();
+		cbxLevel.getItems().setAll(Level.values());
 
 		//Last button to create with al the information in the textareas
 		Button createCourseButton = new Button("Add course");
@@ -69,8 +67,8 @@ public class CourseCreateScene {
 		createCourseButton.setStyle("-fx-background-color: #0B9EC3; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
 
 		createCourseButton.setOnAction((event) -> {
-			if(!nameTextArea.getText().isEmpty() && !topicTextArea.getText().isEmpty() && !introductionTextArea.getText().isEmpty() && !levelTextArea.getText().isEmpty() && !hasRelevantTextArea.getText().isEmpty()){
-				Course course = new Course(nameTextArea.getText(), topicTextArea.getText(), introductionTextArea.getText(), levelTextArea.getText(), hasRelevantTextArea.getText());
+			if(!nameTextArea.getText().isEmpty() && !topicTextArea.getText().isEmpty() && !introductionTextArea.getText().isEmpty() && !cbxLevel.getSelectionModel().getSelectedItem().name().isEmpty()){
+				Course course = new Course(nameTextArea.getText(), topicTextArea.getText(), introductionTextArea.getText(), cbxLevel.getSelectionModel().getSelectedItem().name());
 				sql.createCourse(course);
 				window.setScene(courseOverviewScene.courseOverviewScene(window));
 
@@ -91,10 +89,8 @@ public class CourseCreateScene {
 		grid.add(introductionLabel, 0, 2, 1, 1);
 		grid.add(introductionTextArea, 1, 2, 1, 1);
 		grid.add(levelLabel, 0, 3, 1, 1);
-		grid.add(levelTextArea, 1, 3, 1, 1);
-		grid.add(hasRelevantLabel, 0, 4 , 1, 1);
-		grid.add(hasRelevantTextArea, 1, 4 , 1, 1);
-		grid.add(buttonHBox, 0, 5, 1, 1);
+		grid.add(cbxLevel, 1, 3, 1, 1);
+		grid.add(buttonHBox, 0, 6, 1, 1);
 
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(15, 15, 15, 15));

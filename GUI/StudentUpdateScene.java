@@ -16,7 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class StudentUpdateScene extends domain.StudentValidation {
+public class StudentUpdateScene extends domain.Validation {
     private StudentSQL sql = new StudentSQL();
 
     public Scene studentUpdateScene(Stage window, Student old_student) {

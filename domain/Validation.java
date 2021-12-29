@@ -2,7 +2,7 @@ package domain;
 
 import java.util.Calendar;
 
-public abstract class StudentValidation {
+public abstract class Validation {
     public boolean checkEmail(String email){
         String regex = "^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
         if(email.matches(regex)){

@@ -63,10 +63,9 @@ public class CourseOverviewScene {
         TableColumn<Course, String> topicCol = new TableColumn<Course, String>("Course topic");
         TableColumn<Course, String> introductionCol = new TableColumn<Course, String>("Course Introduction");
         TableColumn<Course, String> levelCol = new TableColumn<Course, String>("Course Level");
-        TableColumn<Course, String> relCol = new TableColumn<Course, String>("Course relevant");
         TableColumn deleteCol = new TableColumn("Delete");      
         
-        table.getColumns().addAll(nameCol, topicCol, introductionCol, levelCol, relCol, deleteCol);
+        table.getColumns().addAll(nameCol, topicCol, introductionCol, levelCol, deleteCol);
 
         ObservableList<Course> list = sql.getCourseList();
 
@@ -74,7 +73,6 @@ public class CourseOverviewScene {
         topicCol.setCellValueFactory(new PropertyValueFactory<Course, String>("topic"));
         introductionCol.setCellValueFactory(new PropertyValueFactory<Course, String>("introduction"));
         levelCol.setCellValueFactory(new PropertyValueFactory<Course, String>("level"));
-        relCol.setCellValueFactory(new PropertyValueFactory<Course, String>("hasrelevantcourse"));
         deleteCol.setCellValueFactory(new PropertyValueFactory<>("Delete"));
         
         table.setOnMouseClicked((event) -> {

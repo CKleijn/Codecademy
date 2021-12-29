@@ -7,7 +7,7 @@ public abstract class ConnectToDatabase {
     public Connection getConnection() {
         Connection conn;
         try {
-            conn = DriverManager.getConnection("jdbc:sqlserver://localhost;databaseName=Codecademy;integratedSecurity=true;");
+            conn = DriverManager.getConnection("jdbc:sqlserver://localhost;databaseName=CodecademyDB;integratedSecurity=true;");
             return conn;
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());

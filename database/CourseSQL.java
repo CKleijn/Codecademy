@@ -5,6 +5,7 @@ import domain.Course;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,7 +24,7 @@ public class CourseSQL extends ConnectToDatabase {
             rs = st.executeQuery(query);
             Course course;
             while(rs.next()) {
-                course = new Course(rs.getString("CourseName"), rs.getString("CourseTopic"), rs.getString("CourseIntroduction"), rs.getString("CourseLevel"), rs.getString("HasRelevantCourse"));
+                course = new Course(rs.getString("CourseName"), rs.getString("CourseTopic"), rs.getString("CourseIntroduction"), rs.getString("CourseLevel"));
                 courseList.add(course);
             }
         } catch (Exception e) {
@@ -34,7 +35,7 @@ public class CourseSQL extends ConnectToDatabase {
 
     public void createCourse(Course course) {
         Connection conn = getConnection();
-        String query = "INSERT INTO Course VALUES ('" + course.getName() + "', '" + course.getTopic() + "', '" + course.getIntroduction() + "', '" + course.getLevel() + "', '" + course.getRelCourse() + "')";
+        String query = "INSERT INTO Course VALUES ('" + course.getName() + "', '" + course.getTopic() + "', '" + course.getIntroduction() + "', '" + course.getLevel() + "')";
         Statement st;
 
         try {
@@ -49,7 +50,7 @@ public class CourseSQL extends ConnectToDatabase {
 
     public void updateCourse(Course course) {
         Connection conn = getConnection();
-        String query = "UPDATE Course SET CourseName = '" + course.getName() + "', CourseTopic = '" + course.getTopic() + "', CourseIntroduction = '" + course.getIntroduction() + "', CourseLevel = '" + course.getLevel() + "', HasRelevantCourse = '" + course.getRelCourse() + "' WHERE CourseName = '" + course.getName() + "'";
+        String query = "UPDATE Course SET CourseName = '" + course.getName() + "', CourseTopic = '" + course.getTopic() + "', CourseIntroduction = '" + course.getIntroduction() + "', CourseLevel = '" + course.getLevel() + "' WHERE CourseName = '" + course.getName() + "'";
         Statement st;
 
         try {
@@ -72,5 +73,33 @@ public class CourseSQL extends ConnectToDatabase {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public String[] getModules(Course course) {
+        Connection conn = getConnection();
+        ArrayList<String> modules = new ArrayList<>();
+        String query = "SELECT ItemTitle FROM Item LEFT JOIN Module ON Item.ItemID = Module.ItemID WHERE Module.CourseName = '" + course.getName() + "'";
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            String moduleTitle;
+            while(rs.next()){
+                moduleTitle = new String(rs.getString("ItemTitle"));
+                modules.add(moduleTitle);
+            }
+            System.out.println("got the modules!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String[] strModules = new String[modules.size()];
+        for(int i = 0; i < modules.size(); i++){
+            strModules[i] = modules.get(i);
+        }
+
+        return strModules;
+
     }
 }

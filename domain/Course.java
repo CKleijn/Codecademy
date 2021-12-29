@@ -5,14 +5,12 @@ public class Course {
     private String topic;
     private String introduction;
     private String level;
-    private String relCourse;
 
-    public Course(String name, String topic, String introduction, String level, String relCourse){
+    public Course(String name, String topic, String introduction, String level){
         this.name = name;
         this.topic = topic;
         this.introduction = introduction;
         this.level = level;
-        this.relCourse = relCourse;
     }
 
     public String getName() {
@@ -31,7 +29,4 @@ public class Course {
         return level;
     }
 
-    public String getRelCourse() {
-        return relCourse;
-    }
 }

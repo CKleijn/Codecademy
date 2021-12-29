@@ -2,7 +2,7 @@ package domain;
 
 import java.time.LocalDate;
 
-public abstract class Item {
+public class Item {
 
     private int itemId;
     private String title;
