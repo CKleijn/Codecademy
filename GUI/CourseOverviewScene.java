@@ -27,7 +27,7 @@ public class CourseOverviewScene {
         HomescreenScene homescreenScene = new HomescreenScene();
         CourseOverviewScene courseOverviewScene = new CourseOverviewScene();
         CourseCreateScene courseCreateScene = new CourseCreateScene();
-        CourseUpdateScene courseUpdateScene = new CourseUpdateScene();
+        CourseDetailPage courseDetailPage = new CourseDetailPage();
 
         //Layout of the text in the buttons
         Font font = Font.font("Verdana");
@@ -77,7 +77,7 @@ public class CourseOverviewScene {
         
         table.setOnMouseClicked((event) -> {
             Course course = table.getSelectionModel().getSelectedItem();
-            window.setScene(courseUpdateScene.courseUpdateScene(window, course));
+            window.setScene(courseDetailPage.CourseDetailScene(window, course));
         });
         
         Callback<TableColumn<Course, String>, TableCell<Course, String>> cellFactory = new Callback<TableColumn<Course, String>, TableCell<Course, String>>() {

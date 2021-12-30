@@ -67,7 +67,7 @@ public class CourseUpdateScene extends domain.Validation{
 
         Label moduleLabel = new Label("Add module: ");
         ComboBox<String>cbxModule = new ComboBox<>();
-        cbxModule.getItems().setAll(sql.getModules(old_course));
+        cbxModule.getItems().setAll(sql.getModules());
 
         Button updateCourse = new Button("Update course");
 		updateCourse.setPrefSize(120, 40);
@@ -75,6 +75,7 @@ public class CourseUpdateScene extends domain.Validation{
 
 			if(!nameTextArea.getText().isEmpty() && !topicTextArea.getText().isEmpty() && !introductionTextArea.getText().isEmpty() && !cbxLevel.getSelectionModel().getSelectedItem().name().isEmpty()){
 				Course course = new Course(nameTextArea.getText(), topicTextArea.getText(), introductionTextArea.getText(), cbxLevel.getSelectionModel().getSelectedItem().name());
+                sql.setModulesCourseName(cbxModule.getSelectionModel().getSelectedItem(), course.getName());
 				sql.updateCourse(course);
 				window.setScene(courseOverviewScene.courseOverviewScene(window));
 			}

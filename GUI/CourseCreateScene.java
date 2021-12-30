@@ -60,6 +60,10 @@ public class CourseCreateScene {
 		ComboBox<Level> cbxLevel = new ComboBox<>();
 		cbxLevel.getItems().setAll(Level.values());
 
+		Label moduleLabel = new Label("Add module: ");
+        ComboBox<String>cbxModule = new ComboBox<>();
+        cbxModule.getItems().setAll(sql.getModules());
+
 		//Last button to create with al the information in the textareas
 		Button createCourseButton = new Button("Add course");
 		createCourseButton.setPrefSize(120, 40);
@@ -69,6 +73,7 @@ public class CourseCreateScene {
 		createCourseButton.setOnAction((event) -> {
 			if(!nameTextArea.getText().isEmpty() && !topicTextArea.getText().isEmpty() && !introductionTextArea.getText().isEmpty() && !cbxLevel.getSelectionModel().getSelectedItem().name().isEmpty()){
 				Course course = new Course(nameTextArea.getText(), topicTextArea.getText(), introductionTextArea.getText(), cbxLevel.getSelectionModel().getSelectedItem().name());
+				sql.setModulesCourseName(cbxModule.getSelectionModel().getSelectedItem(), course.getName());
 				sql.createCourse(course);
 				window.setScene(courseOverviewScene.courseOverviewScene(window));
 
@@ -90,6 +95,8 @@ public class CourseCreateScene {
 		grid.add(introductionTextArea, 1, 2, 1, 1);
 		grid.add(levelLabel, 0, 3, 1, 1);
 		grid.add(cbxLevel, 1, 3, 1, 1);
+		grid.add(moduleLabel, 0, 4, 1, 1);
+		grid.add(cbxModule, 1, 4, 1, 1);
 		grid.add(buttonHBox, 0, 6, 1, 1);
 
         BorderPane pane = new BorderPane();
