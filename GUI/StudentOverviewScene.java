@@ -28,6 +28,7 @@ public class StudentOverviewScene {
         StudentOverviewScene studentOverviewScene = new StudentOverviewScene();
         StudentCreateScene studentCreateScene = new StudentCreateScene();
         StudentUpdateScene studentUpdateScene = new StudentUpdateScene();
+        StudentDetailScene studentDetailScene = new StudentDetailScene();
 
         //Layout of the text in the buttons
         Font font = Font.font("Verdana");
@@ -47,7 +48,7 @@ public class StudentOverviewScene {
             window.setScene(homescreenScene.homeScene(window));
         });
 
-        Button createButton = new Button("Create");
+        Button createButton = new Button("Create student");
         createButton.setPrefSize(80, 37);
         createButton.setFont(font);
 		createButton.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
@@ -71,9 +72,10 @@ public class StudentOverviewScene {
         TableColumn<Student, String> postalCodeCol = new TableColumn<Student, String>("Student postal code");
         TableColumn<Student, String> residenceCol = new TableColumn<Student, String>("Student residence");
         TableColumn<Student, String> countryCol = new TableColumn<Student, String>("Student country");
+        TableColumn editCol = new TableColumn("Edit");   
         TableColumn deleteCol = new TableColumn("Delete");      
         
-        table.getColumns().addAll(emailCol, nameCol, birthDayCol, birthMonthCol, birthYearCol, genderCol, streetCol, houseNumberCol, houseNumberAdditionCol, postalCodeCol, residenceCol, countryCol, deleteCol);
+        table.getColumns().addAll(emailCol, nameCol, birthDayCol, birthMonthCol, birthYearCol, genderCol, streetCol, houseNumberCol, houseNumberAdditionCol, postalCodeCol, residenceCol, countryCol, editCol, deleteCol);
 
         ObservableList<Student> list = sql.getStudentList();
 
@@ -89,14 +91,40 @@ public class StudentOverviewScene {
         postalCodeCol.setCellValueFactory(new PropertyValueFactory<Student, String>("postalCode"));
         residenceCol.setCellValueFactory(new PropertyValueFactory<Student, String>("residence"));
         countryCol.setCellValueFactory(new PropertyValueFactory<Student, String>("country"));
+        editCol.setCellValueFactory(new PropertyValueFactory<>("Edit"));
         deleteCol.setCellValueFactory(new PropertyValueFactory<>("Delete"));
-        
+
         table.setOnMouseClicked((event) -> {
             Student student = table.getSelectionModel().getSelectedItem();
-            window.setScene(studentUpdateScene.studentUpdateScene(window, student));
+            window.setScene(studentDetailScene.studentDetailScene(window, student));
         });
         
-        Callback<TableColumn<Student, String>, TableCell<Student, String>> cellFactory = new Callback<TableColumn<Student, String>, TableCell<Student, String>>() {
+        Callback<TableColumn<Student, String>, TableCell<Student, String>> editCellFactory = new Callback<TableColumn<Student, String>, TableCell<Student, String>>() {
+            @Override
+            public TableCell call(final TableColumn<Student, String> param) {
+                final TableCell<Student, String> cell = new TableCell<Student, String>() {
+
+                    final Button editBtn = new Button("Edit");
+
+                    @Override
+                    public void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            editBtn.setOnAction(event -> {
+                                Student student = getTableView().getItems().get(getIndex());
+                                window.setScene(studentUpdateScene.studentUpdateScene(window, student));
+                            });
+                            setGraphic(editBtn);
+                        }
+                    }
+                };
+                return cell;
+            }
+        };
+
+        Callback<TableColumn<Student, String>, TableCell<Student, String>> deleteCellFactory = new Callback<TableColumn<Student, String>, TableCell<Student, String>>() {
             @Override
             public TableCell call(final TableColumn<Student, String> param) {
                 final TableCell<Student, String> cell = new TableCell<Student, String>() {
@@ -122,7 +150,8 @@ public class StudentOverviewScene {
             }
         };
 
-        deleteCol.setCellFactory(cellFactory);
+        editCol.setCellFactory(editCellFactory);
+        deleteCol.setCellFactory(deleteCellFactory);
 
         table.setItems(list);
         table.setMaxSize(1485, 400);

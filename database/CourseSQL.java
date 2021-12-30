@@ -75,6 +75,34 @@ public class CourseSQL extends ConnectToDatabase {
         }
     }
 
+    public String[] getCourses() {
+        Connection conn = getConnection();
+        ArrayList<String> courses = new ArrayList<>();
+        String query = "SELECT CourseName FROM Course";
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            String courseName;
+            while(rs.next()){
+                courseName = new String(rs.getString("CourseName"));
+                courses.add(courseName);
+            }
+            System.out.println("got the courses!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String[] strCourses = new String[courses.size()];
+        for(int i = 0; i < courses.size(); i++){
+            strCourses[i] = courses.get(i);
+        }
+
+        return strCourses;
+
+    }
+
     public String[] getModules(Course course) {
         Connection conn = getConnection();
         ArrayList<String> modules = new ArrayList<>();
