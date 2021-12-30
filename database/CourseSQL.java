@@ -75,7 +75,7 @@ public class CourseSQL extends ConnectToDatabase {
         }
     }
 
-    public String[] getModules(Course course) {
+    public String[] getSpecificModules(Course course) {
         Connection conn = getConnection();
         ArrayList<String> modules = new ArrayList<>();
         String query = "SELECT ItemTitle FROM Item LEFT JOIN Module ON Item.ItemID = Module.ItemID WHERE Module.CourseName = '" + course.getName() + "'";
@@ -101,5 +101,47 @@ public class CourseSQL extends ConnectToDatabase {
 
         return strModules;
 
+    }
+
+    public String[] getModules() {
+        Connection conn = getConnection();
+        ArrayList<String> modules = new ArrayList<>();
+        String query = "SELECT Item.ItemTitle FROM Module LEFT JOIN Item ON Item.ItemID = Module.ItemID";
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            String moduleTitle;
+            while(rs.next()){
+                moduleTitle = new String(rs.getString("ItemTitle"));
+                modules.add(moduleTitle);
+            }
+            System.out.println("got the modules!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String[] strModules = new String[modules.size()];
+        for(int i = 0; i < modules.size(); i++){
+            strModules[i] = modules.get(i);
+        }
+
+        return strModules;
+    }
+
+    public void setModulesCourseName(String itemTitle, String CourseName){
+        Connection conn = getConnection();
+        String query = "SELECT ItemID FROM Item WHERE ItemTitle = " + itemTitle;
+        String query2 = "UPDATE Module SET CourseName = '" + CourseName + "' WHERE ItemID = (" + query + ")";
+        Statement st;
+
+        try {
+            st = conn.createStatement();
+            st.executeQuery(query2);
+            System.out.println("CourseName added!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
