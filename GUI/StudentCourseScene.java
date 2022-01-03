@@ -1,0 +1,145 @@
+package GUI;
+
+import database.CertificateSQL;
+import database.RegistrationSQL;
+import domain.Module;
+import domain.Registration;
+import domain.Certificate;
+import domain.Course;
+import domain.Student;
+import domain.Webcast;
+import javafx.geometry.Insets;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
+
+public class StudentCourseScene {
+    RegistrationSQL sqlR = new RegistrationSQL();
+    CertificateSQL sqlC = new CertificateSQL();
+
+    public Scene studentCourseScene(Stage window, Registration registration, Course course, Student current_student) {
+        StudentRegistrationScene studentRegistrationScene = new StudentRegistrationScene();
+        StudentCourseModuleScene studentCourseModuleScene = new StudentCourseModuleScene();
+        StudentCourseWebcastScene studentCourseWebcastScene = new StudentCourseWebcastScene();
+        CertificateCreateScene certificateCreateScene = new CertificateCreateScene();
+
+        //Layout of the text in the buttons
+        Font font = Font.font("Verdana");
+
+        // Background image
+        Image image = new Image("resources/backgroundImage.jpg");
+        ImageView imageView = new ImageView(image);
+        Group root = new Group();
+        root.getChildren().addAll(imageView);
+
+        // Button to go back to the homeScene.
+        Button backButton = new Button("Back");
+        backButton.setPrefSize(80, 37);
+        backButton.setFont(font);
+        backButton.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
+        backButton.setOnAction((event) -> {
+            window.setScene(studentRegistrationScene.studentRegistrationScene(window, current_student));
+        });
+
+        Button createButton = new Button("Create certificate");
+        createButton.setPrefSize(80, 37);
+        createButton.setFont(font);
+		createButton.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
+        createButton.setOnAction((event) -> {
+            window.setScene(certificateCreateScene.certificateCreateScene(window, registration, course, current_student));
+        });
+
+        HBox menu = new HBox(backButton, createButton);
+        menu.setSpacing(10);
+
+        Label infoNameLabel = new Label("Course name: ");
+        Label nameLabel = new Label();
+        nameLabel.setText(course.getName());
+
+        Label infoTopicLabel = new Label("Course topic: ");
+        Label topicLabel = new Label();
+        topicLabel.setText(course.getTopic());
+
+        Label infoIntroductionLabel = new Label("Course introduction: ");
+        Label introLabel = new Label();
+        introLabel.setText(course.getIntroduction());
+
+        Label infoLevelLabel = new Label("Course level: ");
+        Label levelLabel = new Label();
+        levelLabel.setText(course.getLevel());
+
+        GridPane grid = new GridPane();
+
+        Label infoModuleLabel = new Label("Modules: ");
+        int i = 4;
+        for (Module module : sqlR.getSpecificModules(registration)) {
+            Button button = new Button(module.getTitle());
+            button.setOnAction((event) -> {
+                window.setScene(studentCourseModuleScene.studentCourseModuleScene(window, module, registration, course, current_student));
+            });
+            button.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
+            grid.add(button, 1, i, 1, 1);
+            i++;
+        }
+
+        Label infoWebcastLabel = new Label("Webcasts: ");
+        int j = 4;
+        for (Webcast webcast : sqlR.getSpecificWebcasts(registration)) {
+            Button button = new Button(webcast.getTitle());
+            button.setOnAction((event) -> {
+                window.setScene(studentCourseWebcastScene.studentCourseWebcastScene(window, webcast, registration, course, current_student));
+            });
+            button.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
+            grid.add(button, 3, j, 1, 1);
+            j++;
+        }
+
+        // Label infoCertificateLabel = new Label("Certificate: ");
+        // int j = 0;
+        // for (Certificate certificate : sqlC.getCertificateFromStudentForSpecificCourse(course, current_student)) {
+        //     Label certificateIDLabel = new Label("Certificate ID: " + String.valueOf(certificate.getCertificateID()));
+        //     Label certificateGradeLabel = new Label("Certificate grade: " + String.valueOf(certificate.getCertificateGrade()));
+        //     Label certificateExternalPersonLabel = new Label("Certificate external person ID: " + String.valueOf(certificate.getExternalPersonID()));
+        //     grid.add(certificateIDLabel, 3, j, 1, 1);
+        //     grid.add(certificateGradeLabel, 4, j, 1, 1);
+        //     grid.add(certificateExternalPersonLabel, 5, j, 1, 1);
+        //     j++;
+        // }
+
+        
+		grid.setPadding(new Insets(40, 0, 0, 0));
+		grid.setHgap(5);
+		grid.setVgap(5);
+        grid.add(infoNameLabel, 0, 0 , 1, 1);
+        grid.add(nameLabel, 1, 0 , 1, 1);
+        grid.add(infoTopicLabel, 0, 1 , 1, 1);
+        grid.add(topicLabel, 1, 1 , 1, 1);
+        grid.add(infoIntroductionLabel, 0, 2 , 1, 1);
+        grid.add(introLabel, 1, 2 , 1, 1);
+        grid.add(infoLevelLabel, 0, 3 , 1, 1);
+        grid.add(levelLabel, 1, 3 , 1, 1);
+        grid.add(infoModuleLabel, 0, 4 , 1, 1);
+        grid.add(infoWebcastLabel, 2, 4 , 1, 1);
+        // grid.add(infoCertificateLabel, 2, 0 , 1, 1);
+
+        BorderPane pane = new BorderPane();
+        pane.setPadding(new Insets(15, 15, 15, 15));
+        pane.getChildren().add(imageView);
+        pane.setTop(menu);
+        pane.setCenter(grid);
+
+
+        Scene sscene = new Scene(pane, 1080, 620);
+        return sscene;
+
+        
+    }
+}

@@ -39,7 +39,7 @@ public class HomescreenScene{
 		});
 
 		//Second button which leads to courseScene
-		Button courseButton = new Button("Course");
+		Button courseButton = new Button("Courses");
 		courseButton.setPrefSize(80, 37);
 		courseButton.setFont(font);
 		courseButton.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
@@ -48,14 +48,14 @@ public class HomescreenScene{
 		});
 			
 		
-		Label welcome1 = new Label("Welcome to the");
-		welcome1.setFont(font);
-		welcome1.setStyle("-fx-text-fill: #FFFFFF; -fx-font-size: 28;");
+		Label firstWelcome = new Label("Welcome to the");
+		firstWelcome.setFont(font);
+		firstWelcome.setStyle("-fx-text-fill: #FFFFFF; -fx-font-size: 28;");
 		
 
-		Label welcome2 = new Label("Codecademy Application");
-		welcome2.setFont(font);
-		welcome2.setStyle("-fx-padding: 10; -fx-background-color: #0B9EC3; -fx-text-fill: #FFFFFF; -fx-font-size: 35;");
+		Label secondWelcome = new Label("Codecademy Application");
+		secondWelcome.setFont(font);
+		secondWelcome.setStyle("-fx-padding: 10; -fx-background-color: #0B9EC3; -fx-text-fill: #FFFFFF; -fx-font-size: 35;");
 
 
 		Label description = new Label("description of the application");
@@ -68,7 +68,7 @@ public class HomescreenScene{
 		menu.setSpacing(10);
 		
 		
-		VBox front = new VBox(welcome1, welcome2, description);
+		VBox front = new VBox(firstWelcome, secondWelcome, description);
 		front.setSpacing(5);
 		front.setAlignment(Pos.BASELINE_CENTER);
 		front.setPadding(new Insets(150, 0, 0, 0));

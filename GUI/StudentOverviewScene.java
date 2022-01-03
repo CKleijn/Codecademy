@@ -28,7 +28,7 @@ public class StudentOverviewScene {
         StudentOverviewScene studentOverviewScene = new StudentOverviewScene();
         StudentCreateScene studentCreateScene = new StudentCreateScene();
         StudentUpdateScene studentUpdateScene = new StudentUpdateScene();
-        StudentDetailScene studentDetailScene = new StudentDetailScene();
+        StudentRegistrationScene studentDetailScene = new StudentRegistrationScene();
 
         //Layout of the text in the buttons
         Font font = Font.font("Verdana");
@@ -96,7 +96,7 @@ public class StudentOverviewScene {
 
         table.setOnMouseClicked((event) -> {
             Student student = table.getSelectionModel().getSelectedItem();
-            window.setScene(studentDetailScene.studentDetailScene(window, student));
+            window.setScene(studentDetailScene.studentRegistrationScene(window, student));
         });
         
         Callback<TableColumn<Student, String>, TableCell<Student, String>> editCellFactory = new Callback<TableColumn<Student, String>, TableCell<Student, String>>() {
@@ -112,6 +112,7 @@ public class StudentOverviewScene {
                         if (empty) {
                             setGraphic(null);
                         } else {
+                            editBtn.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
                             editBtn.setOnAction(event -> {
                                 Student student = getTableView().getItems().get(getIndex());
                                 window.setScene(studentUpdateScene.studentUpdateScene(window, student));
@@ -137,6 +138,7 @@ public class StudentOverviewScene {
                         if (empty) {
                             setGraphic(null);
                         } else {
+                            deleteBtn.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
                             deleteBtn.setOnAction(event -> {
                                 Student student = getTableView().getItems().get(getIndex());
                                 sql.deleteStudent(student);
