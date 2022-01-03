@@ -1,23 +1,23 @@
 package domain;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 public class Module extends Item {
     
     private int serialNumber;
-    private int version;
+    private String version;
 
-    public Module(int itemId, String title, String description, LocalDate publicationDate, ExternalPerson externalPerson, Status status, int serialNumber, int version) {
+    public Module(int itemId, String title, String description, Date publicationDate, int externalPerson, String status, int serialNumber, String version) {
         super(itemId, title, description, publicationDate, externalPerson, status);
         this.serialNumber = serialNumber;
         this.version = version;
     }
 
-    public int getserialNumber() {
+    public int getSerialNumber() {
         return serialNumber;
     }
 
-    public int getVersion() {
+    public String getVersion() {
         return version;
     }
 }

@@ -1,18 +1,18 @@
 package domain;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 public class Item {
 
     private int itemId;
     private String title;
     private String description;
-    private LocalDate publicationDate;
-    private ExternalPerson externalPerson;
-    private Status status;
+    private Date publicationDate;
+    private int externalPerson;
+    private String status;
     private int viewCount;
 
-    public Item(int itemId, String title, String description, LocalDate publicationDate, ExternalPerson externalPerson, Status status) {
+    public Item(int itemId, String title, String description, Date publicationDate, int externalPerson, String status) {
         this.itemId = itemId;
         this.title = title;
         this.description = description;
@@ -34,15 +34,15 @@ public class Item {
         return description;
     }
 
-    public LocalDate getPublicationDate() {
+    public Date getPublicationDate() {
         return publicationDate;
     }
 
-    public ExternalPerson getExternalPerson() {
+    public int getExternalPerson() {
         return externalPerson;
     }
 
-    public Status getStatus() {
+    public String getStatus() {
         return status;
     }
 
