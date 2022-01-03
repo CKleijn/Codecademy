@@ -3,9 +3,13 @@ package database;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
+import domain.Course;
+import domain.Module;
 import domain.Registration;
 import domain.Student;
+import domain.Webcast;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -29,6 +33,70 @@ public class RegistrationSQL extends ConnectToDatabase {
             e.printStackTrace();
         }
         return studentRegistrationList;
+    }
+
+    public Course getStudentRegistrationCourseList(Registration registration) {
+        Connection conn = getConnection();
+        String query = "SELECT * FROM Registration INNER JOIN Course ON Registration.CourseName = Course.CourseName WHERE RegistrationDate = '" + registration.getRegistrationDate() + "' AND StudentEmail = '" + registration.getStudentEmail() + "' AND Registration.CourseName = '" + registration.getCourseName() + "'";
+        Statement st;
+        ResultSet rs;
+
+        try {
+            Course course;
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            while(rs.next()) {
+                course = new Course(rs.getString("CourseName"), rs.getString("CourseTopic"), rs.getString("CourseIntroduction"), rs.getString("CourseLevel"));
+                return course;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ArrayList<Module> getSpecificModules(Registration registration) {
+        Connection conn = getConnection();
+        ArrayList<Module> modules = new ArrayList<>();
+        String query = "SELECT * FROM Registration INNER JOIN Course ON Registration.CourseName = Course.CourseName INNER JOIN Item ON Course.CourseName = Item.CourseName INNER JOIN Module ON Item.ItemID = Module.ItemID WHERE RegistrationDate = '" + registration.getRegistrationDate() + "' AND StudentEmail = '" + registration.getStudentEmail() + "' AND Registration.CourseName = '" + registration.getCourseName() + "'";
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            Module module;
+            while(rs.next()){
+                module = new Module(rs.getInt("ItemID"), rs.getString("ItemTitle"), rs.getString("ItemDescription"), rs.getDate("ItemPublicationDate"), rs.getInt("ExternalPersonID"), rs.getString("ItemStatus"), rs.getInt("ModuleSerialNumber"), rs.getString("ModuleVersion"));
+                modules.add(module);
+            }
+            System.out.println("got the modules!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return modules;
+    }
+
+    public ArrayList<Webcast> getSpecificWebcasts(Registration registration) {
+        Connection conn = getConnection();
+        ArrayList<Webcast> webcasts = new ArrayList<>();
+        String query = "SELECT * FROM Registration INNER JOIN Course ON Registration.CourseName = Course.CourseName INNER JOIN Item ON Course.CourseName = Item.CourseName INNER JOIN Webcast ON Item.ItemID = Webcast.ItemID WHERE RegistrationDate = '" + registration.getRegistrationDate() + "' AND StudentEmail = '" + registration.getStudentEmail() + "' AND Registration.CourseName = '" + registration.getCourseName() + "'";
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            Webcast webcast;
+            while(rs.next()){
+                webcast = new Webcast(rs.getInt("ItemID"), rs.getString("ItemTitle"), rs.getString("ItemDescription"), rs.getDate("ItemPublicationDate"), rs.getInt("ExternalPersonID"), rs.getString("ItemStatus"), rs.getInt("WebcastDuration"), rs.getString("WebcastURL"));
+                webcasts.add(webcast);
+            }
+            System.out.println("got the webcasts!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return webcasts;
     }
 
     public void createRegistration(Registration registration) {

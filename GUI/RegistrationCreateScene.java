@@ -13,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -28,14 +27,11 @@ public class RegistrationCreateScene extends domain.Validation{
 
     public Scene registrationCreateScene(Stage window, Student current_student) {
         StudentOverviewScene studentOverviewScene = new StudentOverviewScene();
-        StudentDetailScene studentDetailScene = new StudentDetailScene();
+        StudentRegistrationScene studentDetailScene = new StudentRegistrationScene();
 
         //Layout of the text in the buttons
 		Font font = Font.font("Verdana");
 
-		//Height of the input fields
-		double heightTextAreas = 3000;
-		
 		//Background image
 		Image image = new Image("resources/backgroundImage.jpg");
 		ImageView imageView = new ImageView(image);
@@ -61,7 +57,7 @@ public class RegistrationCreateScene extends domain.Validation{
             Date date = Date.valueOf(LocalDate.now());
             Registration registration = new Registration(date, current_student.getEmail(), cbxCourse.getSelectionModel().getSelectedItem(), 1);
             sqlR.createRegistration(registration);
-            window.setScene(studentDetailScene.studentDetailScene(window, current_student));
+            window.setScene(studentDetailScene.studentRegistrationScene(window, current_student));
 		});
 
         HBox buttonHBox = new HBox();

@@ -13,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -27,14 +26,11 @@ public class RegistrationUpdateScene extends domain.Validation{
     private RegistrationSQL sqlR = new RegistrationSQL();
 
     public Scene registrationUpdateScene(Stage window, Registration current_registration, Student current_student) {
-        StudentDetailScene studentDetailScene = new StudentDetailScene();
+        StudentRegistrationScene studentDetailScene = new StudentRegistrationScene();
 
         //Layout of the text in the buttons
 		Font font = Font.font("Verdana");
 
-		//Height of the input fields
-		double heightTextAreas = 3000;
-		
 		//Background image
 		Image image = new Image("resources/backgroundImage.jpg");
 		ImageView imageView = new ImageView(image);
@@ -47,7 +43,7 @@ public class RegistrationUpdateScene extends domain.Validation{
 		backButton.setFont(font);
 		backButton.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
         backButton.setOnAction((event) -> {
-            window.setScene(studentDetailScene.studentDetailScene(window, current_student));
+            window.setScene(studentDetailScene.studentRegistrationScene(window, current_student));
         });
 
         Label courseLabel = new Label("Choose course: ");
@@ -61,7 +57,7 @@ public class RegistrationUpdateScene extends domain.Validation{
             Date date = Date.valueOf(LocalDate.now());
             Registration registration = new Registration(date, current_student.getEmail(), cbxCourse.getSelectionModel().getSelectedItem(), 1);
             sqlR.updateRegistration(current_registration, registration);
-            window.setScene(studentDetailScene.studentDetailScene(window, current_student));
+            window.setScene(studentDetailScene.studentRegistrationScene(window, current_student));
 		});
 
         HBox buttonHBox = new HBox();
