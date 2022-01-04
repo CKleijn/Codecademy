@@ -1,6 +1,7 @@
 package GUI;
 
 import database.CertificateSQL;
+import database.ExternalPersonSQL;
 import database.RegistrationSQL;
 import domain.Module;
 import domain.Registration;
@@ -24,12 +25,14 @@ import javafx.stage.Stage;
 public class StudentCourseScene {
     RegistrationSQL sqlR = new RegistrationSQL();
     CertificateSQL sqlC = new CertificateSQL();
+    ExternalPersonSQL sqlE = new ExternalPersonSQL();
 
     public Scene studentCourseScene(Stage window, Registration registration, Course course, Student current_student) {
         StudentRegistrationScene studentRegistrationScene = new StudentRegistrationScene();
         StudentCourseModuleScene studentCourseModuleScene = new StudentCourseModuleScene();
         StudentCourseWebcastScene studentCourseWebcastScene = new StudentCourseWebcastScene();
         CertificateCreateScene certificateCreateScene = new CertificateCreateScene();
+        CertificateUpdateScene certificateUpdateScene = new CertificateUpdateScene();
 
         //Layout of the text in the buttons
         Font font = Font.font("Verdana");
@@ -102,17 +105,27 @@ public class StudentCourseScene {
             j++;
         }
 
-        // Label infoCertificateLabel = new Label("Certificate: ");
-        // int j = 0;
-        // for (Certificate certificate : sqlC.getCertificateFromStudentForSpecificCourse(course, current_student)) {
-        //     Label certificateIDLabel = new Label("Certificate ID: " + String.valueOf(certificate.getCertificateID()));
-        //     Label certificateGradeLabel = new Label("Certificate grade: " + String.valueOf(certificate.getCertificateGrade()));
-        //     Label certificateExternalPersonLabel = new Label("Certificate external person ID: " + String.valueOf(certificate.getExternalPersonID()));
-        //     grid.add(certificateIDLabel, 3, j, 1, 1);
-        //     grid.add(certificateGradeLabel, 4, j, 1, 1);
-        //     grid.add(certificateExternalPersonLabel, 5, j, 1, 1);
-        //     j++;
-        // }
+        int k = 4;
+        for (Certificate certificate : sqlC.getCertificateFromStudentForSpecificCourse(course, current_student)) {
+            Label infoCertificateLabel = new Label("Certificate: ");
+            Label certificateGradeLabel = new Label("Certificate grade: " + String.valueOf(certificate.getCertificateGrade()));
+            Label certificateExternalPersonLabel = new Label("Certificate employee: " + sqlE.getEmployeeNameById(certificate));
+            Button editButton = new Button("Edit");
+            editButton.setOnAction((event) -> {
+                window.setScene(certificateUpdateScene.certificateUpdateScene(window, certificate, registration, course, current_student));
+            });
+            Button deleteButton = new Button("Delete");
+            deleteButton.setOnAction((event) -> {
+                sqlC.deleteCertificate(certificate);
+                window.setScene(studentCourseScene(window, registration, course, current_student));
+            });
+            grid.add(infoCertificateLabel, 4, 4 , 1, 1);
+            grid.add(certificateGradeLabel, 5, k, 1, 1);
+            grid.add(certificateExternalPersonLabel, 6, k, 1, 1);
+            grid.add(editButton, 7, k, 1, 1);
+            grid.add(deleteButton, 8, k, 1, 1);
+            k++;
+        }
 
         
 		grid.setPadding(new Insets(40, 0, 0, 0));
@@ -128,7 +141,6 @@ public class StudentCourseScene {
         grid.add(levelLabel, 1, 3 , 1, 1);
         grid.add(infoModuleLabel, 0, 4 , 1, 1);
         grid.add(infoWebcastLabel, 2, 4 , 1, 1);
-        // grid.add(infoCertificateLabel, 2, 0 , 1, 1);
 
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(15, 15, 15, 15));
