@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import domain.Certificate;
 import domain.Item;
 
 public class ExternalPersonSQL extends ConnectToDatabase {
@@ -35,6 +36,27 @@ public class ExternalPersonSQL extends ConnectToDatabase {
     public String getExternalPersonNameById(Item item) {
         Connection conn = getConnection();
         String query = "SELECT ExternalPersonName FROM ExternalPerson WHERE ExternalPersonID = '" + item.getExternalPerson() + "'";
+        Statement st;
+        ResultSet rs;
+        String externalPersonName;
+
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            while(rs.next()){
+                externalPersonName = new String(rs.getString("ExternalPersonName"));
+                return externalPersonName;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public String getEmployeeNameById(Certificate certificate) {
+        Connection conn = getConnection();
+        String query = "SELECT ExternalPersonName FROM ExternalPerson WHERE ExternalPersonID = '" + certificate.getExternalPersonID() + "'";
         Statement st;
         ResultSet rs;
         String externalPersonName;
