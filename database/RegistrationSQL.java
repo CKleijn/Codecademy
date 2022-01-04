@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import domain.Course;
+import domain.Item;
 import domain.Module;
 import domain.Registration;
 import domain.Student;
@@ -97,6 +98,27 @@ public class RegistrationSQL extends ConnectToDatabase {
         }
 
         return webcasts;
+    }
+
+    public String getViews(Registration registration, Item item) {
+        Connection conn = getConnection();
+        String query = "SELECT * FROM Student_View_Item WHERE StudentEmail = '" + registration.getStudentEmail() + "' AND ItemID = " + item.getItemId();
+        Statement st;
+        ResultSet rs;
+        String viewCount;
+
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            while(rs.next()) {
+                int views = rs.getInt("ItemViews");
+                viewCount = String.valueOf(views);
+                return viewCount;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void createRegistration(Registration registration) {

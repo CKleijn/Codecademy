@@ -1,6 +1,7 @@
 package GUI;
 
 import database.ExternalPersonSQL;
+import database.RegistrationSQL;
 import domain.Course;
 import domain.Webcast;
 import domain.Registration;
@@ -19,7 +20,8 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class StudentCourseWebcastScene {
-    ExternalPersonSQL sql = new ExternalPersonSQL();
+    ExternalPersonSQL sqlE = new ExternalPersonSQL();
+    RegistrationSQL sqlR = new RegistrationSQL();
 
     public Scene studentCourseWebcastScene(Stage window, Webcast webcast, Registration registration, Course course, Student current_student) {
         StudentCourseScene studentCourseScene = new StudentCourseScene();
@@ -75,11 +77,11 @@ public class StudentCourseWebcastScene {
 
         Label infoExPerLabel = new Label("Webcast external person: ");
         Label webcastExPerLabel = new Label();
-        webcastExPerLabel.setText(sql.getExternalPersonNameById(webcast));
+        webcastExPerLabel.setText(sqlE.getExternalPersonNameById(webcast));
 
-        Label infoViewsLabel = new Label("Module views: ");
+        Label infoViewsLabel = new Label("Webcast views: ");
         Label webcastViewsLabel = new Label();
-        webcastViewsLabel.setText(String.valueOf(webcast.getViewCount()));
+        webcastViewsLabel.setText(sqlR.getViews(registration, webcast));
 
 
         GridPane grid = new GridPane();

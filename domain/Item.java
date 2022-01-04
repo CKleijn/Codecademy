@@ -10,7 +10,6 @@ public class Item {
     private Date publicationDate;
     private int externalPerson;
     private String status;
-    private int viewCount;
 
     public Item(int itemId, String title, String description, Date publicationDate, int externalPerson, String status) {
         this.itemId = itemId;
@@ -19,7 +18,6 @@ public class Item {
         this.publicationDate = publicationDate;
         this.externalPerson = externalPerson;
         this.status = status;
-        this.viewCount = 0;
     }
 
     public int getItemId() {
@@ -44,9 +42,5 @@ public class Item {
 
     public String getStatus() {
         return status;
-    }
-
-    public int getViewCount() {
-        return viewCount;
     }
 }

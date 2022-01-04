@@ -1,6 +1,7 @@
 package GUI;
 
 import database.ExternalPersonSQL;
+import database.RegistrationSQL;
 import domain.Course;
 import domain.Module;
 import domain.Registration;
@@ -19,7 +20,8 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class StudentCourseModuleScene {
-    ExternalPersonSQL sql = new ExternalPersonSQL();
+    ExternalPersonSQL sqlE = new ExternalPersonSQL();
+    RegistrationSQL sqlR = new RegistrationSQL();
 
     public Scene studentCourseModuleScene(Stage window, Module module, Registration registration, Course course, Student current_student) {
         StudentCourseScene studentCourseScene = new StudentCourseScene();
@@ -75,11 +77,11 @@ public class StudentCourseModuleScene {
 
         Label infoExPerLabel = new Label("Module external person: ");
         Label moduleExPerLabel = new Label();
-        moduleExPerLabel.setText(sql.getExternalPersonNameById(module));
+        moduleExPerLabel.setText(sqlE.getExternalPersonNameById(module));
 
         Label infoViewsLabel = new Label("Module views: ");
         Label moduleViewsLabel = new Label();
-        moduleViewsLabel.setText(String.valueOf(module.getViewCount()));
+        moduleViewsLabel.setText(sqlR.getViews(registration, module));
 
 
         GridPane grid = new GridPane();
