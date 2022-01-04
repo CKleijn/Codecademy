@@ -51,4 +51,32 @@ public class CertificateSQL extends ConnectToDatabase {
             e.printStackTrace();
         }
     }
+
+    public void updateCertificate(Certificate certificate) {
+        Connection conn = getConnection();
+        String query = "UPDATE Certificate SET CertificateGrade = '" + certificate.getCertificateGrade() + "', ExternalPersonID = '" + certificate.getExternalPersonID() + "' WHERE CertificateID = '" + certificate.getCertificateID() + "'";
+        Statement st;
+
+        try {
+            st = conn.createStatement();
+            st.executeQuery(query);
+            System.out.println("Certificate updated!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteCertificate(Certificate certificate) {
+        Connection conn = getConnection();
+        String query = "DELETE FROM Certificate WHERE CertificateID = '" + certificate.getCertificateID() + "'";
+        Statement st;
+
+        try {
+            st = conn.createStatement();
+            st.executeQuery(query);
+            System.out.println("Certificate deleted!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
