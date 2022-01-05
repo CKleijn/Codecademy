@@ -103,38 +103,10 @@ public class CourseSQL extends ConnectToDatabase {
 
     }
 
-    public String[] getSpecificModules(Course course) {
-        Connection conn = getConnection();
-        ArrayList<String> modules = new ArrayList<>();
-        String query = "SELECT ItemTitle FROM Item LEFT JOIN Module ON Item.ItemID = Module.ItemID WHERE Module.CourseName = '" + course.getName() + "'";
-        Statement st;
-        ResultSet rs;
-        try {
-            st = conn.createStatement();
-            rs = st.executeQuery(query);
-            String moduleTitle;
-            while(rs.next()){
-                moduleTitle = new String(rs.getString("ItemTitle"));
-                modules.add(moduleTitle);
-            }
-            System.out.println("got the modules!");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        String[] strModules = new String[modules.size()];
-        for(int i = 0; i < modules.size(); i++){
-            strModules[i] = modules.get(i);
-        }
-
-        return strModules;
-
-    }
-
     public String[] getModules() {
         Connection conn = getConnection();
         ArrayList<String> modules = new ArrayList<>();
-        String query = "SELECT Item.ItemTitle FROM Module LEFT JOIN Item ON Item.ItemID = Module.ItemID";
+        String query = "SELECT ItemTitle FROM Item JOIN Module ON Item.ItemID = Module.ItemID WHERE CourseName IS NULL";
         Statement st;
         ResultSet rs;
         try {
@@ -158,18 +130,143 @@ public class CourseSQL extends ConnectToDatabase {
         return strModules;
     }
 
-    public void setModulesCourseName(String itemTitle, String CourseName){
+    public String[] getWebcasts() {
         Connection conn = getConnection();
-        String query = "SELECT ItemID FROM Item WHERE ItemTitle = " + itemTitle;
-        String query2 = "UPDATE Module SET CourseName = '" + CourseName + "' WHERE ItemID = (" + query + ")";
+        ArrayList<String> webcasts = new ArrayList<>();
+        String query = "SELECT ItemTitle FROM Item JOIN Webcast ON Item.ItemID = Webcast.ItemID WHERE CourseName IS NULL";
         Statement st;
-
+        ResultSet rs;
         try {
             st = conn.createStatement();
-            st.executeQuery(query2);
+            rs = st.executeQuery(query);
+            String webcastTitle;
+            while(rs.next()){
+                webcastTitle = new String(rs.getString("ItemTitle"));
+                webcasts.add(webcastTitle);
+            }
+            System.out.println("got the webcasts!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String[] strModules = new String[webcasts.size()];
+        for(int i = 0; i < webcasts.size(); i++){
+            strModules[i] = webcasts.get(i);
+        }
+
+        return strModules;
+    }
+
+    public String[] getSpecificModules(Course course) {
+        Connection conn = getConnection();
+        ArrayList<String> modules = new ArrayList<>();
+        String query = "SELECT ItemTitle FROM Item JOIN Module ON Item.ItemID = Module.ItemID WHERE CourseName = '" + course.getName() + "'";
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            String moduleTitle;
+            while(rs.next()){
+                moduleTitle = new String(rs.getString("ItemTitle"));
+                modules.add(moduleTitle);
+            }
+            System.out.println("got the modules!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String[] strModules = new String[modules.size()];
+        for(int i = 0; i < modules.size(); i++){
+            strModules[i] = modules.get(i);
+        }
+
+        return strModules;
+
+    }
+
+    public String[] getSpecificWebcasts(Course course) {
+        Connection conn = getConnection();
+        ArrayList<String> modules = new ArrayList<>();
+        String query = "SELECT ItemTitle FROM Item JOIN Webcast ON Item.ItemID = Webcast.ItemID WHERE CourseName = '" + course.getName() + "'";
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            String moduleTitle;
+            while(rs.next()){
+                moduleTitle = new String(rs.getString("ItemTitle"));
+                modules.add(moduleTitle);
+            }
+            System.out.println("got the webcasts!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String[] strModules = new String[modules.size()];
+        for(int i = 0; i < modules.size(); i++){
+            strModules[i] = modules.get(i);
+        }
+
+        return strModules;
+
+    }
+
+    
+    public void setCourseName(String itemTitle, String CourseName){
+        Connection conn = getConnection();
+        String query = "UPDATE Item SET CourseName = '" + CourseName + "' WHERE ItemTitle = '" + itemTitle + "'";
+        Statement st;
+        
+        try {
+            st = conn.createStatement();
+            st.executeQuery(query);
             System.out.println("CourseName added!");
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void setNull(String itemTitle){
+        Connection conn = getConnection();
+        String query = "UPDATE Item SET CourseName = NULL WHERE ItemTitle = ('" + itemTitle + "')";
+        Statement st;
+        try {
+            st = conn.createStatement();
+            st.executeQuery(query);
+            System.out.println("CourseName is NULL!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String[] relevantCourses(Course course){
+        Connection conn = getConnection();
+        ArrayList<String> relCourses = new ArrayList<>();
+        String query = "SELECT CourseName FROM Course WHERE CourseTopic = '" + course.getTopic() + "'";
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            String relcourse;
+            while(rs.next()){
+                relcourse = new String(rs.getString("CourseName"));
+                if(!relcourse.equals(course.getName())){
+                    relCourses.add(relcourse);
+                }
+            }
+            System.out.println("got the webcasts!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String[] strRelcourse = new String[relCourses.size()];
+        for(int i = 0; i < relCourses.size(); i++){
+            strRelcourse[i] = relCourses.get(i);
+        }
+
+        return strRelcourse;
     }
 }

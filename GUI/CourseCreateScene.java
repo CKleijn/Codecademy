@@ -64,6 +64,11 @@ public class CourseCreateScene {
         ComboBox<String>cbxModule = new ComboBox<>();
         cbxModule.getItems().setAll(sql.getModules());
 
+		Label webcastLabel = new Label("Add Webcast ");
+		ComboBox<String>cbxWebcast = new ComboBox<>();
+		cbxWebcast.getItems().setAll(sql.getWebcasts());
+
+
 		//Last button to create with al the information in the textareas
 		Button createCourseButton = new Button("Add course");
 		createCourseButton.setPrefSize(120, 40);
@@ -73,7 +78,8 @@ public class CourseCreateScene {
 		createCourseButton.setOnAction((event) -> {
 			if(!nameTextArea.getText().isEmpty() && !topicTextArea.getText().isEmpty() && !introductionTextArea.getText().isEmpty() && !cbxLevel.getSelectionModel().getSelectedItem().name().isEmpty()){
 				Course course = new Course(nameTextArea.getText(), topicTextArea.getText(), introductionTextArea.getText(), cbxLevel.getSelectionModel().getSelectedItem().name());
-				sql.setModulesCourseName(cbxModule.getSelectionModel().getSelectedItem(), course.getName());
+				sql.setCourseName(cbxModule.getSelectionModel().getSelectedItem(), course.getName());
+				sql.setCourseName(cbxWebcast.getSelectionModel().getSelectedItem(),course.getName());
 				sql.createCourse(course);
 				window.setScene(courseOverviewScene.courseOverviewScene(window));
 
@@ -97,7 +103,9 @@ public class CourseCreateScene {
 		grid.add(cbxLevel, 1, 3, 1, 1);
 		grid.add(moduleLabel, 0, 4, 1, 1);
 		grid.add(cbxModule, 1, 4, 1, 1);
-		grid.add(buttonHBox, 0, 6, 1, 1);
+		grid.add(webcastLabel, 0, 5, 1, 1);
+		grid.add(cbxWebcast, 1, 5, 1, 1);
+		grid.add(buttonHBox, 0, 7, 1, 1);
 
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(15, 15, 15, 15));

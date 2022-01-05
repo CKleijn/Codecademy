@@ -34,6 +34,7 @@ public class CourseUpdateScene extends domain.Validation{
         Group root = new Group();
         root.getChildren().addAll(imageView);
 
+
         // Button to go back to the homeScene.
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
@@ -69,13 +70,18 @@ public class CourseUpdateScene extends domain.Validation{
         ComboBox<String>cbxModule = new ComboBox<>();
         cbxModule.getItems().setAll(sql.getModules());
 
+        Label webcastLabel = new Label("Add webcast: ");
+        ComboBox<String>cbxWebcast = new ComboBox<>();
+        cbxWebcast.getItems().setAll(sql.getWebcasts());
+
         Button updateCourse = new Button("Update course");
 		updateCourse.setPrefSize(120, 40);
 		updateCourse.setOnAction((event) -> {
 
 			if(!nameTextArea.getText().isEmpty() && !topicTextArea.getText().isEmpty() && !introductionTextArea.getText().isEmpty() && !cbxLevel.getSelectionModel().getSelectedItem().name().isEmpty()){
 				Course course = new Course(nameTextArea.getText(), topicTextArea.getText(), introductionTextArea.getText(), cbxLevel.getSelectionModel().getSelectedItem().name());
-                sql.setModulesCourseName(cbxModule.getSelectionModel().getSelectedItem(), course.getName());
+                sql.setCourseName(cbxModule.getSelectionModel().getSelectedItem(), course.getName());
+                sql.setCourseName(cbxWebcast.getSelectionModel().getSelectedItem(), course.getName());
 				sql.updateCourse(course);
 				window.setScene(courseOverviewScene.courseOverviewScene(window));
 			}
@@ -98,7 +104,9 @@ public class CourseUpdateScene extends domain.Validation{
 		grid.add(cbxLevel, 1, 3 , 1, 1);
         grid.add(moduleLabel, 0, 4 , 1, 1);
 		grid.add(cbxModule, 1, 4 , 1, 1);
-		grid.add(buttonHBox, 0, 6 , 1, 1);
+        grid.add(webcastLabel, 0, 5 , 1, 1);
+        grid.add(cbxWebcast, 1, 5, 1, 1);
+		grid.add(buttonHBox, 0, 7 , 1, 1);
 
 
         BorderPane pane = new BorderPane();

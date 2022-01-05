@@ -26,6 +26,7 @@ public class CourseOverviewScene {
     public Scene courseOverviewScene(Stage window) {
         HomescreenScene homescreenScene = new HomescreenScene();
         CourseOverviewScene courseOverviewScene = new CourseOverviewScene();
+        CourseUpdateScene  courseUpdateScene = new CourseUpdateScene();
         CourseCreateScene courseCreateScene = new CourseCreateScene();
         CourseDetailPage courseDetailPage = new CourseDetailPage();
 
@@ -63,9 +64,10 @@ public class CourseOverviewScene {
         TableColumn<Course, String> topicCol = new TableColumn<Course, String>("Course topic");
         TableColumn<Course, String> introductionCol = new TableColumn<Course, String>("Course Introduction");
         TableColumn<Course, String> levelCol = new TableColumn<Course, String>("Course Level");
+        TableColumn editCol = new TableColumn("Edit");      
         TableColumn deleteCol = new TableColumn("Delete");      
         
-        table.getColumns().addAll(nameCol, topicCol, introductionCol, levelCol, deleteCol);
+        table.getColumns().addAll(nameCol, topicCol, introductionCol, levelCol, editCol, deleteCol);
 
         ObservableList<Course> list = sql.getCourseList();
 
@@ -73,6 +75,7 @@ public class CourseOverviewScene {
         topicCol.setCellValueFactory(new PropertyValueFactory<Course, String>("topic"));
         introductionCol.setCellValueFactory(new PropertyValueFactory<Course, String>("introduction"));
         levelCol.setCellValueFactory(new PropertyValueFactory<Course, String>("level"));
+        editCol.setCellValueFactory(new PropertyValueFactory<>("Edit"));
         deleteCol.setCellValueFactory(new PropertyValueFactory<>("Delete"));
         
         table.setOnMouseClicked((event) -> {
@@ -80,7 +83,34 @@ public class CourseOverviewScene {
             window.setScene(courseDetailPage.CourseDetailScene(window, course));
         });
         
-        Callback<TableColumn<Course, String>, TableCell<Course, String>> cellFactory = new Callback<TableColumn<Course, String>, TableCell<Course, String>>() {
+
+        Callback<TableColumn<Course, String>, TableCell<Course, String>> editCellFactory = new Callback<TableColumn<Course, String>, TableCell<Course, String>>() {
+            @Override
+            public TableCell call(final TableColumn<Course, String> param) {
+                final TableCell<Course, String> cell = new TableCell<Course, String>() {
+
+                    final Button editBtn = new Button("Edit");
+
+                    @Override
+                    public void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            editBtn.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
+                            editBtn.setOnAction(event -> {
+                                Course course = getTableView().getItems().get(getIndex());
+                                window.setScene(courseUpdateScene.courseUpdateScene(window, course));
+                            });
+                            setGraphic(editBtn);
+                        }
+                    }
+                };
+                return cell;
+            }
+        };
+
+        Callback<TableColumn<Course, String>, TableCell<Course, String>> deletecellFactory = new Callback<TableColumn<Course, String>, TableCell<Course, String>>() {
             @Override
             public TableCell call(final TableColumn<Course, String> param) {
                 final TableCell<Course, String> cell = new TableCell<Course, String>() {
@@ -93,6 +123,7 @@ public class CourseOverviewScene {
                         if (empty) {
                             setGraphic(null);
                         } else {
+                            deleteBtn.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
                             deleteBtn.setOnAction(event -> {
                                 Course course = getTableView().getItems().get(getIndex());
                                 sql.deleteCourse(course);
@@ -106,7 +137,8 @@ public class CourseOverviewScene {
             }
         };
 
-        deleteCol.setCellFactory(cellFactory);
+        editCol.setCellFactory(editCellFactory);
+        deleteCol.setCellFactory(deletecellFactory);
 
         table.setItems(list);
         table.setMaxSize(1485, 400);
