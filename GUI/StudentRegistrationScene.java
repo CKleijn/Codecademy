@@ -28,6 +28,7 @@ public class StudentRegistrationScene extends domain.Validation {
         StudentOverviewScene studentOverviewScene = new StudentOverviewScene();
         StudentRegistrationScene studentDetailScene = new StudentRegistrationScene();
         StudentCourseScene studentCourseScene = new StudentCourseScene();
+        StudentCertificateScene studentCertificateScene = new StudentCertificateScene();
         RegistrationCreateScene registrationCreateScene = new RegistrationCreateScene();
         RegistrationUpdateScene registrationUpdateScene = new RegistrationUpdateScene();
 
@@ -57,7 +58,15 @@ public class StudentRegistrationScene extends domain.Validation {
             window.setScene(registrationCreateScene.registrationCreateScene(window, current_student));
         });
 
-        HBox menu = new HBox(backButton, registerButton);
+        Button certificateButton = new Button("View all certificates");
+        certificateButton.setPrefSize(80, 37);
+		certificateButton.setFont(font);
+		certificateButton.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
+        certificateButton.setOnAction((event) -> {
+            window.setScene(studentCertificateScene.studentCertificateScene(window, current_student));
+        });
+
+        HBox menu = new HBox(backButton, registerButton, certificateButton);
         menu.setSpacing(10);
 
         TableView<Registration> table = new TableView<Registration>();

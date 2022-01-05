@@ -8,8 +8,31 @@ import java.util.ArrayList;
 import domain.Certificate;
 import domain.Course;
 import domain.Student;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class CertificateSQL extends ConnectToDatabase {
+    public ObservableList<Certificate> getCertificateListFromStudent(Student student) {
+        ObservableList<Certificate> certificateList = FXCollections.observableArrayList();
+        Connection conn = getConnection();
+        String query = "SELECT * FROM Certificate INNER JOIN Registration ON Certificate.CertificateID = Registration.CertificateID WHERE StudentEmail = '" + student.getEmail() + "'";
+        Statement st;
+        ResultSet rs;
+        
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            Certificate certificate;
+            while(rs.next()) {
+                certificate = new Certificate(rs.getInt("CertificateID"), rs.getInt("CertificateGrade"), rs.getInt("ExternalPersonID"));
+                certificateList.add(certificate);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return certificateList;
+    }
+
     public Certificate[] getCertificateFromStudentForSpecificCourse(Course course, Student student) {
         Connection conn = getConnection();
         ArrayList<Certificate> certificates = new ArrayList<>();
