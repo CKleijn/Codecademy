@@ -81,10 +81,13 @@ public class CourseDetailPage {
         Label levelLabel = new Label();
         levelLabel.setText(course.getLevel());
 
+        Label infoCertificateLabel = new Label("Certificates obtained : ");
+        Label certificateLabel = new Label(String.valueOf(sql.obtainedCertificates(course)));
+
         GridPane grid = new GridPane();
 
         Label infoModulesLabel = new Label("Modules: ");
-        int j = 5;
+        int j = 6;
         for(String module : sql.getSpecificModules(course)){
             Label label = new Label(module);
             grid.add(label, 1, j, 1, 1);
@@ -108,7 +111,6 @@ public class CourseDetailPage {
             grid.add(label, 1, j, 1, 1);
             j++;
         }
-
         
 		grid.setPadding(new Insets(40, 0, 0, 0));
 		grid.setHgap(5);
@@ -121,7 +123,9 @@ public class CourseDetailPage {
         grid.add(introLabel, 1, 2 , 1, 1);
         grid.add(infoLevelLabel, 0, 3 , 1, 1);
         grid.add(levelLabel, 1, 3 , 1, 1);
-        grid.add(infoModulesLabel, 0, 5 , 1, 1);
+        grid.add(certificateLabel, 1, 4 , 1, 1);
+        grid.add(infoCertificateLabel, 0, 4 , 1, 1);
+        grid.add(infoModulesLabel, 0, 6 , 1, 1);
         
 
         BorderPane pane = new BorderPane();

@@ -269,4 +269,25 @@ public class CourseSQL extends ConnectToDatabase {
 
         return strRelcourse;
     }
+
+    public int obtainedCertificates(Course course) {
+        Connection conn = getConnection();
+        String query = "SELECT Course.CourseName, COUNT(Registration.CertificateID) AS Total FROM Course INNER JOIN Registration ON Course.CourseName = Registration.CourseName GROUP BY Course.CourseName HAVING Course.CourseName = '" + course.getName() + "' ORDER BY Total DESC";
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            int obtainedCertificates;
+            while(rs.next()){
+                obtainedCertificates = rs.getInt("Total");
+                return obtainedCertificates;
+            }
+            System.out.println("got the webcasts!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
 }

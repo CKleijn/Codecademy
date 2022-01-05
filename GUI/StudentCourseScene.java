@@ -114,11 +114,13 @@ public class StudentCourseScene {
             editButton.setOnAction((event) -> {
                 window.setScene(certificateUpdateScene.certificateUpdateScene(window, certificate, registration, course, current_student));
             });
+            editButton.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
             Button deleteButton = new Button("Delete");
             deleteButton.setOnAction((event) -> {
                 sqlC.deleteCertificate(certificate);
                 window.setScene(studentCourseScene(window, registration, course, current_student));
             });
+            deleteButton.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
             grid.add(infoCertificateLabel, 4, 4 , 1, 1);
             grid.add(certificateGradeLabel, 5, k, 1, 1);
             grid.add(certificateExternalPersonLabel, 6, k, 1, 1);
