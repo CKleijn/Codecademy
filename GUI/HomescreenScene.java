@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 public class HomescreenScene{
 	StudentOverviewScene studentOverviewScene = new StudentOverviewScene();
 	CourseOverviewScene courseOverviewScene = new CourseOverviewScene();
+	StatisticOverviewScene statisticOverviewScene = new StatisticOverviewScene();
 	
 	public Scene homeScene(Stage window) {
 
@@ -46,6 +47,15 @@ public class HomescreenScene{
 		courseButton.setOnAction((event) -> {
 			window.setScene(courseOverviewScene.courseOverviewScene(window));
 		});
+
+		//Third button which leads to statisticScene
+		Button statisticButton = new Button("Statistics");
+		statisticButton.setPrefSize(80, 37);
+		statisticButton.setFont(font);
+		statisticButton.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
+		statisticButton.setOnAction((event) -> {
+			window.setScene(statisticOverviewScene.statisticOverviewScene(window));
+		});
 			
 		
 		Label firstWelcome = new Label("Welcome to the");
@@ -64,7 +74,7 @@ public class HomescreenScene{
 		description.setPadding(new Insets(50, 0, 0, 0));
 
 		
-		HBox menu = new HBox(studentButton, courseButton);
+		HBox menu = new HBox(studentButton, courseButton, statisticButton);
 		menu.setSpacing(10);
 		
 		
