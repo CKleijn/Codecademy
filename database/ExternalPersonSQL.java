@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import domain.Certificate;
+import domain.ExternalPerson;
 import domain.Item;
 
 public class ExternalPersonSQL extends ConnectToDatabase {
@@ -33,24 +34,23 @@ public class ExternalPersonSQL extends ConnectToDatabase {
         return externalPersonIDList.get(id);
     }
 
-    public String getExternalPersonNameById(Item item) {
+    public ExternalPerson getExternalPersonById(Item item) {
         Connection conn = getConnection();
-        String query = "SELECT ExternalPersonName FROM ExternalPerson WHERE ExternalPersonID = '" + item.getExternalPerson() + "'";
+        String query = "SELECT * FROM ExternalPerson WHERE ExternalPersonID = '" + item.getExternalPerson() + "'";
         Statement st;
         ResultSet rs;
-        String externalPersonName;
+        ExternalPerson externalPerson;
 
         try {
             st = conn.createStatement();
             rs = st.executeQuery(query);
             while(rs.next()){
-                externalPersonName = new String(rs.getString("ExternalPersonName"));
-                return externalPersonName;
+                externalPerson = new ExternalPerson(rs.getString("ExternalPersonName"), rs.getString("ExternalPersonEmail"), rs.getString("ExternalPersonOrganisation"), rs.getString("ExternalPersonRole"));
+                return externalPerson;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return null;
     }
 
