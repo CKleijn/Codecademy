@@ -257,7 +257,7 @@ public class CourseSQL extends ConnectToDatabase {
                     relCourses.add(relcourse);
                 }
             }
-            System.out.println("got the webcasts!");
+            System.out.println("got the courses!");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -283,7 +283,7 @@ public class CourseSQL extends ConnectToDatabase {
                 obtainedCertificates = rs.getInt("Total");
                 return obtainedCertificates;
             }
-            System.out.println("got the webcasts!");
+            System.out.println("got the certificates!");
         } catch (Exception e) {
             e.printStackTrace();
         }
