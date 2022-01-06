@@ -1,5 +1,7 @@
 package GUI;
 
+import java.util.Arrays;
+
 import database.StudentSQL;
 import domain.Student;
 import javafx.collections.ObservableList;
@@ -72,10 +74,10 @@ public class StudentOverviewScene {
         TableColumn<Student, String> postalCodeCol = new TableColumn<Student, String>("Student postal code");
         TableColumn<Student, String> residenceCol = new TableColumn<Student, String>("Student residence");
         TableColumn<Student, String> countryCol = new TableColumn<Student, String>("Student country");
-        TableColumn editCol = new TableColumn("Edit");   
-        TableColumn deleteCol = new TableColumn("Delete");      
+        TableColumn<Student, String> editCol = new TableColumn<Student, String>("Edit");   
+        TableColumn<Student, String> deleteCol = new TableColumn<Student, String>("Delete");      
         
-        table.getColumns().addAll(emailCol, nameCol, birthDayCol, birthMonthCol, birthYearCol, genderCol, streetCol, houseNumberCol, houseNumberAdditionCol, postalCodeCol, residenceCol, countryCol, editCol, deleteCol);
+        table.getColumns().addAll(Arrays.asList(emailCol, nameCol, birthDayCol, birthMonthCol, birthYearCol, genderCol, streetCol, houseNumberCol, houseNumberAdditionCol, postalCodeCol, residenceCol, countryCol, editCol, deleteCol));
 
         ObservableList<Student> list = sql.getStudentList();
 
@@ -101,7 +103,7 @@ public class StudentOverviewScene {
         
         Callback<TableColumn<Student, String>, TableCell<Student, String>> editCellFactory = new Callback<TableColumn<Student, String>, TableCell<Student, String>>() {
             @Override
-            public TableCell call(final TableColumn<Student, String> param) {
+            public TableCell<Student, String> call(final TableColumn<Student, String> param) {
                 final TableCell<Student, String> cell = new TableCell<Student, String>() {
 
                     final Button editBtn = new Button("Edit");
@@ -127,7 +129,7 @@ public class StudentOverviewScene {
 
         Callback<TableColumn<Student, String>, TableCell<Student, String>> deleteCellFactory = new Callback<TableColumn<Student, String>, TableCell<Student, String>>() {
             @Override
-            public TableCell call(final TableColumn<Student, String> param) {
+            public TableCell<Student, String> call(final TableColumn<Student, String> param) {
                 final TableCell<Student, String> cell = new TableCell<Student, String>() {
 
                     final Button deleteBtn = new Button("Delete");

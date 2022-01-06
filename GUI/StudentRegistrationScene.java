@@ -1,5 +1,7 @@
 package GUI;
 
+import java.util.Arrays;
+
 import database.RegistrationSQL;
 import domain.Course;
 import domain.Registration;
@@ -72,10 +74,10 @@ public class StudentRegistrationScene extends domain.Validation {
         TableView<Registration> table = new TableView<Registration>();
         TableColumn<Registration, String> courseNameCol = new TableColumn<Registration, String>("Course name");
         TableColumn<Registration, String> registrationDateCol = new TableColumn<Registration, String>("Registration date");
-        TableColumn editCol = new TableColumn("Edit");   
-        TableColumn deleteCol = new TableColumn("Delete");      
+        TableColumn<Registration, String> editCol = new TableColumn<Registration, String>("Edit");   
+        TableColumn<Registration, String> deleteCol = new TableColumn<Registration, String>("Delete");      
         
-        table.getColumns().addAll(courseNameCol, registrationDateCol, editCol, deleteCol);
+        table.getColumns().addAll(Arrays.asList(courseNameCol, registrationDateCol, editCol, deleteCol));
 
         ObservableList<Registration> list = sqlR.getStudentRegistrationList(current_student);
 
@@ -92,7 +94,7 @@ public class StudentRegistrationScene extends domain.Validation {
         
         Callback<TableColumn<Registration, String>, TableCell<Registration, String>> editCellFactory = new Callback<TableColumn<Registration, String>, TableCell<Registration, String>>() {
             @Override
-            public TableCell call(final TableColumn<Registration, String> param) {
+            public TableCell<Registration, String> call(final TableColumn<Registration, String> param) {
                 final TableCell<Registration, String> cell = new TableCell<Registration, String>() {
 
                     final Button editBtn = new Button("Edit");
@@ -103,6 +105,7 @@ public class StudentRegistrationScene extends domain.Validation {
                         if (empty) {
                             setGraphic(null);
                         } else {
+                            editBtn.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
                             editBtn.setOnAction(event -> {
                                 Registration registration = getTableView().getItems().get(getIndex());
                                 window.setScene(registrationUpdateScene.registrationUpdateScene(window, registration, current_student));
@@ -117,7 +120,7 @@ public class StudentRegistrationScene extends domain.Validation {
 
         Callback<TableColumn<Registration, String>, TableCell<Registration, String>> deleteCellFactory = new Callback<TableColumn<Registration, String>, TableCell<Registration, String>>() {
             @Override
-            public TableCell call(final TableColumn<Registration, String> param) {
+            public TableCell<Registration, String> call(final TableColumn<Registration, String> param) {
                 final TableCell<Registration, String> cell = new TableCell<Registration, String>() {
 
                     final Button deleteBtn = new Button("Delete");
@@ -128,6 +131,7 @@ public class StudentRegistrationScene extends domain.Validation {
                         if (empty) {
                             setGraphic(null);
                         } else {
+                            deleteBtn.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
                             deleteBtn.setOnAction(event -> {
                                 Registration registration = getTableView().getItems().get(getIndex());
                                 sqlR.deleteRegistration(registration);

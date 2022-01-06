@@ -47,28 +47,34 @@ public class StatisticOverviewScene {
         String[] genders = {"M", "F"};
         cbxGender.getItems().setAll(genders);
 
-        // cbxGender.setOnAction((event) -> {
-        //     if(cbxGender.getSelectionModel().getSelectedItem().equals("M")) {
-        //         sqlC.calculateGenderCertificates("M");
-        //     } else if(cbxGender.getSelectionModel().getSelectedItem().equals("F")) {
-        //         sqlC.calculateGenderCertificates("F");
-        //     }
-        // });
+        
+        Label resultGender = new Label();
+        cbxGender.setOnAction((event) -> {
+            if(cbxGender.getSelectionModel().getSelectedItem().equals("M")) {
+                int result = sqlS.calculateGenderCertificates("M");
+                resultGender.setText(result + "% of the males graduated");
+            } else if(cbxGender.getSelectionModel().getSelectedItem().equals("F")) {
+                int result = sqlS.calculateGenderCertificates("F");
+                resultGender.setText(result + "% of the females graduated");
+            }
+        });
 
         GridPane grid = new GridPane();
 
         Label infoWebcastLabel = new Label("Top 3 most viewed webcasts: ");
-        int i = 1;
+        int h = 1;
+        int i = 2;
         grid.add(infoWebcastLabel, 0, i, 1, 1) ;
         for(String webcast : sqlS.getTop3MostViewedWebcasts()){
-            Label label = new Label(i + ". " + webcast);
+            Label label = new Label(h + ". " + webcast);
             grid.add(label, 1, i, 1, 1);
             i++;
+            h++;
         }
 
         Label infoCourseLabel = new Label("Top 3 most certificates per course: ");
-        int j = 5;
         int k = 1;
+        int j = 5;
         grid.add(infoCourseLabel, 0, j, 1, 1) ;
         for(String course : sqlS.getTop3MostCertificateCourses()){
             Label label = new Label(k + ". " + course);
@@ -82,6 +88,7 @@ public class StatisticOverviewScene {
 		grid.setVgap(2);
         grid.add(genderLabel, 0, 0 , 1, 1);
 		grid.add(cbxGender, 1, 0 , 1, 1);
+        grid.add(resultGender, 0, 1, 1, 1);
 
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(15, 15, 15, 15));

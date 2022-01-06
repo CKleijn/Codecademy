@@ -76,8 +76,8 @@ public class CourseUpdateScene extends domain.Validation{
 
         Button updateCourse = new Button("Update course");
 		updateCourse.setPrefSize(120, 40);
+        updateCourse.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
 		updateCourse.setOnAction((event) -> {
-
 			if(!nameTextArea.getText().isEmpty() && !topicTextArea.getText().isEmpty() && !introductionTextArea.getText().isEmpty() && !cbxLevel.getSelectionModel().getSelectedItem().name().isEmpty()){
 				Course course = new Course(nameTextArea.getText(), topicTextArea.getText(), introductionTextArea.getText(), cbxLevel.getSelectionModel().getSelectedItem().name());
                 sql.setCourseName(cbxModule.getSelectionModel().getSelectedItem(), course.getName());

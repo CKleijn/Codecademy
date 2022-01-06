@@ -53,7 +53,7 @@ public class StudentCourseWebcastScene {
 
         Label infoDurationLabel = new Label("Webcast duration: ");
         Label webcastDurationLabel = new Label();
-        webcastDurationLabel.setText(String.valueOf(webcast.getDuration()));
+        webcastDurationLabel.setText(String.valueOf(webcast.getDuration()) + " minutes");
 
         Label infoURLLabel = new Label("Webcast URL: ");
         Label webcastVersionLabel = new Label();
@@ -75,9 +75,13 @@ public class StudentCourseWebcastScene {
         Label webcastStatusLabel = new Label();
         webcastStatusLabel.setText(webcast.getStatus());
 
-        Label infoExPerLabel = new Label("Webcast external person: ");
-        Label webcastExPerLabel = new Label();
-        webcastExPerLabel.setText(sqlE.getExternalPersonNameById(webcast));
+        Label infoExPerNameLabel = new Label("Webcast representative name: ");
+        Label webcastExPerNameLabel = new Label();
+        webcastExPerNameLabel.setText(sqlE.getExternalPersonById(webcast).getName());
+
+        Label infoExPerOrganisationLabel = new Label("Webcast representative organisation: ");
+        Label webcastExPerOrganisationLabel = new Label();
+        webcastExPerOrganisationLabel.setText(sqlE.getExternalPersonById(webcast).getOrganisation());
 
         Label infoViewsLabel = new Label("Webcast views: ");
         Label webcastViewsLabel = new Label();
@@ -103,10 +107,12 @@ public class StudentCourseWebcastScene {
         grid.add(webcastDateLabel, 1, 5 , 1, 1);
         grid.add(infoStatusLabel, 0, 6 , 1, 1);
         grid.add(webcastStatusLabel, 1, 6 , 1, 1);
-        grid.add(infoExPerLabel, 0, 7 , 1, 1);
-        grid.add(webcastExPerLabel, 1, 7 , 1, 1);
-        grid.add(infoViewsLabel, 0, 8 , 1, 1);
-        grid.add(webcastViewsLabel, 1, 8 , 1, 1);
+        grid.add(infoExPerNameLabel, 0, 7 , 1, 1);
+        grid.add(webcastExPerNameLabel, 1, 7 , 1, 1);
+        grid.add(infoExPerOrganisationLabel, 0, 8 , 1, 1);
+        grid.add(webcastExPerOrganisationLabel, 1, 8 , 1, 1);
+        grid.add(infoViewsLabel, 0, 9 , 1, 1);
+        grid.add(webcastViewsLabel, 1, 9 , 1, 1);
 
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(15, 15, 15, 15));

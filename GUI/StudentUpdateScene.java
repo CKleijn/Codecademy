@@ -45,6 +45,7 @@ public class StudentUpdateScene extends domain.Validation {
 		TextArea emailTextArea = new TextArea();
         emailTextArea.setText(old_student.getEmail());
 		emailTextArea.setPrefHeight(12);
+		emailTextArea.setDisable(true);
 		
 		Label nameLabel = new Label("Name: ");
 		TextArea nameTextArea = new TextArea();
@@ -104,10 +105,8 @@ public class StudentUpdateScene extends domain.Validation {
         Button editStudentButton = new Button("Update student");
 		editStudentButton.setPrefSize(120, 40);
 		editStudentButton.setOnAction((event) -> {
-
 			if(!checkEmail(emailTextArea.getText()) && checkDate(Integer.parseInt(birthDayTextArea.getText()), Integer.parseInt(birthMonthTextArea.getText()), Integer.parseInt(birthYearTextArea.getText())) 
-			&& checkPostalCode(postalCodeTextArea.getText()) && checkGender(genderTextArea.getText()) && !nameTextArea.getText().isEmpty() && !streetTextArea.getText().isEmpty() && !houseNumberTextArea.getText().isEmpty() && !residenceTextArea.getText().isEmpty() && !countryTextArea.getText().isEmpty()){
-				
+			&& checkPostalCode(postalCodeTextArea.getText()) && checkGender(genderTextArea.getText()) && !emailTextArea.getText().isEmpty() && !nameTextArea.getText().isEmpty() && !birthDayTextArea.getText().isEmpty() && !birthMonthTextArea.getText().isEmpty() && !birthYearTextArea.getText().isEmpty() && !genderTextArea.getText().isEmpty() && !streetTextArea.getText().isEmpty() && !houseNumberTextArea.getText().isEmpty() && !residenceTextArea.getText().isEmpty() && !countryTextArea.getText().isEmpty()){
 				Student student = new Student(emailTextArea.getText(), nameTextArea.getText(), Integer.parseInt(birthDayTextArea.getText()), Integer.parseInt(birthMonthTextArea.getText()), Integer.parseInt(birthYearTextArea.getText()), genderTextArea.getText(), streetTextArea.getText(), houseNumberTextArea.getText(), houseNumberAdditionTextArea.getText(), postalCodeTextArea.getText(), residenceTextArea.getText(), countryTextArea.getText());
 				sql.updateStudent(student);
 				window.setScene(studentOverviewScene.studentOverviewScene(window));

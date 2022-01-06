@@ -1,5 +1,7 @@
 package GUI;
 
+import java.util.Arrays;
+
 import database.CourseSQL;
 import domain.Course;
 import javafx.collections.ObservableList;
@@ -64,10 +66,10 @@ public class CourseOverviewScene {
         TableColumn<Course, String> topicCol = new TableColumn<Course, String>("Course topic");
         TableColumn<Course, String> introductionCol = new TableColumn<Course, String>("Course Introduction");
         TableColumn<Course, String> levelCol = new TableColumn<Course, String>("Course Level");
-        TableColumn editCol = new TableColumn("Edit");      
-        TableColumn deleteCol = new TableColumn("Delete");      
+        TableColumn<Course, String> editCol = new TableColumn<Course, String>("Edit");      
+        TableColumn<Course, String> deleteCol = new TableColumn<Course, String>("Delete");      
         
-        table.getColumns().addAll(nameCol, topicCol, introductionCol, levelCol, editCol, deleteCol);
+        table.getColumns().addAll(Arrays.asList(nameCol, topicCol, introductionCol, levelCol, editCol, deleteCol));
 
         ObservableList<Course> list = sql.getCourseList();
 
@@ -86,7 +88,7 @@ public class CourseOverviewScene {
 
         Callback<TableColumn<Course, String>, TableCell<Course, String>> editCellFactory = new Callback<TableColumn<Course, String>, TableCell<Course, String>>() {
             @Override
-            public TableCell call(final TableColumn<Course, String> param) {
+            public TableCell<Course, String> call(final TableColumn<Course, String> param) {
                 final TableCell<Course, String> cell = new TableCell<Course, String>() {
 
                     final Button editBtn = new Button("Edit");
@@ -112,7 +114,7 @@ public class CourseOverviewScene {
 
         Callback<TableColumn<Course, String>, TableCell<Course, String>> deletecellFactory = new Callback<TableColumn<Course, String>, TableCell<Course, String>>() {
             @Override
-            public TableCell call(final TableColumn<Course, String> param) {
+            public TableCell<Course, String> call(final TableColumn<Course, String> param) {
                 final TableCell<Course, String> cell = new TableCell<Course, String>() {
 
                     final Button deleteBtn = new Button("Delete");

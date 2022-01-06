@@ -53,11 +53,14 @@ public class RegistrationCreateScene extends domain.Validation{
 
         Button createRegistration = new Button("Create registration");
 		createRegistration.setPrefSize(120, 40);
+        createRegistration.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
 		createRegistration.setOnAction((event) -> {
-            Date date = Date.valueOf(LocalDate.now());
-            Registration registration = new Registration(date, current_student.getEmail(), cbxCourse.getSelectionModel().getSelectedItem(), 1);
-            sqlR.createRegistration(registration);
-            window.setScene(studentDetailScene.studentRegistrationScene(window, current_student));
+            if(!cbxCourse.getSelectionModel().getSelectedItem().isEmpty()){
+                Date date = Date.valueOf(LocalDate.now());
+                Registration registration = new Registration(date, current_student.getEmail(), cbxCourse.getSelectionModel().getSelectedItem());
+                sqlR.createRegistration(registration);
+                window.setScene(studentDetailScene.studentRegistrationScene(window, current_student));
+            }
 		});
 
         HBox buttonHBox = new HBox();

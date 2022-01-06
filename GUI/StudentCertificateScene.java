@@ -1,5 +1,7 @@
 package GUI;
 
+import java.util.Arrays;
+
 import database.CertificateSQL;
 import domain.Certificate;
 import domain.Student;
@@ -51,7 +53,7 @@ public class StudentCertificateScene {
         TableColumn<Certificate, String> gradeCol = new TableColumn<Certificate, String>("Certificate grade");
         TableColumn<Certificate, String> externalPersonIdCol = new TableColumn<Certificate, String>("External Person ID");
         
-        table.getColumns().addAll(idCol, gradeCol, externalPersonIdCol);
+        table.getColumns().addAll(Arrays.asList(idCol, gradeCol, externalPersonIdCol));
 
         ObservableList<Certificate> list = sqlC.getCertificateListFromStudent(current_student);
 

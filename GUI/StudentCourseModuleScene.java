@@ -75,9 +75,13 @@ public class StudentCourseModuleScene {
         Label moduleStatusLabel = new Label();
         moduleStatusLabel.setText(module.getStatus());
 
-        Label infoExPerLabel = new Label("Module external person: ");
-        Label moduleExPerLabel = new Label();
-        moduleExPerLabel.setText(sqlE.getExternalPersonNameById(module));
+        Label infoExPerNameLabel = new Label("Module contactperson name: ");
+        Label moduleExPerNameLabel = new Label();
+        moduleExPerNameLabel.setText(sqlE.getExternalPersonById(module).getName());
+
+        Label infoExPerEmailLabel = new Label("Module contactperson email: ");
+        Label moduleExPerEmailLabel = new Label();
+        moduleExPerEmailLabel.setText(sqlE.getExternalPersonById(module).getEmail());
 
         Label infoViewsLabel = new Label("Module views: ");
         Label moduleViewsLabel = new Label();
@@ -103,10 +107,12 @@ public class StudentCourseModuleScene {
         grid.add(moduleDateLabel, 1, 5 , 1, 1);
         grid.add(infoStatusLabel, 0, 6 , 1, 1);
         grid.add(moduleStatusLabel, 1, 6 , 1, 1);
-        grid.add(infoExPerLabel, 0, 7 , 1, 1);
-        grid.add(moduleExPerLabel, 1, 7 , 1, 1);
-        grid.add(infoViewsLabel, 0, 8 , 1, 1);
-        grid.add(moduleViewsLabel, 1, 8 , 1, 1);
+        grid.add(infoExPerNameLabel, 0, 7 , 1, 1);
+        grid.add(moduleExPerNameLabel, 1, 7 , 1, 1);
+        grid.add(infoExPerEmailLabel, 0, 8 , 1, 1);
+        grid.add(moduleExPerEmailLabel, 1, 8 , 1, 1);
+        grid.add(infoViewsLabel, 0, 9 , 1, 1);
+        grid.add(moduleViewsLabel, 1, 9 , 1, 1);
 
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(15, 15, 15, 15));

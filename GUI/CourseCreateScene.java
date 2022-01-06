@@ -74,7 +74,6 @@ public class CourseCreateScene {
 		createCourseButton.setPrefSize(120, 40);
 		createCourseButton.setFont(font);
 		createCourseButton.setStyle("-fx-background-color: #0B9EC3; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
-
 		createCourseButton.setOnAction((event) -> {
 			if(!nameTextArea.getText().isEmpty() && !topicTextArea.getText().isEmpty() && !introductionTextArea.getText().isEmpty() && !cbxLevel.getSelectionModel().getSelectedItem().name().isEmpty()){
 				Course course = new Course(nameTextArea.getText(), topicTextArea.getText(), introductionTextArea.getText(), cbxLevel.getSelectionModel().getSelectedItem().name());
