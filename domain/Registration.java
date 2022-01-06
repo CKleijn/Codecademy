@@ -15,6 +15,12 @@ public class Registration {
         this.certificateID = certificateID;
     }
 
+    public Registration(Date registrationDate, String studentEmail, String courseName){
+        this.registrationDate = registrationDate;
+        this.studentEmail = studentEmail;
+        this.courseName = courseName;
+    }
+
     public Date getRegistrationDate() {
         return registrationDate;
     }
