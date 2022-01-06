@@ -6,26 +6,24 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class StatisticSQL extends ConnectToDatabase {
-    // public String calculateGenderCertificates(String gender){
-    //     Connection conn = getConnection();
-    //     String query = "SELECT (SELECT COUNT(*) FROM Registration INNER JOIN Student ON Registration.StudentEmail = Student.StudentEmail WHERE Student.StudentGender = '" + gender + "' AND Registration.CertificateID IS NOT NULL) / (SELECT COUNT(*) FROM Registration INNER JOIN Student ON Registration.StudentEmail = Student.StudentEmail WHERE Student.StudentGender = '" + gender + "') * 100";
-    //     Statement st;
-    //     ResultSet rs;
-    //     try {
-    //         st = conn.createStatement();
-    //         rs = st.executeQuery(query);
-    //         String percentage;
-    //         while(rs.next()){
-    //             percentage = rs.getString();
-    //             return percentage;
-    //         }
-    //         System.out.println("got the webcasts!");
-    //     } catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
-
-    //     return null;
-    // }
+    public int calculateGenderCertificates(String gender){
+        Connection conn = getConnection();
+        String query = "SELECT (SELECT COUNT(*) * 1.0 FROM Registration INNER JOIN Student ON Registration.StudentEmail = Student.StudentEmail INNER JOIN Certificate ON Registration.CertificateID = Certificate.CertificateID WHERE Student.StudentGender = '" + gender + "' AND Registration.CertificateID IS NOT NULL)  / (SELECT COUNT(*) * 1.0 FROM Registration INNER JOIN Student ON Registration.StudentEmail = Student.StudentEmail WHERE Student.StudentGender = '" + gender + "') * 100.0  AS genderPercentage";
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            while(rs.next()){
+                int percentage = rs.getInt("genderPercentage");
+                return percentage;
+            }
+            System.out.println("got the percentages!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 
     public String[] getTop3MostViewedWebcasts() {
         Connection conn = getConnection();
