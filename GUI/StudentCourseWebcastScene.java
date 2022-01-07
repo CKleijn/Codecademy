@@ -19,7 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class StudentCourseWebcastScene {
+public class StudentCourseWebcastScene extends domain.Validation{
     ExternalPersonSQL sqlE = new ExternalPersonSQL();
     RegistrationSQL sqlR = new RegistrationSQL();
 
@@ -57,7 +57,13 @@ public class StudentCourseWebcastScene {
 
         Label infoURLLabel = new Label("Webcast URL: ");
         Label webcastVersionLabel = new Label();
-        webcastVersionLabel.setText(webcast.getUrl());
+
+        if(checkUrl(webcast.getUrl())){
+            webcastVersionLabel.setText(webcast.getUrl());
+        } else {
+            webcastVersionLabel.setText("The link was invalid");
+        }
+
 
         Label infoTitleLabel = new Label("Webcast title: ");
         Label webcastTitleLabel = new Label();

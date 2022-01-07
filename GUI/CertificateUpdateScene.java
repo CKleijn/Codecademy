@@ -58,7 +58,7 @@ public class CertificateUpdateScene extends domain.Validation{
 		updateCertificate.setPrefSize(120, 40);
         updateCertificate.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
 		updateCertificate.setOnAction((event) -> {
-            if(!gradeTextArea.getText().isEmpty() && !cbxExternalPerson.getSelectionModel().getSelectedItem().isEmpty()){
+            if(checkGrade(Integer.valueOf(gradeTextArea.getText())) && !cbxExternalPerson.getSelectionModel().getSelectedItem().isEmpty()){
                 Certificate certificate = new Certificate(current_certificate.getCertificateID(), Integer.valueOf(gradeTextArea.getText()), sqlE.findExternalPersonID(cbxExternalPerson.getSelectionModel().getSelectedItem()));
                 sqlC.updateCertificate(certificate);
                 window.setScene(studentCourseScene.studentCourseScene(window, registration, course, current_student));
