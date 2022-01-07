@@ -13,8 +13,9 @@ public class BaseGUI extends Application{
 		//Icon of the application (If the icon can't be found it gives and exception)
 		try {
 			window.getIcons().add(new Image(getClass().getResourceAsStream("../resources/icon.png")));
-		}catch(Exception e) {}
-		
+		} catch(Exception e) {
+			e.getMessage();
+		}
 		
 		window.setTitle("Codecademy");
 		window.setScene(homeScreen.homeScene(window));

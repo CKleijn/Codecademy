@@ -61,8 +61,7 @@ public class CertificateCreateScene extends domain.Validation{
         createCertificate.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
 		createCertificate.setOnAction((event) -> {
             if(!gradeTextArea.getText().isEmpty() && !cbxExternalPerson.getSelectionModel().getSelectedItem().isEmpty()){
-                Certificate certificate = new Certificate(Integer.valueOf(gradeTextArea.getText()), sqlE.findExternalPersonID(cbxExternalPerson.getSelectionModel().getSelectedItem()));
-                sqlC.createCertificate(certificate);
+                sqlC.createCertificate(new Certificate(Integer.valueOf(gradeTextArea.getText()), sqlE.findExternalPersonID(cbxExternalPerson.getSelectionModel().getSelectedItem())));
                 window.setScene(studentCourseScene.studentCourseScene(window, registration, course, current_student));
             }
 		});

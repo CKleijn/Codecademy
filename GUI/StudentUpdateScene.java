@@ -107,8 +107,7 @@ public class StudentUpdateScene extends domain.Validation {
 		editStudentButton.setOnAction((event) -> {
 			if(!checkEmail(emailTextArea.getText()) && checkDate(Integer.parseInt(birthDayTextArea.getText()), Integer.parseInt(birthMonthTextArea.getText()), Integer.parseInt(birthYearTextArea.getText())) 
 			&& checkPostalCode(postalCodeTextArea.getText()) && checkGender(genderTextArea.getText()) && !emailTextArea.getText().isEmpty() && !nameTextArea.getText().isEmpty() && !birthDayTextArea.getText().isEmpty() && !birthMonthTextArea.getText().isEmpty() && !birthYearTextArea.getText().isEmpty() && !genderTextArea.getText().isEmpty() && !streetTextArea.getText().isEmpty() && !houseNumberTextArea.getText().isEmpty() && !residenceTextArea.getText().isEmpty() && !countryTextArea.getText().isEmpty()){
-				Student student = new Student(emailTextArea.getText(), nameTextArea.getText(), Integer.parseInt(birthDayTextArea.getText()), Integer.parseInt(birthMonthTextArea.getText()), Integer.parseInt(birthYearTextArea.getText()), genderTextArea.getText(), streetTextArea.getText(), houseNumberTextArea.getText(), houseNumberAdditionTextArea.getText(), postalCodeTextArea.getText(), residenceTextArea.getText(), countryTextArea.getText());
-				sql.updateStudent(student);
+				sql.updateStudent(new Student(emailTextArea.getText(), nameTextArea.getText(), Integer.parseInt(birthDayTextArea.getText()), Integer.parseInt(birthMonthTextArea.getText()), Integer.parseInt(birthYearTextArea.getText()), genderTextArea.getText(), streetTextArea.getText(), houseNumberTextArea.getText(), houseNumberAdditionTextArea.getText(), postalCodeTextArea.getText(), residenceTextArea.getText(), countryTextArea.getText()));
 				window.setScene(studentOverviewScene.studentOverviewScene(window));
 			}
 		});
