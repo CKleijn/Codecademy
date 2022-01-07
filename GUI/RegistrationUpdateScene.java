@@ -56,9 +56,7 @@ public class RegistrationUpdateScene extends domain.Validation{
         updateRegistration.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
 		updateRegistration.setOnAction((event) -> {
             if(!cbxCourse.getSelectionModel().getSelectedItem().isEmpty()){
-                Date date = Date.valueOf(LocalDate.now());
-                Registration registration = new Registration(date, current_student.getEmail(), cbxCourse.getSelectionModel().getSelectedItem(), 1);
-                sqlR.updateRegistration(current_registration, registration);
+                sqlR.updateRegistration(current_registration, new Registration(Date.valueOf(LocalDate.now()), current_student.getEmail(), cbxCourse.getSelectionModel().getSelectedItem()));
                 window.setScene(studentDetailScene.studentRegistrationScene(window, current_student));
             }
 		});

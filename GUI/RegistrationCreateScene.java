@@ -56,9 +56,7 @@ public class RegistrationCreateScene extends domain.Validation{
         createRegistration.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
 		createRegistration.setOnAction((event) -> {
             if(!cbxCourse.getSelectionModel().getSelectedItem().isEmpty()){
-                Date date = Date.valueOf(LocalDate.now());
-                Registration registration = new Registration(date, current_student.getEmail(), cbxCourse.getSelectionModel().getSelectedItem());
-                sqlR.createRegistration(registration);
+                sqlR.createRegistration(new Registration(Date.valueOf(LocalDate.now()), current_student.getEmail(), cbxCourse.getSelectionModel().getSelectedItem()));
                 window.setScene(studentDetailScene.studentRegistrationScene(window, current_student));
             }
 		});
