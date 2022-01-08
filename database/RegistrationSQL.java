@@ -100,25 +100,80 @@ public class RegistrationSQL extends ConnectToDatabase {
         return webcasts;
     }
 
-    public String getViews(Registration registration, Item item) {
+    public int getViews(Registration registration, Item item) {
         Connection conn = getConnection();
         String query = "SELECT * FROM Student_View_Item WHERE StudentEmail = '" + registration.getStudentEmail() + "' AND ItemID = " + item.getItemId();
         Statement st;
         ResultSet rs;
-        String viewCount;
 
         try {
             st = conn.createStatement();
             rs = st.executeQuery(query);
             while(rs.next()) {
-                int views = rs.getInt("ItemViews");
-                viewCount = String.valueOf(views);
+                int viewCount = rs.getInt("ItemViews");
                 return viewCount;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return 0;
+    }
+
+    public int getAverageViews(Item item) {
+        Connection conn = getConnection();
+        String query = "SELECT (SELECT SUM(Student_View_Item.ItemViews) AS TotalViews FROM Student_View_Item INNER JOIN Item ON Student_View_Item.ItemID = Item.ItemID WHERE Item.ItemTitle = '" + item.getTitle() + "') / (SELECT COUNT(*) FROM Student_View_Item INNER JOIN Item ON Student_View_Item.ItemID = Item.ItemID WHERE Item.ItemTitle = '" + item.getTitle() + "') AS AverageViews";
+        Statement st;
+        ResultSet rs;
+
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            while(rs.next()) {
+                int averageViews = rs.getInt("AverageViews");
+                return averageViews;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public int getProgress(Registration registration, Item item) {
+        Connection conn = getConnection();
+        String query = "SELECT * FROM Student_View_Item WHERE StudentEmail = '" + registration.getStudentEmail() + "' AND ItemID = " + item.getItemId();
+        Statement st;
+        ResultSet rs;
+
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            while(rs.next()) {
+                int itemProgress = rs.getInt("ItemProgress");
+                return itemProgress;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public int getAverageProgress(Item item) {
+        Connection conn = getConnection();
+        String query = "SELECT (SELECT SUM(Student_View_Item.ItemProgress) AS TotalProgress FROM Student_View_Item INNER JOIN Item ON Student_View_Item.ItemID = Item.ItemID WHERE Item.ItemTitle = '" + item.getTitle() + "') / (SELECT COUNT(*) FROM Student_View_Item INNER JOIN Item ON Student_View_Item.ItemID = Item.ItemID WHERE Item.ItemTitle = '" + item.getTitle() + "') AS AverageProgress";
+        Statement st;
+        ResultSet rs;
+
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            while(rs.next()) {
+                int averageProgress = rs.getInt("AverageProgress");
+                return averageProgress;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     public void createRegistration(Registration registration) {

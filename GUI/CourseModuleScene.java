@@ -19,12 +19,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class StudentCourseModuleScene {
+public class CourseModuleScene {
     ExternalPersonSQL sqlE = new ExternalPersonSQL();
     RegistrationSQL sqlR = new RegistrationSQL();
 
-    public Scene studentCourseModuleScene(Stage window, Module module, Registration registration, Course course, Student current_student) {
-        StudentCourseScene studentCourseScene = new StudentCourseScene();
+    public Scene courseModuleScene(Stage window, Module module, Course course) {
+        CourseDetailPage courseDetailPage = new CourseDetailPage();
 
         //Layout of the text in the buttons
         Font font = Font.font("Verdana");
@@ -41,7 +41,7 @@ public class StudentCourseModuleScene {
         backButton.setFont(font);
         backButton.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
         backButton.setOnAction((event) -> {
-            window.setScene(studentCourseScene.studentCourseScene(window, registration, course, current_student));
+            window.setScene(courseDetailPage.CourseDetailScene(window, course));
         });
 
         HBox menu = new HBox(backButton);
@@ -83,13 +83,13 @@ public class StudentCourseModuleScene {
         Label moduleExPerEmailLabel = new Label();
         moduleExPerEmailLabel.setText(sqlE.getExternalPersonById(module).getEmail());
 
-        Label infoViewsLabel = new Label("Module views: ");
+        Label infoViewsLabel = new Label("Module average views: ");
         Label moduleViewsLabel = new Label();
-        moduleViewsLabel.setText(String.valueOf(sqlR.getViews(registration, module)));
+        moduleViewsLabel.setText(String.valueOf(sqlR.getAverageViews(module)));
 
-        Label infoProgressLabel = new Label("Module progress: ");
+        Label infoProgressLabel = new Label("Module average progress: ");
         Label moduleProgressLabel = new Label();
-        moduleProgressLabel.setText(String.valueOf(sqlR.getProgress(registration, module) + "%"));
+        moduleProgressLabel.setText(String.valueOf(sqlR.getAverageProgress(module) + "%"));
 
         GridPane grid = new GridPane();
         

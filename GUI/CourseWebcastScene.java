@@ -3,9 +3,9 @@ package GUI;
 import database.ExternalPersonSQL;
 import database.RegistrationSQL;
 import domain.Course;
-import domain.Webcast;
 import domain.Registration;
 import domain.Student;
+import domain.Webcast;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -19,12 +19,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class StudentCourseWebcastScene extends domain.Validation{
+public class CourseWebcastScene {
     ExternalPersonSQL sqlE = new ExternalPersonSQL();
     RegistrationSQL sqlR = new RegistrationSQL();
 
-    public Scene studentCourseWebcastScene(Stage window, Webcast webcast, Registration registration, Course course, Student current_student) {
-        StudentCourseScene studentCourseScene = new StudentCourseScene();
+    public Scene courseWebcastScene(Stage window, Webcast webcast, Course course) {
+        CourseDetailPage courseDetailPage = new CourseDetailPage();
 
         //Layout of the text in the buttons
         Font font = Font.font("Verdana");
@@ -41,28 +41,23 @@ public class StudentCourseWebcastScene extends domain.Validation{
         backButton.setFont(font);
         backButton.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
         backButton.setOnAction((event) -> {
-            window.setScene(studentCourseScene.studentCourseScene(window, registration, course, current_student));
+            window.setScene(courseDetailPage.CourseDetailScene(window, course));
         });
 
         HBox menu = new HBox(backButton);
         menu.setSpacing(10);
 
         Label infoIDLabel = new Label("Webcast ID: ");
-        Label moduleIDLabel = new Label();
-        moduleIDLabel.setText(String.valueOf(webcast.getItemId()));
+        Label webcastIDLabel = new Label();
+        webcastIDLabel.setText(String.valueOf(webcast.getItemId()));
 
         Label infoDurationLabel = new Label("Webcast duration: ");
         Label webcastDurationLabel = new Label();
         webcastDurationLabel.setText(String.valueOf(webcast.getDuration()) + " minutes");
 
         Label infoURLLabel = new Label("Webcast URL: ");
-        Label webcastVersionLabel = new Label();
-
-        if(checkUrl(webcast.getUrl())){
-            webcastVersionLabel.setText(webcast.getUrl());
-        } else {
-            webcastVersionLabel.setText("The link was invalid");
-        }
+        Label webcastURLLabel = new Label();
+        webcastURLLabel.setText(webcast.getUrl());
 
         Label infoTitleLabel = new Label("Webcast title: ");
         Label webcastTitleLabel = new Label();
@@ -88,13 +83,13 @@ public class StudentCourseWebcastScene extends domain.Validation{
         Label webcastExPerOrganisationLabel = new Label();
         webcastExPerOrganisationLabel.setText(sqlE.getExternalPersonById(webcast).getOrganisation());
 
-        Label infoViewsLabel = new Label("Webcast views: ");
+        Label infoViewsLabel = new Label("Webcast average views: ");
         Label webcastViewsLabel = new Label();
-        webcastViewsLabel.setText(String.valueOf(sqlR.getViews(registration, webcast)));
+        webcastViewsLabel.setText(String.valueOf(sqlR.getAverageViews(webcast)));
 
-        Label infoProgressLabel = new Label("Webcast progress: ");
+        Label infoProgressLabel = new Label("Webcast average progress: ");
         Label webcastProgressLabel = new Label();
-        webcastProgressLabel.setText(String.valueOf(sqlR.getProgress(registration, webcast) + "%"));
+        webcastProgressLabel.setText(String.valueOf(sqlR.getAverageProgress(webcast) + "%"));
 
         GridPane grid = new GridPane();
         
@@ -102,11 +97,11 @@ public class StudentCourseWebcastScene extends domain.Validation{
 		grid.setHgap(5);
 		grid.setVgap(5);
         grid.add(infoIDLabel, 0, 0 , 1, 1);
-        grid.add(moduleIDLabel, 1, 0 , 1, 1);
+        grid.add(webcastIDLabel, 1, 0 , 1, 1);
         grid.add(infoDurationLabel, 0, 1 , 1, 1);
         grid.add(webcastDurationLabel, 1, 1 , 1, 1);
         grid.add(infoURLLabel, 0, 2 , 1, 1);
-        grid.add(webcastVersionLabel, 1, 2 , 1, 1);
+        grid.add(webcastURLLabel, 1, 2 , 1, 1);
         grid.add(infoTitleLabel, 0, 3 , 1, 1);
         grid.add(webcastTitleLabel, 1, 3 , 1, 1);
         grid.add(infoDescLabel, 0, 4 , 1, 1);

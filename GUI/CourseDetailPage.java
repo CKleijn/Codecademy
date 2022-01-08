@@ -2,6 +2,8 @@ package GUI;
 
 import database.CourseSQL;
 import domain.Course;
+import domain.Module;
+import domain.Webcast;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -24,6 +26,9 @@ public class CourseDetailPage {
         CourseOverviewScene courseOverviewScene = new CourseOverviewScene();
         CourseModifyModules courseModifyModules = new CourseModifyModules();
         CourseModifyWebcasts courseModifyWebcasts = new CourseModifyWebcasts();
+        CourseModuleScene courseModuleScene = new CourseModuleScene();
+        CourseWebcastScene courseWebcastScene = new CourseWebcastScene();
+        CourseDetailPage courseDetailPage = new CourseDetailPage();
 
         //Layout of the text in the buttons
         Font font = Font.font("Verdana");
@@ -88,27 +93,39 @@ public class CourseDetailPage {
 
         Label infoModulesLabel = new Label("Modules: ");
         int j = 6;
-        for(String module : sql.getSpecificModules(course)){
-            Label label = new Label(module);
-            grid.add(label, 1, j, 1, 1);
+        for(Module module : sql.getSpecificModules(course)){
+            Button button = new Button(module.getTitle());
+            button.setOnAction((event) -> {
+                window.setScene(courseModuleScene.courseModuleScene(window, module, course));
+            });
+            button.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
+            grid.add(button, 1, j, 1, 1);
             j++;
         }
 
         Label infoWebcastLabel = new Label("Webcasts: ");
         j+=2;
         grid.add(infoWebcastLabel, 0, j, 1, 1) ;
-        for(String webcast : sql.getSpecificWebcasts(course)){
-            Label label = new Label(webcast);
-            grid.add(label, 1, j, 1, 1);
+        for(Webcast webcast : sql.getSpecificWebcasts(course)){
+            Button button = new Button(webcast.getTitle());
+            button.setOnAction((event) -> {
+                window.setScene(courseWebcastScene.courseWebcastScene(window, webcast, course));
+            });
+            button.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
+            grid.add(button, 1, j, 1, 1);
             j++;
         }
 
         Label hasRelevantLabel = new Label("Relevant courses: ");
         j+=2;
         grid.add(hasRelevantLabel, 0, j, 1, 1);
-        for(String relCourse : sql.relevantCourses(course)){
-            Label label = new Label(relCourse);
-            grid.add(label, 1, j, 1, 1);
+        for(Course relCourse : sql.relevantCourses(course)){
+            Button button = new Button(relCourse.getName());
+            button.setOnAction((event) -> {
+                window.setScene(courseDetailPage.CourseDetailScene(window, relCourse));
+            });
+            button.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
+            grid.add(button, 1, j, 1, 1);
             j++;
         }
         
