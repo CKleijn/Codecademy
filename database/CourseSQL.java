@@ -1,6 +1,8 @@
 package database;
 
 import domain.Course;
+import domain.Module;
+import domain.Webcast;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -149,68 +151,57 @@ public class CourseSQL extends ConnectToDatabase {
             e.printStackTrace();
         }
 
-        String[] strModules = new String[webcasts.size()];
+        String[] strWebcasts = new String[webcasts.size()];
         for(int i = 0; i < webcasts.size(); i++){
-            strModules[i] = webcasts.get(i);
+            strWebcasts[i] = webcasts.get(i);
         }
 
-        return strModules;
+        return strWebcasts;
     }
 
-    public String[] getSpecificModules(Course course) {
+    public ArrayList<Module> getSpecificModules(Course course) {
         Connection conn = getConnection();
-        ArrayList<String> modules = new ArrayList<>();
-        String query = "SELECT ItemTitle FROM Item JOIN Module ON Item.ItemID = Module.ItemID WHERE CourseName = '" + course.getName() + "'";
+        ArrayList<Module> modules = new ArrayList<>();
+        String query = "SELECT * FROM Item JOIN Module ON Item.ItemID = Module.ItemID WHERE CourseName = '" + course.getName() + "'";
         Statement st;
         ResultSet rs;
         try {
             st = conn.createStatement();
             rs = st.executeQuery(query);
-            String moduleTitle;
+            Module module;
             while(rs.next()){
-                moduleTitle = new String(rs.getString("ItemTitle"));
-                modules.add(moduleTitle);
+                module = new Module(rs.getInt("ItemID"), rs.getString("ItemTitle"), rs.getString("ItemDescription"), rs.getDate("ItemPublicationDate"), rs.getInt("ExternalPersonID"), rs.getString("ItemStatus"), rs.getInt("ModuleSerialNumber"), rs.getString("ModuleVersion"));
+                modules.add(module);
             }
             System.out.println("got the modules!");
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        String[] strModules = new String[modules.size()];
-        for(int i = 0; i < modules.size(); i++){
-            strModules[i] = modules.get(i);
-        }
-
-        return strModules;
+        return modules;
 
     }
 
-    public String[] getSpecificWebcasts(Course course) {
+    public ArrayList<Webcast> getSpecificWebcasts(Course course) {
         Connection conn = getConnection();
-        ArrayList<String> modules = new ArrayList<>();
-        String query = "SELECT ItemTitle FROM Item JOIN Webcast ON Item.ItemID = Webcast.ItemID WHERE CourseName = '" + course.getName() + "'";
+        ArrayList<Webcast> webcasts = new ArrayList<>();
+        String query = "SELECT * FROM Item JOIN Webcast ON Item.ItemID = Webcast.ItemID WHERE CourseName = '" + course.getName() + "'";
         Statement st;
         ResultSet rs;
         try {
             st = conn.createStatement();
             rs = st.executeQuery(query);
-            String moduleTitle;
+            Webcast webcast;
             while(rs.next()){
-                moduleTitle = new String(rs.getString("ItemTitle"));
-                modules.add(moduleTitle);
+                webcast = new Webcast(rs.getInt("ItemID"), rs.getString("ItemTitle"), rs.getString("ItemDescription"), rs.getDate("ItemPublicationDate"), rs.getInt("ExternalPersonID"), rs.getString("ItemStatus"), rs.getInt("WebcastDuration"), rs.getString("WebcastURL"));
+                webcasts.add(webcast);
             }
             System.out.println("got the webcasts!");
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        String[] strModules = new String[modules.size()];
-        for(int i = 0; i < modules.size(); i++){
-            strModules[i] = modules.get(i);
-        }
-
-        return strModules;
-
+        return webcasts;
     }
 
     
@@ -241,19 +232,19 @@ public class CourseSQL extends ConnectToDatabase {
         }
     }
 
-    public String[] relevantCourses(Course course){
+    public ArrayList<Course> relevantCourses(Course course){
         Connection conn = getConnection();
-        ArrayList<String> relCourses = new ArrayList<>();
-        String query = "SELECT CourseName FROM Course WHERE CourseTopic = '" + course.getTopic() + "'";
+        ArrayList<Course> relCourses = new ArrayList<>();
+        String query = "SELECT * FROM Course WHERE CourseTopic = '" + course.getTopic() + "'";
         Statement st;
         ResultSet rs;
         try {
             st = conn.createStatement();
             rs = st.executeQuery(query);
-            String relcourse;
+            Course relcourse;
             while(rs.next()){
-                relcourse = new String(rs.getString("CourseName"));
-                if(!relcourse.equals(course.getName())){
+                relcourse = new Course(rs.getString("CourseName"), rs.getString("CourseTopic"), rs.getString("CourseIntroduction"), rs.getString("CourseLevel"));
+                if(!relcourse.getName().equals(course.getName())){
                     relCourses.add(relcourse);
                 }
             }
@@ -262,12 +253,7 @@ public class CourseSQL extends ConnectToDatabase {
             e.printStackTrace();
         }
 
-        String[] strRelcourse = new String[relCourses.size()];
-        for(int i = 0; i < relCourses.size(); i++){
-            strRelcourse[i] = relCourses.get(i);
-        }
-
-        return strRelcourse;
+        return relCourses;
     }
 
     public int obtainedCertificates(Course course) {

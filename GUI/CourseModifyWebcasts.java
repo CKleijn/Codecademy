@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import database.CourseSQL;
 import domain.Course;
+import domain.Webcast;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -55,8 +56,8 @@ public class CourseModifyWebcasts {
 
         //make a loop to iterate trough the modules that aren't added to a course yet
         int i = 0;
-        for(String module : sql.getWebcasts()){
-            CheckBox checkbox = new CheckBox(module);
+        for(String webcast : sql.getWebcasts()){
+            CheckBox checkbox = new CheckBox(webcast);
             checkBoxes.add(checkbox);
             
             grid.add(checkbox, 0, i, 1, 1);
@@ -64,8 +65,8 @@ public class CourseModifyWebcasts {
         }
 
         //make a loop to iterate trough the modules that are added to the selected course
-        for(String module : sql.getSpecificWebcasts(course)){
-            CheckBox checkBox = new CheckBox(module);
+        for(Webcast webcast : sql.getSpecificWebcasts(course)){
+            CheckBox checkBox = new CheckBox(webcast.getTitle());
             checkBoxes.add(checkBox);
             checkBox.setSelected(true);
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import database.CourseSQL;
 import domain.Course;
+import domain.Module;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -64,8 +65,8 @@ public class CourseModifyModules {
         }
 
         //make a loop to iterate trough the modules that are added to the selected course
-        for(String module : sql.getSpecificModules(course)){
-            CheckBox checkBox = new CheckBox(module);
+        for(Module module : sql.getSpecificModules(course)){
+            CheckBox checkBox = new CheckBox(module.getTitle());
             checkBoxes.add(checkBox);
             checkBox.setSelected(true);
 
