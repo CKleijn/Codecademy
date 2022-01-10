@@ -45,10 +45,8 @@ public class CourseUpdateScene extends domain.Validation{
         });
 
         //Course
-		Label nameLabel = new Label("Name: ");
 		TextArea nameTextArea = new TextArea();
         nameTextArea.setText(old_course.getName());
-		nameTextArea.setPrefHeight(12);
 		
 		Label topicLabel = new Label("Topic: ");
 		TextArea topicTextArea = new TextArea();
@@ -94,8 +92,6 @@ public class CourseUpdateScene extends domain.Validation{
 		grid.setPadding(new Insets(50, 50, 50, 50));
 		grid.setHgap(5);
 		grid.setVgap(5);
-		grid.add(nameLabel, 0, 0 , 1, 1);
-		grid.add(nameTextArea, 1, 0 , 1, 1);
 		grid.add(topicLabel, 0, 1 , 1, 1);
 		grid.add(topicTextArea, 1, 1 , 1, 1);
 		grid.add(introductionLabel, 0, 2 , 1, 1);

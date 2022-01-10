@@ -4,8 +4,6 @@ import database.ExternalPersonSQL;
 import database.RegistrationSQL;
 import domain.Course;
 import domain.Module;
-import domain.Registration;
-import domain.Student;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;

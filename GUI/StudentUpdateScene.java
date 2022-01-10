@@ -41,11 +41,8 @@ public class StudentUpdateScene extends domain.Validation {
         });
 
         //Student
-		Label emailLabel = new Label("Email: ");
 		TextArea emailTextArea = new TextArea();
         emailTextArea.setText(old_student.getEmail());
-		emailTextArea.setPrefHeight(12);
-		emailTextArea.setDisable(true);
 		
 		Label nameLabel = new Label("Name: ");
 		TextArea nameTextArea = new TextArea();
@@ -119,8 +116,6 @@ public class StudentUpdateScene extends domain.Validation {
 		grid.setPadding(new Insets(50, 50, 50, 50));
 		grid.setHgap(5);
 		grid.setVgap(5);
-		grid.add(emailLabel, 0, 0 , 1, 1);
-		grid.add(emailTextArea, 1, 0 , 1, 1);
 		grid.add(nameLabel, 0, 1 , 1, 1);
 		grid.add(nameTextArea, 1, 1 , 1, 1);
 		grid.add(birthDayLabel, 0, 2 , 1, 1);

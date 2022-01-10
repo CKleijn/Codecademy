@@ -60,7 +60,16 @@ public class StudentCourseScene {
             window.setScene(certificateCreateScene.certificateCreateScene(window, registration, course, current_student));
         });
 
-        HBox menu = new HBox(backButton, createButton);
+        Button checkButton = new Button("Check certificates");
+        checkButton.setPrefSize(80, 37);
+        checkButton.setFont(font);
+		checkButton.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
+        checkButton.setOnAction((event) -> {
+            sqlC.checkIfStudentReceiveCertificate(sqlC.getSingleCertificateFromStudentForSpecificCourse(course, current_student), registration);
+            window.setScene(studentCourseScene(window, registration, course, current_student));
+        });
+
+        HBox menu = new HBox(backButton, createButton, checkButton);
         menu.setSpacing(10);
 
         Label infoNameLabel = new Label("Course name: ");
@@ -106,7 +115,7 @@ public class StudentCourseScene {
         }
 
         int k = 4;
-        for (Certificate certificate : sqlC.getCertificateFromStudentForSpecificCourse(course, current_student)) {
+        for (Certificate certificate : sqlC.getCertificatesFromStudentForSpecificCourse(course, current_student)) {
             Label infoCertificateLabel = new Label("Certificate: ");
             Label certificateGradeLabel = new Label("Certificate grade: " + String.valueOf(certificate.getCertificateGrade()));
             Label certificateExternalPersonLabel = new Label("Certificate employee: " + sqlE.getEmployeeNameById(certificate));

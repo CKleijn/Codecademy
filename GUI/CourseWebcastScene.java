@@ -3,8 +3,6 @@ package GUI;
 import database.ExternalPersonSQL;
 import database.RegistrationSQL;
 import domain.Course;
-import domain.Registration;
-import domain.Student;
 import domain.Webcast;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
