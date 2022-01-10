@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import domain.Certificate;
 import domain.Course;
+import domain.Registration;
 import domain.Student;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,7 +16,7 @@ public class CertificateSQL extends ConnectToDatabase {
     public ObservableList<Certificate> getCertificateListFromStudent(Student student) {
         ObservableList<Certificate> certificateList = FXCollections.observableArrayList();
         Connection conn = getConnection();
-        String query = "SELECT * FROM Certificate INNER JOIN Registration ON Certificate.CertificateID = Registration.CertificateID WHERE StudentEmail = '" + student.getEmail() + "'";
+        String query = "SELECT * FROM Certificate INNER JOIN Registration ON Certificate.CertificateID = Registration.CertificateID WHERE Registration.StudentEmail = '" + student.getEmail() + "'";
         Statement st;
         ResultSet rs;
         
@@ -24,7 +25,7 @@ public class CertificateSQL extends ConnectToDatabase {
             rs = st.executeQuery(query);
             Certificate certificate;
             while(rs.next()) {
-                certificate = new Certificate(rs.getInt("CertificateID"), rs.getInt("CertificateGrade"), rs.getInt("ExternalPersonID"));
+                certificate = new Certificate(rs.getInt("CertificateID"), rs.getInt("CertificateGrade"), rs.getInt("ExternalPersonID"), rs.getString("StudentEmail"), rs.getString("CourseName"));
                 certificateList.add(certificate);
             }
         } catch (Exception e) {
@@ -33,7 +34,7 @@ public class CertificateSQL extends ConnectToDatabase {
         return certificateList;
     }
 
-    public Certificate[] getCertificateFromStudentForSpecificCourse(Course course, Student student) {
+    public Certificate[] getCertificatesFromStudentForSpecificCourse(Course course, Student student) {
         Connection conn = getConnection();
         ArrayList<Certificate> certificates = new ArrayList<>();
         String query = "SELECT * FROM Certificate INNER JOIN Registration ON Certificate.CertificateID = Registration.CertificateID WHERE Registration.CourseName = '" + course.getName() + "' AND Registration.StudentEmail = '" + student.getEmail() + "'";
@@ -44,7 +45,7 @@ public class CertificateSQL extends ConnectToDatabase {
             rs = st.executeQuery(query);
             Certificate certificate;
             while(rs.next()){
-                certificate = new Certificate(rs.getInt("CertificateID"), rs.getInt("CertificateGrade"), rs.getInt("ExternalPersonID"));
+                certificate = new Certificate(rs.getInt("CertificateID"), rs.getInt("CertificateGrade"), rs.getInt("ExternalPersonID"), rs.getString("StudentEmail"), rs.getString("CourseName"));
                 certificates.add(certificate);
             }
             System.out.println("got the certificates!");
@@ -61,9 +62,53 @@ public class CertificateSQL extends ConnectToDatabase {
 
     }
 
+    public Certificate getSingleCertificateFromStudentForSpecificCourse(Course course, Student student) {
+        Connection conn = getConnection();
+        String query = "SELECT * FROM Certificate WHERE Certificate.CourseName = '" + course.getName() + "' AND Certificate.StudentEmail = '" + student.getEmail() + "'";
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            Certificate certificate;
+            while(rs.next()){
+                certificate = new Certificate(rs.getInt("CertificateID"), rs.getInt("CertificateGrade"), rs.getInt("ExternalPersonID"), rs.getString("StudentEmail"), rs.getString("CourseName"));
+                return certificate;
+            }
+            System.out.println("got the certificate!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+
+    }
+
+    public void checkIfStudentReceiveCertificate(Certificate certificate, Registration registration) {
+        Connection conn = getConnection();
+        String querySelect = "SELECT (SELECT SUM(ItemProgress) FROM Registration INNER JOIN Student_View_Item ON Registration.StudentEmail = Student_View_Item.StudentEmail INNER JOIN Item ON Student_View_Item.ItemID = Item.ItemID WHERE Registration.StudentEmail = '" + certificate.getStudentEmail() + "' AND Registration.CourseName = '" + certificate.getCourseName()  + "' AND Item.CourseName = '" + certificate.getCourseName() + "' AND NOT Item.ItemStatus = 'CONCEPT') / (SELECT COUNT(*) FROM Registration INNER JOIN Student_View_Item ON Registration.StudentEmail = Student_View_Item.StudentEmail INNER JOIN Item ON Student_View_Item.ItemID = Item.ItemID WHERE Registration.StudentEmail = '" + certificate.getStudentEmail() + "' AND Registration.CourseName = '" + certificate.getCourseName() + "' AND Item.CourseName = '" + certificate.getCourseName() + "' AND NOT Item.ItemStatus = 'CONCEPT') AS AverageProgress";
+        String queryInsert = "UPDATE Registration SET RegistrationDate = '" + registration.getRegistrationDate() + "', StudentEmail = '" + registration.getStudentEmail() + "', CourseName = '" + registration.getCourseName() + "', CertificateID = '" + certificate.getCertificateID() + "' WHERE RegistrationDate = '" + registration.getRegistrationDate() + "' AND StudentEmail = '" + registration.getStudentEmail() + "' AND CourseName = '" + registration.getCourseName() + "'";
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(querySelect);
+            while(rs.next()){
+                if(rs.getInt("AverageProgress") == 100) {
+                    st = conn.createStatement();
+                    st.executeQuery(queryInsert);
+                } else {
+                    System.out.println("Oops");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void createCertificate(Certificate certificate) {
         Connection conn = getConnection();
-        String query = "INSERT INTO Certificate VALUES ('" + certificate.getCertificateGrade() + "', '" + certificate.getExternalPersonID() + "')";
+        String query = "INSERT INTO Certificate VALUES ('" + certificate.getCertificateGrade() + "', '" + certificate.getExternalPersonID() + "', '" + certificate.getStudentEmail() + "', '" + certificate.getCourseName() + "')";
         Statement st;
 
         try {
@@ -77,7 +122,7 @@ public class CertificateSQL extends ConnectToDatabase {
 
     public void updateCertificate(Certificate certificate) {
         Connection conn = getConnection();
-        String query = "UPDATE Certificate SET CertificateGrade = '" + certificate.getCertificateGrade() + "', ExternalPersonID = '" + certificate.getExternalPersonID() + "' WHERE CertificateID = '" + certificate.getCertificateID() + "'";
+        String query = "UPDATE Certificate SET CertificateGrade = '" + certificate.getCertificateGrade() + "', ExternalPersonID = '" + certificate.getExternalPersonID() + "', StudentEmail = '" + certificate.getStudentEmail() + "', CourseName = '" + certificate.getCourseName() + "' WHERE CertificateID = '" + certificate.getCertificateID() + "'";
         Statement st;
 
         try {
@@ -91,12 +136,15 @@ public class CertificateSQL extends ConnectToDatabase {
 
     public void deleteCertificate(Certificate certificate) {
         Connection conn = getConnection();
-        String query = "DELETE FROM Certificate WHERE CertificateID = '" + certificate.getCertificateID() + "'";
+        String queryDelete = "DELETE FROM Certificate WHERE CertificateID = '" + certificate.getCertificateID() + "'";
+        String queryUpdate = "UPDATE Registration SET CertificateID = NULL WHERE CertificateID = '" + certificate.getCertificateID() + "'";
         Statement st;
 
         try {
             st = conn.createStatement();
-            st.executeQuery(query);
+            st.executeQuery(queryUpdate);
+            System.out.println("CertificateID set null!");
+            st.executeQuery(queryDelete);
             System.out.println("Certificate deleted!");
         } catch (Exception e) {
             e.printStackTrace();

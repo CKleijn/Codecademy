@@ -178,7 +178,7 @@ public class RegistrationSQL extends ConnectToDatabase {
 
     public void createRegistration(Registration registration) {
         Connection conn = getConnection();
-        String query = "INSERT INTO Registration VALUES ('" + registration.getRegistrationDate() + "', '" + registration.getStudentEmail() + "', '" + registration.getCourseName() + "', '" + registration.getCertificateID() + "')";
+        String query = "INSERT INTO Registration VALUES ('" + registration.getRegistrationDate() + "', '" + registration.getStudentEmail() + "', '" + registration.getCourseName() + "', NULL)";
         Statement st;
 
         try {
