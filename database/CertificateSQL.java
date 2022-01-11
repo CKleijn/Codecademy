@@ -12,7 +12,10 @@ import domain.Student;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+//Class that runs different queries on the Certificate table in the connected database
 public class CertificateSQL extends ConnectToDatabase {
+
+    //Method that returns all of the Certificate records belonging to a given Student
     public ObservableList<Certificate> getCertificateListFromStudent(Student student) {
         ObservableList<Certificate> certificateList = FXCollections.observableArrayList();
         Connection conn = getConnection();
@@ -34,6 +37,7 @@ public class CertificateSQL extends ConnectToDatabase {
         return certificateList;
     }
 
+    //Method that returns all of the Certificate records belonging to a given Course and Student
     public Certificate[] getCertificatesFromStudentForSpecificCourse(Course course, Student student) {
         Connection conn = getConnection();
         ArrayList<Certificate> certificates = new ArrayList<>();
@@ -62,6 +66,7 @@ public class CertificateSQL extends ConnectToDatabase {
 
     }
 
+    //Method that returns a single Certificate record belonging to a given Course and Student
     public Certificate getSingleCertificateFromStudentForSpecificCourse(Course course, Student student) {
         Connection conn = getConnection();
         String query = "SELECT * FROM Certificate WHERE Certificate.CourseName = '" + course.getName() + "' AND Certificate.StudentEmail = '" + student.getEmail() + "'";
@@ -84,6 +89,7 @@ public class CertificateSQL extends ConnectToDatabase {
 
     }
 
+    //Method that checks if a given Registration has a linked Certificate
     public void checkIfStudentReceiveCertificate(Certificate certificate, Registration registration) {
         Connection conn = getConnection();
         String querySelect = "SELECT (SELECT SUM(ItemProgress) FROM Registration INNER JOIN Student_View_Item ON Registration.StudentEmail = Student_View_Item.StudentEmail INNER JOIN Item ON Student_View_Item.ItemID = Item.ItemID WHERE Registration.StudentEmail = '" + certificate.getStudentEmail() + "' AND Registration.CourseName = '" + certificate.getCourseName()  + "' AND Item.CourseName = '" + certificate.getCourseName() + "' AND NOT Item.ItemStatus = 'CONCEPT') / (SELECT COUNT(*) FROM Registration INNER JOIN Student_View_Item ON Registration.StudentEmail = Student_View_Item.StudentEmail INNER JOIN Item ON Student_View_Item.ItemID = Item.ItemID WHERE Registration.StudentEmail = '" + certificate.getStudentEmail() + "' AND Registration.CourseName = '" + certificate.getCourseName() + "' AND Item.CourseName = '" + certificate.getCourseName() + "' AND NOT Item.ItemStatus = 'CONCEPT') AS AverageProgress";
@@ -106,6 +112,7 @@ public class CertificateSQL extends ConnectToDatabase {
         }
     }
 
+    //Method that creates a new Certificate record in the Certificate table
     public void createCertificate(Certificate certificate) {
         Connection conn = getConnection();
         String query = "INSERT INTO Certificate VALUES ('" + certificate.getCertificateGrade() + "', '" + certificate.getExternalPersonID() + "', '" + certificate.getStudentEmail() + "', '" + certificate.getCourseName() + "')";
@@ -120,6 +127,7 @@ public class CertificateSQL extends ConnectToDatabase {
         }
     }
 
+    //Method that updates a existing Certificate record in the Certificate table
     public void updateCertificate(Certificate certificate) {
         Connection conn = getConnection();
         String query = "UPDATE Certificate SET CertificateGrade = '" + certificate.getCertificateGrade() + "', ExternalPersonID = '" + certificate.getExternalPersonID() + "', StudentEmail = '" + certificate.getStudentEmail() + "', CourseName = '" + certificate.getCourseName() + "' WHERE CertificateID = '" + certificate.getCertificateID() + "'";
@@ -134,6 +142,7 @@ public class CertificateSQL extends ConnectToDatabase {
         }
     }
 
+    //Method that deletes a existing Certificate record in the Certificate table
     public void deleteCertificate(Certificate certificate) {
         Connection conn = getConnection();
         String queryDelete = "DELETE FROM Certificate WHERE CertificateID = '" + certificate.getCertificateID() + "'";

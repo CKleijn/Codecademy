@@ -12,8 +12,10 @@ import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+//Class that runs different queries on the Course table in the connected database
 public class CourseSQL extends ConnectToDatabase {
 
+    //Method that returns all of the Course records in the Course table in a ObservableList
     public ObservableList<Course> getCourseList() {
         ObservableList<Course> courseList = FXCollections.observableArrayList();
         Connection conn = getConnection();
@@ -35,6 +37,7 @@ public class CourseSQL extends ConnectToDatabase {
         return courseList;
     }
 
+    //Method that creates a new Course record in the Course table
     public void createCourse(Course course) {
         Connection conn = getConnection();
         String query = "INSERT INTO Course VALUES ('" + course.getName() + "', '" + course.getTopic() + "', '" + course.getIntroduction() + "', '" + course.getLevel() + "')";
@@ -50,6 +53,7 @@ public class CourseSQL extends ConnectToDatabase {
 
     }
 
+    //Method that updates a existing Course record in the Course table
     public void updateCourse(Course course) {
         Connection conn = getConnection();
         String query = "UPDATE Course SET CourseName = '" + course.getName() + "', CourseTopic = '" + course.getTopic() + "', CourseIntroduction = '" + course.getIntroduction() + "', CourseLevel = '" + course.getLevel() + "' WHERE CourseName = '" + course.getName() + "'";
@@ -64,6 +68,7 @@ public class CourseSQL extends ConnectToDatabase {
         }
     }
 
+    //Method that deletes a existing Course record in the Course table
     public void deleteCourse(Course course) {
         Connection conn = getConnection();
         String query = "DELETE FROM Course WHERE CourseName = '" + course.getName() + "'";
@@ -77,6 +82,7 @@ public class CourseSQL extends ConnectToDatabase {
         }
     }
 
+    //Method that returns all of the Course names in a String Array
     public String[] getCourses() {
         Connection conn = getConnection();
         ArrayList<String> courses = new ArrayList<>();
@@ -105,6 +111,7 @@ public class CourseSQL extends ConnectToDatabase {
 
     }
 
+    //Method that returns all of the Module names in a String Array
     public String[] getModules() {
         Connection conn = getConnection();
         ArrayList<String> modules = new ArrayList<>();
@@ -132,6 +139,7 @@ public class CourseSQL extends ConnectToDatabase {
         return strModules;
     }
 
+    //Method that returns all of the Webcast names in a String Array
     public String[] getWebcasts() {
         Connection conn = getConnection();
         ArrayList<String> webcasts = new ArrayList<>();
@@ -159,6 +167,7 @@ public class CourseSQL extends ConnectToDatabase {
         return strWebcasts;
     }
 
+    //Method that returns the Modules belonging to a given Course in a ArrayList
     public ArrayList<Module> getSpecificModules(Course course) {
         Connection conn = getConnection();
         ArrayList<Module> modules = new ArrayList<>();
@@ -182,6 +191,7 @@ public class CourseSQL extends ConnectToDatabase {
 
     }
 
+    //Method that returns the Webcasts belonging to a given Course in a ArrayList
     public ArrayList<Webcast> getSpecificWebcasts(Course course) {
         Connection conn = getConnection();
         ArrayList<Webcast> webcasts = new ArrayList<>();
@@ -204,7 +214,7 @@ public class CourseSQL extends ConnectToDatabase {
         return webcasts;
     }
 
-    
+    //Method that changes the name of a Course that belongs to a given Item to a given name
     public void setCourseName(String itemTitle, String CourseName){
         Connection conn = getConnection();
         String query = "UPDATE Item SET CourseName = '" + CourseName + "' WHERE ItemTitle = '" + itemTitle + "'";
@@ -219,6 +229,7 @@ public class CourseSQL extends ConnectToDatabase {
         }
     }
 
+    //Method that changes the name of a Course that belongs to a given Item to NULL
     public void setNull(String itemTitle){
         Connection conn = getConnection();
         String query = "UPDATE Item SET CourseName = NULL WHERE ItemTitle = ('" + itemTitle + "')";
@@ -232,6 +243,7 @@ public class CourseSQL extends ConnectToDatabase {
         }
     }
 
+    //Method that returns all of the Courses that have a similar topic as the topic of the given Course
     public ArrayList<Course> relevantCourses(Course course){
         Connection conn = getConnection();
         ArrayList<Course> relCourses = new ArrayList<>();
@@ -256,6 +268,7 @@ public class CourseSQL extends ConnectToDatabase {
         return relCourses;
     }
 
+    //Method that returns the total of obtained certificates belonging to a given Course
     public int obtainedCertificates(Course course) {
         Connection conn = getConnection();
         String query = "SELECT Course.CourseName, COUNT(Registration.CertificateID) AS Total FROM Course INNER JOIN Registration ON Course.CourseName = Registration.CourseName GROUP BY Course.CourseName HAVING Course.CourseName = '" + course.getName() + "' ORDER BY Total DESC";

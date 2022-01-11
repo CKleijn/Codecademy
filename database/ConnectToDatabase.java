@@ -3,6 +3,7 @@ package database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+//Class that creates a connection with the given database for further use in other classes
 public abstract class ConnectToDatabase {
     public Connection getConnection() {
         Connection conn;

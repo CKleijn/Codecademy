@@ -5,7 +5,10 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+//Class that runs different queries on a couple of tables in the connected database to get particular statistics
 public class StatisticSQL extends ConnectToDatabase {
+
+    //Method that returns percentages of Students that are of a particular gender who have a certificate
     public int calculateGenderCertificates(String gender){
         Connection conn = getConnection();
         String query = "SELECT (SELECT COUNT(*) * 1.0 FROM Registration INNER JOIN Student ON Registration.StudentEmail = Student.StudentEmail INNER JOIN Certificate ON Registration.CertificateID = Certificate.CertificateID WHERE Student.StudentGender = '" + gender + "' AND Registration.CertificateID IS NOT NULL)  / (SELECT COUNT(*) * 1.0 FROM Registration INNER JOIN Student ON Registration.StudentEmail = Student.StudentEmail WHERE Student.StudentGender = '" + gender + "') * 100.0  AS genderPercentage";
@@ -25,6 +28,7 @@ public class StatisticSQL extends ConnectToDatabase {
         return 0;
     }
 
+    //Method that returns the top 3 most viewed webcasts in the form of a String Array
     public String[] getTop3MostViewedWebcasts() {
         Connection conn = getConnection();
         ArrayList<String> webcasts = new ArrayList<>();
@@ -52,6 +56,7 @@ public class StatisticSQL extends ConnectToDatabase {
         return strWebcasts;
     }
 
+    //Method that returns the top 3 courses that have the largest amount of registrations in the form of a String Array
     public String[] getTop3MostCertificateCourses() {
         Connection conn = getConnection();
         ArrayList<String> courses = new ArrayList<>();

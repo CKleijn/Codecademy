@@ -10,7 +10,10 @@ import domain.Certificate;
 import domain.ExternalPerson;
 import domain.Item;
 
+//Class that runs different queries on the ExternalPerson table in the connected database
 public class ExternalPersonSQL extends ConnectToDatabase {
+
+    //Method that returns the ID of a given ExternalPerson
     public int findExternalPersonID(String externalPersonName) {
         Connection conn = getConnection();
         HashMap<Integer, Integer> externalPersonIDList = new HashMap<>();
@@ -34,6 +37,7 @@ public class ExternalPersonSQL extends ConnectToDatabase {
         return externalPersonIDList.get(id);
     }
 
+    //Method that returns a ExternalPerson object that belongs to the given Item
     public ExternalPerson getExternalPersonById(Item item) {
         Connection conn = getConnection();
         String query = "SELECT * FROM ExternalPerson WHERE ExternalPersonID = '" + item.getExternalPerson() + "'";
@@ -54,6 +58,7 @@ public class ExternalPersonSQL extends ConnectToDatabase {
         return null;
     }
 
+    //Method that returns the name of the ExternalPerson that belongs to a given Certificate
     public String getEmployeeNameById(Certificate certificate) {
         Connection conn = getConnection();
         String query = "SELECT ExternalPersonName FROM ExternalPerson WHERE ExternalPersonID = '" + certificate.getExternalPersonID() + "'";
@@ -75,6 +80,7 @@ public class ExternalPersonSQL extends ConnectToDatabase {
         return null;
     }
 
+    //Method that returns all of the ExternalPerson names that have the Employee role in the form of a String Array
     public String[] getEmployeeExternalPersons() {
         Connection conn = getConnection();
         ArrayList<String> externalPersons = new ArrayList<>();

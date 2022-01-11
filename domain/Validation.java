@@ -2,7 +2,10 @@ package domain;
 
 import java.util.Calendar;
 
+//Class that performs certain validations to check if a given input was correct
 public abstract class Validation {
+
+    //Method that checks a given email
     public boolean checkEmail(String email){
         //regex checks if the email starts with one or more letters followed by a "@" one or more letters a "." and at the end one or more letters
         String regex = "^[a-zA-z]{1,}[@][a-zA-Z]{1,}[.][a-zA-Z]{1,}";
@@ -14,6 +17,7 @@ public abstract class Validation {
         return true;
     }
 
+    //Method that checks a given date
     public boolean checkDate(int day, int month, int year){
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 
@@ -36,6 +40,7 @@ public abstract class Validation {
        
     }
 
+    //Method that checks a given postal code
     public boolean checkPostalCode(String pc){
         //regex checks if the first digit is between the 1 and 9 and if the next three digits are between the 0 and 9 followed by a space and ends with two capital letters
         String regex = "[1-9][0-9]{3}[ ][A-Z]{2}";
@@ -50,6 +55,7 @@ public abstract class Validation {
 
     }
 
+    //Method that checks a given gender
     public boolean checkGender(String gender){
         //Regex checks if the String gender is a M or a F
         String regex = "[MF]";
@@ -63,6 +69,7 @@ public abstract class Validation {
         return false;
     }
 
+    //Method that checks a given url
     public boolean checkUrl(String url){
         //Regex checks if the url starts with https:// or with http:// that it checks if there are one or more caraters followed by a "." then another set of caraters another "." and if there are 1 or more caraters at the end
         String regex = "^(https://|http://)[a-zA-Z]{1,}[.][a-zA-Z]{1,}[.][a-zA-Z]{1,}";
@@ -76,6 +83,7 @@ public abstract class Validation {
         return false;
     }
   
+    //Method that checks a given grade
     public boolean checkGrade(int grade){
         //checks if the given grad is greater or equal to 1 and less or equal to 10
         if(grade >= 1 && grade <= 10){

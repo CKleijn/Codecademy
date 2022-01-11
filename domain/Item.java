@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class Item {
 
+    //Class attributes
     private int itemId;
     private String title;
     private String description;
@@ -11,6 +12,7 @@ public class Item {
     private int externalPerson;
     private String status;
 
+    //Constructor
     public Item(int itemId, String title, String description, Date publicationDate, int externalPerson, String status) {
         this.itemId = itemId;
         this.title = title;
@@ -20,6 +22,7 @@ public class Item {
         this.status = status;
     }
 
+    //Getters
     public int getItemId() {
         return itemId;
     }

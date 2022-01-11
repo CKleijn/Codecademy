@@ -14,7 +14,10 @@ import domain.Webcast;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+//Class that runs different queries on the Registration table in the connected database
 public class RegistrationSQL extends ConnectToDatabase {
+
+    //Method that returns all of the Registration records belonging to a Student in the Registration table in a ObservableList
     public ObservableList<Registration> getStudentRegistrationList(Student current_student) {
         ObservableList<Registration> studentRegistrationList = FXCollections.observableArrayList();
         Connection conn = getConnection();
@@ -36,6 +39,7 @@ public class RegistrationSQL extends ConnectToDatabase {
         return studentRegistrationList;
     }
 
+    //Method that returns a Course belonging to a given Registration
     public Course getStudentRegistrationCourseList(Registration registration) {
         Connection conn = getConnection();
         String query = "SELECT * FROM Registration INNER JOIN Course ON Registration.CourseName = Course.CourseName WHERE RegistrationDate = '" + registration.getRegistrationDate() + "' AND StudentEmail = '" + registration.getStudentEmail() + "' AND Registration.CourseName = '" + registration.getCourseName() + "'";
@@ -56,6 +60,7 @@ public class RegistrationSQL extends ConnectToDatabase {
         return null;
     }
 
+    //Method that returns a ArrayList of Modules that belong to a given Registration
     public ArrayList<Module> getSpecificModules(Registration registration) {
         Connection conn = getConnection();
         ArrayList<Module> modules = new ArrayList<>();
@@ -78,6 +83,7 @@ public class RegistrationSQL extends ConnectToDatabase {
         return modules;
     }
 
+    //Method that returns a ArrayList of Webcasts that belong to a given Registration
     public ArrayList<Webcast> getSpecificWebcasts(Registration registration) {
         Connection conn = getConnection();
         ArrayList<Webcast> webcasts = new ArrayList<>();
@@ -100,6 +106,7 @@ public class RegistrationSQL extends ConnectToDatabase {
         return webcasts;
     }
 
+    //Method that returns the amount of views from a given Item and Registration
     public int getViews(Registration registration, Item item) {
         Connection conn = getConnection();
         String query = "SELECT * FROM Student_View_Item WHERE StudentEmail = '" + registration.getStudentEmail() + "' AND ItemID = " + item.getItemId();
@@ -119,6 +126,7 @@ public class RegistrationSQL extends ConnectToDatabase {
         return 0;
     }
 
+    //Method that returns the average amount of views from a given Item
     public int getAverageViews(Item item) {
         Connection conn = getConnection();
         String query = "SELECT (SELECT SUM(Student_View_Item.ItemViews) AS TotalViews FROM Student_View_Item INNER JOIN Item ON Student_View_Item.ItemID = Item.ItemID WHERE Item.ItemTitle = '" + item.getTitle() + "') / (SELECT COUNT(*) FROM Student_View_Item INNER JOIN Item ON Student_View_Item.ItemID = Item.ItemID WHERE Item.ItemTitle = '" + item.getTitle() + "') AS AverageViews";
@@ -138,6 +146,7 @@ public class RegistrationSQL extends ConnectToDatabase {
         return 0;
     }
 
+    //Method that returns the itemprogress from a given Item and Registration
     public int getProgress(Registration registration, Item item) {
         Connection conn = getConnection();
         String query = "SELECT * FROM Student_View_Item WHERE StudentEmail = '" + registration.getStudentEmail() + "' AND ItemID = " + item.getItemId();
@@ -157,6 +166,7 @@ public class RegistrationSQL extends ConnectToDatabase {
         return 0;
     }
 
+    //Method that returns the average itemprogress from a given Item
     public int getAverageProgress(Item item) {
         Connection conn = getConnection();
         String query = "SELECT (SELECT SUM(Student_View_Item.ItemProgress) AS TotalProgress FROM Student_View_Item INNER JOIN Item ON Student_View_Item.ItemID = Item.ItemID WHERE Item.ItemTitle = '" + item.getTitle() + "') / (SELECT COUNT(*) FROM Student_View_Item INNER JOIN Item ON Student_View_Item.ItemID = Item.ItemID WHERE Item.ItemTitle = '" + item.getTitle() + "') AS AverageProgress";
@@ -176,6 +186,7 @@ public class RegistrationSQL extends ConnectToDatabase {
         return 0;
     }
 
+    //Method that creates a new Registration record in the Registration table
     public void createRegistration(Registration registration) {
         Connection conn = getConnection();
         String query = "INSERT INTO Registration VALUES ('" + registration.getRegistrationDate() + "', '" + registration.getStudentEmail() + "', '" + registration.getCourseName() + "', NULL)";
@@ -191,6 +202,7 @@ public class RegistrationSQL extends ConnectToDatabase {
 
     }
 
+    //Method that updates a existing Registration record in the Registration table
     public void updateRegistration(Registration current_registration, Registration new_registration) {
         Connection conn = getConnection();
         String query = "UPDATE Registration SET RegistrationDate = '" + new_registration.getRegistrationDate() + "', StudentEmail = '" + new_registration.getStudentEmail() + "', CourseName = '" + new_registration.getCourseName() + "', CertificateID = '" + new_registration.getCertificateID() + "' WHERE RegistrationDate = '" + current_registration.getRegistrationDate() + "' AND StudentEmail = '" + current_registration.getStudentEmail() + "' AND CourseName = '" + current_registration.getCourseName() + "'";
@@ -206,6 +218,7 @@ public class RegistrationSQL extends ConnectToDatabase {
 
     }
 
+    //Method that deletes a existing Registration record in the Registration table
     public void deleteRegistration(Registration registration) {
         Connection conn = getConnection();
         String query = "DELETE FROM Registration WHERE RegistrationDate = '" + registration.getRegistrationDate() + "' AND StudentEmail = '" + registration.getStudentEmail() + "' AND CourseName = '" + registration.getCourseName() + "'";

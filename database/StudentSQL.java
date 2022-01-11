@@ -9,7 +9,10 @@ import java.sql.Statement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+//Class that runs different queries on the Student table in the connected database
 public class StudentSQL extends ConnectToDatabase {
+
+    //Method that returns all of the Student records in the Student table in a ObservableList
     public ObservableList<Student> getStudentList() {
         ObservableList<Student> studentList = FXCollections.observableArrayList();
         Connection conn = getConnection();
@@ -31,6 +34,7 @@ public class StudentSQL extends ConnectToDatabase {
         return studentList;
     }
 
+    //Method that creates a new Student record in the Student table
     public void createStudent(Student student) {
         Connection conn = getConnection();
         String query = "INSERT INTO Student VALUES ('" + student.getEmail() + "', '" + student.getName() + "', '" + student.getBirthDay() + "', '" + student.getBirthMonth() + "', '" + student.getBirthYear() + "', '" + student.getGender() + "', '" + student.getStreet() + "', '" + student.getHouseNumber() + "', '" + student.getHouseNumberAddition() + "', '" + student.getPostalCode() + "', '" + student.getResidence()  + "', '" + student.getCountry() + "')";
@@ -46,6 +50,7 @@ public class StudentSQL extends ConnectToDatabase {
 
     }
 
+    //Method that updates a existing Student record in the Student table
     public void updateStudent(Student student) {
         Connection conn = getConnection();
         String query = "UPDATE Student SET StudentEmail = '" + student.getEmail() + "', StudentName = '" + student.getName() + "', StudentBirthDay = '" + student.getBirthDay() + "', StudentBirthMonth = '" + student.getBirthMonth() + "', StudentBirthYear = '" + student.getBirthYear() + "', StudentGender = '" + student.getGender() + "', StudentStreet = '" + student.getStreet() + "', StudentHouseNumber = '" + student.getHouseNumber() + "', StudentHouseNumberAddition = '" + student.getHouseNumberAddition() + "', StudentPostalCode = '" + student.getPostalCode() + "', StudentResidence = '" + student.getResidence()  + "', StudentCountry = '" + student.getCountry() + "' WHERE StudentEmail = '" + student.getEmail() + "'";
@@ -60,6 +65,7 @@ public class StudentSQL extends ConnectToDatabase {
         }
     }
 
+    //Method that deletes a existing Student record in the Student table
     public void deleteStudent(Student student) {
         Connection conn = getConnection();
         String query = "DELETE FROM Student WHERE StudentEmail = '" + student.getEmail() + "'";

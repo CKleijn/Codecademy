@@ -2,6 +2,7 @@ package domain;
 
 public class Student {
 
+    //Class attributes
     private String email;
     private String name;
     private int birthDay;
@@ -15,6 +16,7 @@ public class Student {
     private String residence;
     private String country;
 
+    //Constructor
     public Student(String email, String name, int birthDay, int birthMonth, int birthYear, String gender, String street, String houseNumber, String houseNumberAddition, String postalCode, String residence, String country){
         this.email = email;
         this.name = name;
@@ -30,6 +32,7 @@ public class Student {
         this.country = country;
     }
 
+    //Getters
     public String getEmail() {
         return email;
     }

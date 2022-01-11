@@ -2,12 +2,14 @@ package domain;
 
 public class ExternalPerson {
     
+    //Class attributes
     private int externalPersonId;
     private String name;
     private String email;
     private String organisation;
     private String role;
 
+    //Constructor
     public ExternalPerson(int externalPersonId, String name, String email, String organisation, String role) {
         this.externalPersonId = externalPersonId;
         this.name = name;
@@ -16,6 +18,7 @@ public class ExternalPerson {
         this.role = role;
     }
 
+    //Overload constructor
     public ExternalPerson(String name, String email, String organisation, String role) {
         this.name = name;
         this.email = email;
@@ -23,6 +26,7 @@ public class ExternalPerson {
         this.role = role;
     }
 
+    //Getters
     public int getExternalPersonId() {
         return externalPersonId;
     }
