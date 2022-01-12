@@ -11,10 +11,10 @@ public abstract class Validation {
         String regex = "^[a-zA-z]{1,}[@][a-zA-Z]{1,}[.][a-zA-Z]{1,}";
         if(email.matches(regex)){
             System.out.println("Your email is correct");
-            return false;
+            return true;
         }
         System.out.println("Your email format is incorrect");
-        return true;
+        return false;
     }
 
     //Method that checks a given date
@@ -91,6 +91,13 @@ public abstract class Validation {
             return true;
         }
         System.out.println("The grade must be between 1-10");
+        return false;
+    }
+
+    public boolean fieldIsEmpty(String text){
+        if(text.isEmpty()){   
+            return true; 
+        }
         return false;
     }
 

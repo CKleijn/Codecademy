@@ -59,13 +59,6 @@ public class CertificateCreateScene extends domain.Validation{
         Button createCertificate = new Button("Create registration");
 		createCertificate.setPrefSize(120, 40);
         createCertificate.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
-		createCertificate.setOnAction((event) -> {
-            if(checkGrade(Integer.valueOf(gradeTextArea.getText())) && !cbxExternalPerson.getSelectionModel().getSelectedItem().isEmpty()){
-                Certificate certificate = new Certificate(Integer.valueOf(gradeTextArea.getText()), sqlE.findExternalPersonID(cbxExternalPerson.getSelectionModel().getSelectedItem()), current_student.getEmail(), course.getName());
-                sqlC.createCertificate(certificate);
-                window.setScene(studentCourseScene.studentCourseScene(window, registration, course, current_student));
-            }
-		});
 
         HBox buttonHBox = new HBox();
         buttonHBox.getChildren().addAll(createCertificate);
@@ -74,11 +67,37 @@ public class CertificateCreateScene extends domain.Validation{
 		grid.setPadding(new Insets(40, 0, 0, 0));
 		grid.setHgap(5);
 		grid.setVgap(2);
+
+		createCertificate.setOnAction((event) -> {
+            boolean validation = true;
+            if (fieldIsEmpty(gradeTextArea.getText())) {
+				validation = false;
+				Label errorText = new Label("Text field isn't filled in");
+				grid.add(errorText, 1, 1, 1, 1);
+			} else if (!checkGrade(Integer.parseInt(gradeTextArea.getText()))) {
+                validation = false;
+				Label errorText = new Label("The grade isn't valid");
+				grid.add(errorText, 1, 1, 1, 1);
+            }
+
+            if (cbxExternalPerson.getSelectionModel().isEmpty()) {
+				validation = false;
+				Label errorText = new Label("dropdown menu isn't filled in");
+				grid.add(errorText, 1, 3, 1, 1);
+			}
+
+            if(validation){
+                Certificate certificate = new Certificate(Integer.valueOf(gradeTextArea.getText()), sqlE.findExternalPersonID(cbxExternalPerson.getSelectionModel().getSelectedItem()), current_student.getEmail(), course.getName());
+                sqlC.createCertificate(certificate);
+                window.setScene(studentCourseScene.studentCourseScene(window, registration, course, current_student));
+            }
+		});
+
         grid.add(gradeLabel, 0, 0 , 1, 1);
 		grid.add(gradeTextArea, 1, 0 , 1, 1);
-        grid.add(externalPersonLabel, 0, 1 , 1, 1);
-		grid.add(cbxExternalPerson, 1, 1 , 1, 1);
-        grid.add(buttonHBox, 0, 2 , 1, 1);
+        grid.add(externalPersonLabel, 0, 2 , 1, 1);
+		grid.add(cbxExternalPerson, 1, 2 , 1, 1);
+        grid.add(buttonHBox, 0, 4 , 1, 1);
 		
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(15, 15, 15, 15));

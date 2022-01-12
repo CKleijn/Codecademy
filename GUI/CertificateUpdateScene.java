@@ -57,14 +57,7 @@ public class CertificateUpdateScene extends domain.Validation{
         Button updateCertificate = new Button("Update registration");
 		updateCertificate.setPrefSize(120, 40);
         updateCertificate.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
-		updateCertificate.setOnAction((event) -> {
-            if(checkGrade(Integer.valueOf(gradeTextArea.getText())) && !cbxExternalPerson.getSelectionModel().getSelectedItem().isEmpty()){
-                Certificate certificate = new Certificate(current_certificate.getCertificateID(), Integer.valueOf(gradeTextArea.getText()), sqlE.findExternalPersonID(cbxExternalPerson.getSelectionModel().getSelectedItem()), current_student.getEmail(), course.getName());
-                sqlC.updateCertificate(certificate);
-                window.setScene(studentCourseScene.studentCourseScene(window, registration, course, current_student));
-            }
-		});
-
+		
         HBox buttonHBox = new HBox();
         buttonHBox.getChildren().addAll(updateCertificate);
 
@@ -72,6 +65,26 @@ public class CertificateUpdateScene extends domain.Validation{
 		grid.setPadding(new Insets(40, 0, 0, 0));
 		grid.setHgap(5);
 		grid.setVgap(2);
+
+        updateCertificate.setOnAction((event) -> {
+            boolean validation = true;
+            if (fieldIsEmpty(gradeTextArea.getText())) {
+				validation = false;
+				Label errorText = new Label("Text field isn't filled in");
+				grid.add(errorText, 1, 1, 1, 1);
+			} else if (!checkGrade(Integer.parseInt(gradeTextArea.getText()))) {
+                validation = false;
+				Label errorText = new Label("The grade isn't valid");
+				grid.add(errorText, 1, 1, 1, 1);
+            }
+
+            if(validation){
+                Certificate certificate = new Certificate(current_certificate.getCertificateID(), Integer.valueOf(gradeTextArea.getText()), sqlE.findExternalPersonID(cbxExternalPerson.getSelectionModel().getSelectedItem()), current_student.getEmail(), course.getName());
+                sqlC.updateCertificate(certificate);
+                window.setScene(studentCourseScene.studentCourseScene(window, registration, course, current_student));
+            }
+		});
+
         grid.add(gradeLabel, 0, 0 , 1, 1);
 		grid.add(gradeTextArea, 1, 0 , 1, 1);
         grid.add(externalPersonLabel, 0, 1 , 1, 1);
