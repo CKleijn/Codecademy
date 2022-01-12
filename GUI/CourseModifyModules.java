@@ -14,20 +14,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class CourseModifyModules {
     
     public Scene CourseModifyModulesScene(Stage window, Course course){
-    
         CourseDetailPage courseDetailPage = new CourseDetailPage();
         CourseSQL sql = new CourseSQL();
-
-        // sql.setModulesCourseName(itemTitle, CourseName);
-        
-        //Layout of the text in the buttons
-        Font font = Font.font("Verdana");
 
         // Background image
         Image image = new Image("resources/backgroundImage.jpg");
@@ -39,8 +32,6 @@ public class CourseModifyModules {
 
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
-        backButton.setFont(font);
-        backButton.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
         backButton.setOnAction((event) -> {
             window.setScene(courseDetailPage.CourseDetailScene(window, course));
         });
@@ -77,8 +68,6 @@ public class CourseModifyModules {
         //make a button to submit the changes
         Button submitButton = new Button("update modules");
         submitButton.setPrefSize(180, 40);
-		submitButton.setFont(font);
-		submitButton.setStyle("-fx-background-color: #0B9EC3; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
 
         //Set an onclick event with a loop wich iterates over all the checkboxes and submit the changes to the db
         submitButton.setOnAction((event) -> {
@@ -104,6 +93,9 @@ public class CourseModifyModules {
         pane.setCenter(grid);
 
         Scene sscene = new Scene(pane, 1080, 620);
+
+        sscene.getStylesheets().add("/resources/styleSheet.css");
+
         return sscene;
     }
     

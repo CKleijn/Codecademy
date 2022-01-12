@@ -17,7 +17,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class StudentCertificateScene {
@@ -26,9 +25,6 @@ public class StudentCertificateScene {
 
     public Scene studentCertificateScene(Stage window, Student current_student) {
         StudentRegistrationScene studentRegistrationScene = new StudentRegistrationScene();
-
-        //Layout of the text in the buttons
-        Font font = Font.font("Verdana");
 
         // Background image
         Image image = new Image("resources/backgroundImage.jpg");
@@ -39,8 +35,6 @@ public class StudentCertificateScene {
         // Button to go back to the previous scene.
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
-        backButton.setFont(font);
-		backButton.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
         backButton.setOnAction((event) -> {
             window.setScene(studentRegistrationScene.studentRegistrationScene(window, current_student));
         });
@@ -75,6 +69,9 @@ public class StudentCertificateScene {
         pane.setCenter(table);
 
         Scene sscene = new Scene(pane, 1080, 620);
+
+        sscene.getStylesheets().add("/resources/styleSheet.css");
+
         return sscene;
     }
 }

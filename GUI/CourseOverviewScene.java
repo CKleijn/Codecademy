@@ -17,7 +17,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -32,9 +31,6 @@ public class CourseOverviewScene {
         CourseCreateScene courseCreateScene = new CourseCreateScene();
         CourseDetailPage courseDetailPage = new CourseDetailPage();
 
-        //Layout of the text in the buttons
-        Font font = Font.font("Verdana");
-
         // Background image
         Image image = new Image("resources/backgroundImage.jpg");
         ImageView imageView = new ImageView(image);
@@ -44,16 +40,12 @@ public class CourseOverviewScene {
         // Button to go back to the homeScene.
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
-        backButton.setFont(font);
-		backButton.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
         backButton.setOnAction((event) -> {
             window.setScene(homescreenScene.homeScene(window));
         });
 
         Button createButton = new Button("Create");
         createButton.setPrefSize(80, 37);
-        createButton.setFont(font);
-		createButton.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
         createButton.setOnAction((event) -> {
             window.setScene(courseCreateScene.courseCreateScene(window));
         });
@@ -99,7 +91,6 @@ public class CourseOverviewScene {
                         if (empty) {
                             setGraphic(null);
                         } else {
-                            editBtn.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
                             editBtn.setOnAction(event -> {
                                 Course course = getTableView().getItems().get(getIndex());
                                 window.setScene(courseUpdateScene.courseUpdateScene(window, course));
@@ -125,7 +116,6 @@ public class CourseOverviewScene {
                         if (empty) {
                             setGraphic(null);
                         } else {
-                            deleteBtn.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
                             deleteBtn.setOnAction(event -> {
                                 Course course = getTableView().getItems().get(getIndex());
                                 sql.deleteCourse(course);
@@ -152,6 +142,9 @@ public class CourseOverviewScene {
         pane.setCenter(table);
 
         Scene sscene = new Scene(pane, 1080, 620);
+
+        sscene.getStylesheets().add("/resources/styleSheet.css");
+
         return sscene;
     }
 }

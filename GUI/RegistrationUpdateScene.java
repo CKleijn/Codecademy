@@ -18,7 +18,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class RegistrationUpdateScene extends domain.Validation{
@@ -27,9 +26,6 @@ public class RegistrationUpdateScene extends domain.Validation{
 
     public Scene registrationUpdateScene(Stage window, Registration current_registration, Student current_student) {
         StudentRegistrationScene studentDetailScene = new StudentRegistrationScene();
-
-        //Layout of the text in the buttons
-		Font font = Font.font("Verdana");
 
 		//Background image
 		Image image = new Image("resources/backgroundImage.jpg");
@@ -40,8 +36,6 @@ public class RegistrationUpdateScene extends domain.Validation{
         // Button to go back to the StudentOverviewScene.
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
-		backButton.setFont(font);
-		backButton.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
         backButton.setOnAction((event) -> {
             window.setScene(studentDetailScene.studentRegistrationScene(window, current_student));
         });
@@ -52,8 +46,8 @@ public class RegistrationUpdateScene extends domain.Validation{
         cbxCourse.getSelectionModel().select(current_registration.getCourseName());
 
         Button updateRegistration = new Button("Update registration");
-		updateRegistration.setPrefSize(120, 40);
-        updateRegistration.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
+		updateRegistration.setPrefSize(140, 40);
+        updateRegistration.setId("updateRegistration");
 
         HBox buttonHBox = new HBox();
         buttonHBox.getChildren().addAll(updateRegistration);
@@ -90,6 +84,9 @@ public class RegistrationUpdateScene extends domain.Validation{
         pane.setCenter(grid);
 
         Scene sscene = new Scene(pane, 1080, 620);
+
+        sscene.getStylesheets().add("/resources/styleSheet.css");
+
         return sscene;
     }
 }

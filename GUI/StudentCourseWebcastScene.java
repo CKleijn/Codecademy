@@ -15,8 +15,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class StudentCourseWebcastScene extends domain.Validation{
@@ -25,9 +23,6 @@ public class StudentCourseWebcastScene extends domain.Validation{
 
     public Scene studentCourseWebcastScene(Stage window, Webcast webcast, Registration registration, Course course, Student current_student) {
         StudentCourseScene studentCourseScene = new StudentCourseScene();
-
-        //Layout of the text in the buttons
-        Font font = Font.font("Verdana");
 
         // Background image
         Image image = new Image("resources/backgroundImage.jpg");
@@ -38,14 +33,9 @@ public class StudentCourseWebcastScene extends domain.Validation{
         // Button to go back to the homeScene.
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
-        backButton.setFont(font);
-        backButton.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
         backButton.setOnAction((event) -> {
             window.setScene(studentCourseScene.studentCourseScene(window, registration, course, current_student));
         });
-
-        HBox menu = new HBox(backButton);
-        menu.setSpacing(10);
 
         Label infoIDLabel = new Label("Webcast ID: ");
         Label moduleIDLabel = new Label();
@@ -127,7 +117,7 @@ public class StudentCourseWebcastScene extends domain.Validation{
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(15, 15, 15, 15));
         pane.getChildren().add(imageView);
-        pane.setTop(menu);
+        pane.setTop(backButton);
         pane.setCenter(grid);
 
 

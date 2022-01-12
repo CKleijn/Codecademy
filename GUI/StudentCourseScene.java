@@ -19,7 +19,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class StudentCourseScene {
@@ -34,9 +33,6 @@ public class StudentCourseScene {
         CertificateCreateScene certificateCreateScene = new CertificateCreateScene();
         CertificateUpdateScene certificateUpdateScene = new CertificateUpdateScene();
 
-        //Layout of the text in the buttons
-        Font font = Font.font("Verdana");
-
         // Background image
         Image image = new Image("resources/backgroundImage.jpg");
         ImageView imageView = new ImageView(image);
@@ -46,24 +42,18 @@ public class StudentCourseScene {
         // Button to go back to the homeScene.
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
-        backButton.setFont(font);
-        backButton.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
         backButton.setOnAction((event) -> {
             window.setScene(studentRegistrationScene.studentRegistrationScene(window, current_student));
         });
 
         Button createButton = new Button("Create certificate");
         createButton.setPrefSize(80, 37);
-        createButton.setFont(font);
-		createButton.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
         createButton.setOnAction((event) -> {
             window.setScene(certificateCreateScene.certificateCreateScene(window, registration, course, current_student));
         });
 
         Button checkButton = new Button("Check certificates");
         checkButton.setPrefSize(80, 37);
-        checkButton.setFont(font);
-		checkButton.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
         checkButton.setOnAction((event) -> {
             sqlC.checkIfStudentReceiveCertificate(sqlC.getSingleCertificateFromStudentForSpecificCourse(course, current_student), registration);
             window.setScene(studentCourseScene(window, registration, course, current_student));
@@ -97,7 +87,6 @@ public class StudentCourseScene {
             button.setOnAction((event) -> {
                 window.setScene(studentCourseModuleScene.studentCourseModuleScene(window, module, registration, course, current_student));
             });
-            button.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
             grid.add(button, 1, i, 1, 1);
             i++;
         }
@@ -123,13 +112,11 @@ public class StudentCourseScene {
             editButton.setOnAction((event) -> {
                 window.setScene(certificateUpdateScene.certificateUpdateScene(window, certificate, registration, course, current_student));
             });
-            editButton.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
             Button deleteButton = new Button("Delete");
             deleteButton.setOnAction((event) -> {
                 sqlC.deleteCertificate(certificate);
                 window.setScene(studentCourseScene(window, registration, course, current_student));
             });
-            deleteButton.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
             grid.add(infoCertificateLabel, 4, 4 , 1, 1);
             grid.add(certificateGradeLabel, 5, k, 1, 1);
             grid.add(certificateExternalPersonLabel, 6, k, 1, 1);
@@ -159,8 +146,10 @@ public class StudentCourseScene {
         pane.setTop(menu);
         pane.setCenter(grid);
 
-
         Scene sscene = new Scene(pane, 1080, 620);
+
+        sscene.getStylesheets().add("/resources/styleSheet.css");
+
         return sscene;
 
         

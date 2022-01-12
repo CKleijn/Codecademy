@@ -18,7 +18,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class CertificateCreateScene extends domain.Validation{
@@ -27,11 +26,6 @@ public class CertificateCreateScene extends domain.Validation{
 
     public Scene certificateCreateScene(Stage window, Registration registration, Course course, Student current_student) {
         StudentCourseScene studentCourseScene = new StudentCourseScene();
-        //Layout of the text in the buttons
-		Font font = Font.font("Verdana");
-
-		//Height of the input fields
-		double heightTextAreas = 3000;
 		
 		//Background image
 		Image image = new Image("resources/backgroundImage.jpg");
@@ -42,15 +36,12 @@ public class CertificateCreateScene extends domain.Validation{
         // Button to go back to the StudentOverviewScene.
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
-		backButton.setFont(font);
-		backButton.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
         backButton.setOnAction((event) -> {
             window.setScene(studentCourseScene.studentCourseScene(window, registration, course, current_student));
         });
 
         Label gradeLabel = new Label("Grade: ");
 		TextArea gradeTextArea = new TextArea();
-		gradeTextArea.setPrefHeight(heightTextAreas);
 
         Label externalPersonLabel = new Label("External person: ");
         ComboBox<String>cbxExternalPerson = new ComboBox<>();
@@ -58,7 +49,6 @@ public class CertificateCreateScene extends domain.Validation{
 
         Button createCertificate = new Button("Create registration");
 		createCertificate.setPrefSize(120, 40);
-        createCertificate.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
 
         HBox buttonHBox = new HBox();
         buttonHBox.getChildren().addAll(createCertificate);
@@ -106,6 +96,9 @@ public class CertificateCreateScene extends domain.Validation{
         pane.setCenter(grid);
 
         Scene sscene = new Scene(pane, 1080, 620);
+
+        sscene.getStylesheets().add("/resources/styleSheet.css");
+
         return sscene;
     }
 }

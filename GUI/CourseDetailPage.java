@@ -14,7 +14,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class CourseDetailPage {
@@ -30,43 +29,31 @@ public class CourseDetailPage {
         CourseWebcastScene courseWebcastScene = new CourseWebcastScene();
         CourseDetailPage courseDetailPage = new CourseDetailPage();
 
-        //Layout of the text in the buttons
-        Font font = Font.font("Verdana");
-
         // Background image
         Image image = new Image("resources/backgroundImage.jpg");
         ImageView imageView = new ImageView(image);
         Group root = new Group();
         root.getChildren().addAll(imageView);
 
-        // Menubar and the buttons that are in the menu
-        HBox menu = new HBox();
-
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
-        backButton.setFont(font);
-        backButton.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
         backButton.setOnAction((event) -> {
             window.setScene(courseOverviewScene.courseOverviewScene(window));
         });
 
         Button modifyModules = new Button("modify modules");
         modifyModules.setPrefSize(120, 37);
-        modifyModules.setFont(font);
-        modifyModules.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
         modifyModules.setOnAction((event) -> {
             window.setScene(courseModifyModules.CourseModifyModulesScene(window, course));
         });
 
         Button modifyWebcasts = new Button("modify webcasts");
         modifyWebcasts.setPrefSize(120, 37);
-        modifyWebcasts.setFont(font);
-        modifyWebcasts.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
         modifyWebcasts.setOnAction((event)-> {
             window.setScene(courseModifyWebcasts.CourseModifyWebcastsScene(window, course));
         });        
 
-        menu.getChildren().addAll(backButton, modifyModules, modifyWebcasts);
+        HBox menu = new HBox(backButton, modifyModules, modifyWebcasts);
         menu.setSpacing(15);
 
         //Course inforamtion
@@ -111,7 +98,6 @@ public class CourseDetailPage {
             button.setOnAction((event) -> {
                 window.setScene(courseWebcastScene.courseWebcastScene(window, webcast, course));
             });
-            button.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
             grid.add(button, 1, j, 1, 1);
             j++;
         }
@@ -124,7 +110,6 @@ public class CourseDetailPage {
             button.setOnAction((event) -> {
                 window.setScene(courseDetailPage.CourseDetailScene(window, relCourse));
             });
-            button.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
             grid.add(button, 1, j, 1, 1);
             j++;
         }

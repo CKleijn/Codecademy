@@ -17,13 +17,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
 public class StudentOverviewScene {
     private StudentSQL sql = new StudentSQL();
-    
 
     public Scene studentOverviewScene(Stage window) {
         HomescreenScene homescreenScene = new HomescreenScene();
@@ -31,9 +29,6 @@ public class StudentOverviewScene {
         StudentCreateScene studentCreateScene = new StudentCreateScene();
         StudentUpdateScene studentUpdateScene = new StudentUpdateScene();
         StudentRegistrationScene studentDetailScene = new StudentRegistrationScene();
-
-        //Layout of the text in the buttons
-        Font font = Font.font("Verdana");
 
         // Background image
         Image image = new Image("resources/backgroundImage.jpg");
@@ -44,36 +39,34 @@ public class StudentOverviewScene {
         // Button to go back to the homeScene.
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
-        backButton.setFont(font);
-		backButton.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
         backButton.setOnAction((event) -> {
             window.setScene(homescreenScene.homeScene(window));
         });
 
+        // Button which leads to the StudentCreateScene.
         Button createButton = new Button("Create student");
-        createButton.setPrefSize(80, 37);
-        createButton.setFont(font);
-		createButton.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
+        createButton.setPrefSize(120, 37);
         createButton.setOnAction((event) -> {
             window.setScene(studentCreateScene.studentCreateScene(window));
         });
 
+        //Hbox with the two buttons above
         HBox menu = new HBox(backButton, createButton);
         menu.setSpacing(10);
 
         TableView<Student> table = new TableView<Student>();
-        TableColumn<Student, String> emailCol = new TableColumn<Student, String>("Student email");
-        TableColumn<Student, String> nameCol = new TableColumn<Student, String>("Student name");
-        TableColumn<Student, String> birthDayCol = new TableColumn<Student, String>("Student birthday");
-        TableColumn<Student, String> birthMonthCol = new TableColumn<Student, String>("Student birthmonth");
-        TableColumn<Student, String> birthYearCol = new TableColumn<Student, String>("Student birthyear");
-        TableColumn<Student, String> genderCol = new TableColumn<Student, String>("Student gender");
-        TableColumn<Student, String> streetCol = new TableColumn<Student, String>("Student street");
-        TableColumn<Student, String> houseNumberCol = new TableColumn<Student, String>("Student house number");
-        TableColumn<Student, String> houseNumberAdditionCol = new TableColumn<Student, String>("Student house number addition");
-        TableColumn<Student, String> postalCodeCol = new TableColumn<Student, String>("Student postal code");
-        TableColumn<Student, String> residenceCol = new TableColumn<Student, String>("Student residence");
-        TableColumn<Student, String> countryCol = new TableColumn<Student, String>("Student country");
+        TableColumn<Student, String> emailCol = new TableColumn<Student, String>("Email");
+        TableColumn<Student, String> nameCol = new TableColumn<Student, String>("Name");
+        TableColumn<Student, String> birthDayCol = new TableColumn<Student, String>("Birthday");
+        TableColumn<Student, String> birthMonthCol = new TableColumn<Student, String>("Month");
+        TableColumn<Student, String> birthYearCol = new TableColumn<Student, String>("Year");
+        TableColumn<Student, String> genderCol = new TableColumn<Student, String>("Gender");
+        TableColumn<Student, String> streetCol = new TableColumn<Student, String>("Street");
+        TableColumn<Student, String> houseNumberCol = new TableColumn<Student, String>("House number");
+        TableColumn<Student, String> houseNumberAdditionCol = new TableColumn<Student, String>("Addition");
+        TableColumn<Student, String> postalCodeCol = new TableColumn<Student, String>("Postal code");
+        TableColumn<Student, String> residenceCol = new TableColumn<Student, String>("Residence");
+        TableColumn<Student, String> countryCol = new TableColumn<Student, String>("Country");
         TableColumn<Student, String> editCol = new TableColumn<Student, String>("Edit");   
         TableColumn<Student, String> deleteCol = new TableColumn<Student, String>("Delete");      
         
@@ -114,7 +107,6 @@ public class StudentOverviewScene {
                         if (empty) {
                             setGraphic(null);
                         } else {
-                            editBtn.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
                             editBtn.setOnAction(event -> {
                                 Student student = getTableView().getItems().get(getIndex());
                                 window.setScene(studentUpdateScene.studentUpdateScene(window, student));
@@ -140,7 +132,6 @@ public class StudentOverviewScene {
                         if (empty) {
                             setGraphic(null);
                         } else {
-                            deleteBtn.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
                             deleteBtn.setOnAction(event -> {
                                 Student student = getTableView().getItems().get(getIndex());
                                 sql.deleteStudent(student);
@@ -167,6 +158,9 @@ public class StudentOverviewScene {
         pane.setCenter(table);
 
         Scene sscene = new Scene(pane, 1080, 620);
+
+        sscene.getStylesheets().add("/resources/styleSheet.css");
+
         return sscene;
     }
 }

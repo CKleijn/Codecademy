@@ -15,7 +15,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class CourseCreateScene extends domain.Validation {
@@ -23,9 +22,6 @@ public class CourseCreateScene extends domain.Validation {
 
     public Scene courseCreateScene(Stage window) {
         CourseOverviewScene courseOverviewScene = new CourseOverviewScene();
-
-        //Layout of the text in the buttons
-		Font font = Font.font("Verdana");
 		
 		//Background image
 		Image image = new Image("resources/backgroundImage.jpg");
@@ -36,8 +32,6 @@ public class CourseCreateScene extends domain.Validation {
         // Button to go back to the StudentOverviewScene.
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
-		backButton.setFont(font);
-		backButton.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
         backButton.setOnAction((event) -> {
             window.setScene(courseOverviewScene.courseOverviewScene(window));
         });
@@ -46,15 +40,12 @@ public class CourseCreateScene extends domain.Validation {
         //All labels and input fields		
 		Label nameLabel = new Label("Name: ");
 		TextArea nameTextArea = new TextArea();
-		nameTextArea.setPrefHeight(12);
 		
 		Label topicLabel = new Label("Topic: ");
 		TextArea topicTextArea = new TextArea();
-		topicTextArea.setPrefHeight(12);
 		
 		Label introductionLabel = new Label("Introduction: ");
 		TextArea introductionTextArea = new TextArea();
-		introductionTextArea.setPrefHeight(12);
 
         Label levelLabel = new Label("Level: ");
 		ComboBox<Level> cbxLevel = new ComboBox<>();
@@ -72,8 +63,6 @@ public class CourseCreateScene extends domain.Validation {
 		//Last button to create with al the information in the textareas
 		Button createCourseButton = new Button("Add course");
 		createCourseButton.setPrefSize(120, 40);
-		createCourseButton.setFont(font);
-		createCourseButton.setStyle("-fx-background-color: #0B9EC3; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
 
 		HBox buttonHBox = new HBox();
         buttonHBox.getChildren().addAll(createCourseButton);
@@ -83,6 +72,7 @@ public class CourseCreateScene extends domain.Validation {
 		grid.setHgap(5);
 		grid.setVgap(2);
 
+		createCourseButton.setId("createCourseButton");
 		createCourseButton.setOnAction((event) -> {
 
 			boolean validation = true;
@@ -148,6 +138,9 @@ public class CourseCreateScene extends domain.Validation {
         pane.setCenter(grid);
 
         Scene sscene = new Scene(pane, 1080, 620);
+
+		sscene.getStylesheets().add("/resources/styleSheet.css");
+
         return sscene;
     }
     

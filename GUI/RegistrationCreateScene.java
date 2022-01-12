@@ -18,7 +18,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class RegistrationCreateScene extends domain.Validation{
@@ -29,9 +28,6 @@ public class RegistrationCreateScene extends domain.Validation{
         StudentOverviewScene studentOverviewScene = new StudentOverviewScene();
         StudentRegistrationScene studentDetailScene = new StudentRegistrationScene();
 
-        //Layout of the text in the buttons
-		Font font = Font.font("Verdana");
-
 		//Background image
 		Image image = new Image("resources/backgroundImage.jpg");
 		ImageView imageView = new ImageView(image);
@@ -41,8 +37,6 @@ public class RegistrationCreateScene extends domain.Validation{
         // Button to go back to the StudentOverviewScene.
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
-		backButton.setFont(font);
-		backButton.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
         backButton.setOnAction((event) -> {
             window.setScene(studentOverviewScene.studentOverviewScene(window));
         });
@@ -91,6 +85,9 @@ public class RegistrationCreateScene extends domain.Validation{
         pane.setCenter(grid);
 
         Scene sscene = new Scene(pane, 1080, 620);
+
+        sscene.getStylesheets().add("/resources/styleSheet.css");
+
         return sscene;
     }
 }

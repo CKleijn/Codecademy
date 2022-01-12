@@ -14,7 +14,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class CourseModuleScene {
@@ -23,9 +22,6 @@ public class CourseModuleScene {
 
     public Scene courseModuleScene(Stage window, Module module, Course course) {
         CourseDetailPage courseDetailPage = new CourseDetailPage();
-
-        //Layout of the text in the buttons
-        Font font = Font.font("Verdana");
 
         // Background image
         Image image = new Image("resources/backgroundImage.jpg");
@@ -36,8 +32,6 @@ public class CourseModuleScene {
         // Button to go back to the homeScene.
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
-        backButton.setFont(font);
-        backButton.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
         backButton.setOnAction((event) -> {
             window.setScene(courseDetailPage.CourseDetailScene(window, course));
         });
@@ -125,6 +119,9 @@ public class CourseModuleScene {
 
 
         Scene sscene = new Scene(pane, 1080, 620);
+
+        sscene.getStylesheets().add("/resources/styleSheet.css");
+
         return sscene;
     }
 }

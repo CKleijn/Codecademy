@@ -15,7 +15,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class CourseUpdateScene extends domain.Validation{
@@ -24,9 +23,6 @@ public class CourseUpdateScene extends domain.Validation{
 
     public Scene courseUpdateScene(Stage window, Course old_course) {
         CourseOverviewScene courseOverviewScene = new CourseOverviewScene();
-
-		//Layout of the text in the buttons
-        Font font = Font.font("Verdana");
 
         // Background image
         Image image = new Image("resources/backgroundImage.jpg");
@@ -38,8 +34,6 @@ public class CourseUpdateScene extends domain.Validation{
         // Button to go back to the homeScene.
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
-		backButton.setFont(font);
-		backButton.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
         backButton.setOnAction((event) -> {
             window.setScene(courseOverviewScene.courseOverviewScene(window));
         });
@@ -75,7 +69,6 @@ public class CourseUpdateScene extends domain.Validation{
 
         Button updateCourse = new Button("Update course");
 		updateCourse.setPrefSize(120, 40);
-        updateCourse.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
 
 		HBox buttonHBox = new HBox();
         buttonHBox.getChildren().addAll(updateCourse);
@@ -134,6 +127,9 @@ public class CourseUpdateScene extends domain.Validation{
         pane.setCenter(grid);
 
         Scene sscene = new Scene(pane, 1080, 620);
+
+		sscene.getStylesheets().add("/resources/styleSheet.css");
+
         return sscene;
     }
     

@@ -1,0 +1,57 @@
+.button {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 13;
+    -fx-font-familty: "Verdana";
+    -fx-background-color: #6BCAE2;
+}
+
+.label {
+    -fx-font-size: 13;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-familty: "Verdana"; 
+}
+
+#firstTitelLabel {
+    -fx-font-size: 28;
+}
+
+#secondTitelLabel {
+    -fx-padding: 10; 
+    -fx-background-color: #0a9ec2;
+    -fx-font-size: 35;
+}
+
+#descriptionLabel {
+    -fx-font-size: 18;
+}
+
+.table-view .column-header {
+    -fx-background-color: #0a9ec2;
+}
+
+#createStudentButton, #editStudentButton, #updateRegistration, #createCourseButton {
+    -fx-background-color: #0a9ec2;
+}
+
+.text-area {
+    -fx-background-color: #0a9ec2;
+    -fx-font-size: 11;
+    -fx-text-fill: #FFFFFF;
+}
+.text-area .content {
+    -fx-background-color: #0a9ec2;
+}
+
+.combo-box .arrow{
+    -fx-background-color:#2478E9;
+}
+.combo-box .arrow-button{
+    -fx-background-color:white;
+    -fx-border-style:none;
+}
+.combo-box .arrow-button{
+    -fx-background-color:white;
+}
+.combo-box .list-cell{
+    -fx-background-color:white;
+}

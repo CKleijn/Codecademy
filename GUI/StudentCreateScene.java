@@ -13,7 +13,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class StudentCreateScene extends domain.Validation{
@@ -21,9 +20,6 @@ public class StudentCreateScene extends domain.Validation{
 
     public Scene studentCreateScene(Stage window) {
         StudentOverviewScene studentOverviewScene = new StudentOverviewScene();
-
-        //Layout of the text in the buttons
-		Font font = Font.font("Verdana");
 
 		//Background image
 		Image image = new Image("resources/backgroundImage.jpg");
@@ -34,8 +30,6 @@ public class StudentCreateScene extends domain.Validation{
         // Button to go back to the StudentOverviewScene.
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
-		backButton.setFont(font);
-		backButton.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
         backButton.setOnAction((event) -> {
             window.setScene(studentOverviewScene.studentOverviewScene(window));
         });
@@ -43,56 +37,41 @@ public class StudentCreateScene extends domain.Validation{
         //All labels, input fields and error messages
 		Label emailLabel = new Label("Email: ");
 		TextArea emailTextArea = new TextArea();
-		emailTextArea.setPrefHeight(12);
 		
 		Label nameLabel = new Label("Name: ");
 		TextArea nameTextArea = new TextArea();
-		nameTextArea.setPrefHeight(12);
 		
 		Label birthDayLabel = new Label("Birthday: ");
 		TextArea birthDayTextArea = new TextArea();
-		birthDayTextArea.setPrefHeight(12);
 		TextArea birthMonthTextArea = new TextArea();
-		birthMonthTextArea.setPrefHeight(12);
 		TextArea birthYearTextArea = new TextArea();
-		birthYearTextArea.setPrefHeight(12);
 		
 		Label genderLabel = new Label("Gender: ");
 		TextArea genderTextArea = new TextArea();
-		genderTextArea.setPrefHeight(12);
 		
 		Label streetLabel = new Label("Street: ");
 		TextArea streetTextArea = new TextArea();
-		streetTextArea.setPrefHeight(12);
 
         Label houseNumberLabel = new Label("House number: ");
 		TextArea houseNumberTextArea = new TextArea();
-		houseNumberTextArea.setPrefHeight(12);
 
         Label houseNumberAdditionLabel = new Label("House number addition: ");
 		TextArea houseNumberAdditionTextArea = new TextArea();
-		houseNumberAdditionTextArea.setPrefHeight(12);
 
         Label postalCodeLabel = new Label("Postal code: ");
 		TextArea postalCodeTextArea = new TextArea();
-		postalCodeTextArea.setPrefHeight(12);
 
 		Label residenceLabel = new Label("Residence: ");
 		TextArea residenceTextArea = new TextArea();
-		residenceTextArea.setPrefHeight(12);
 		
 		Label countryLabel = new Label("Country: ");
 		TextArea countryTextArea = new TextArea();
-		residenceTextArea.setPrefHeight(12);
 
 		//Last button to create with al the information in the textareas
 		
 		Button createStudentButton = new Button("Add student");
 		createStudentButton.setPrefSize(120, 40);
-		createStudentButton.setFont(font);
-		createStudentButton.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
-		
-		//Create a gridPane for the labels and textArea's
+
         HBox buttonHBox = new HBox();
         buttonHBox.getChildren().addAll(createStudentButton);
 
@@ -191,6 +170,9 @@ public class StudentCreateScene extends domain.Validation{
         pane.setCenter(grid);
 
         Scene sscene = new Scene(pane, 1080, 620);
+
+		sscene.getStylesheets().add("/resources/styleSheet.css");
+
         return sscene;
     }
 }

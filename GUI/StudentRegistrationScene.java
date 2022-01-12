@@ -19,7 +19,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -34,9 +33,6 @@ public class StudentRegistrationScene extends domain.Validation {
         RegistrationCreateScene registrationCreateScene = new RegistrationCreateScene();
         RegistrationUpdateScene registrationUpdateScene = new RegistrationUpdateScene();
 
-		//Layout of the text in the buttons
-        Font font = Font.font("Verdana");
-
         // Background image
         Image image = new Image("resources/backgroundImage.jpg");
         ImageView imageView = new ImageView(image);
@@ -46,24 +42,18 @@ public class StudentRegistrationScene extends domain.Validation {
         // Button to go back to the homeScene.
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
-		backButton.setFont(font);
-		backButton.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
         backButton.setOnAction((event) -> {
             window.setScene(studentOverviewScene.studentOverviewScene(window));
         });
 
         Button registerButton = new Button("Register");
         registerButton.setPrefSize(80, 37);
-		registerButton.setFont(font);
-		registerButton.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
         registerButton.setOnAction((event) -> {
             window.setScene(registrationCreateScene.registrationCreateScene(window, current_student));
         });
 
-        Button certificateButton = new Button("View all certificates");
-        certificateButton.setPrefSize(80, 37);
-		certificateButton.setFont(font);
-		certificateButton.setStyle("-fx-background-color: #6BCAE2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
+        Button certificateButton = new Button("View certificates");
+        certificateButton.setPrefSize(120, 37);
         certificateButton.setOnAction((event) -> {
             window.setScene(studentCertificateScene.studentCertificateScene(window, current_student));
         });
@@ -105,7 +95,6 @@ public class StudentRegistrationScene extends domain.Validation {
                         if (empty) {
                             setGraphic(null);
                         } else {
-                            editBtn.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
                             editBtn.setOnAction(event -> {
                                 Registration registration = getTableView().getItems().get(getIndex());
                                 window.setScene(registrationUpdateScene.registrationUpdateScene(window, registration, current_student));
@@ -131,7 +120,6 @@ public class StudentRegistrationScene extends domain.Validation {
                         if (empty) {
                             setGraphic(null);
                         } else {
-                            deleteBtn.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
                             deleteBtn.setOnAction(event -> {
                                 Registration registration = getTableView().getItems().get(getIndex());
                                 sqlR.deleteRegistration(registration);
@@ -158,6 +146,9 @@ public class StudentRegistrationScene extends domain.Validation {
         pane.setCenter(table);
 
         Scene sscene = new Scene(pane, 1080, 620);
+
+        sscene.getStylesheets().add("/resources/styleSheet.css");
+
         return sscene;
     }
 }
