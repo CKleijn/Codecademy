@@ -18,7 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class CourseCreateScene {
+public class CourseCreateScene extends domain.Validation {
     private CourseSQL sql = new CourseSQL();
 
     public Scene courseCreateScene(Stage window) {
@@ -74,37 +74,72 @@ public class CourseCreateScene {
 		createCourseButton.setPrefSize(120, 40);
 		createCourseButton.setFont(font);
 		createCourseButton.setStyle("-fx-background-color: #0B9EC3; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
-		createCourseButton.setOnAction((event) -> {
-			if(!nameTextArea.getText().isEmpty() && !topicTextArea.getText().isEmpty() && !introductionTextArea.getText().isEmpty() && !cbxLevel.getSelectionModel().getSelectedItem().name().isEmpty()){
-				Course course = new Course(nameTextArea.getText(), topicTextArea.getText(), introductionTextArea.getText(), cbxLevel.getSelectionModel().getSelectedItem().name());
-				sql.setCourseName(cbxModule.getSelectionModel().getSelectedItem(), course.getName());
-				sql.setCourseName(cbxWebcast.getSelectionModel().getSelectedItem(),course.getName());
-				sql.createCourse(course);
-				window.setScene(courseOverviewScene.courseOverviewScene(window));
 
-			}
-		});
-
-        HBox buttonHBox = new HBox();
+		HBox buttonHBox = new HBox();
         buttonHBox.getChildren().addAll(createCourseButton);
 
         GridPane grid = new GridPane();
 		grid.setPadding(new Insets(40, 0, 0, 0));
 		grid.setHgap(5);
 		grid.setVgap(2);
+
+		createCourseButton.setOnAction((event) -> {
+
+			boolean validation = true;
+			if (fieldIsEmpty(nameTextArea.getText())) {
+				validation = false;
+				Label errorText = new Label("Text field isn't filled in");
+				grid.add(errorText, 1, 1, 1, 1);
+			}
+			if (fieldIsEmpty(topicTextArea.getText())) {
+				validation = false;
+				Label errorText = new Label("Text field isn't filled in");
+				grid.add(errorText, 1, 3, 1, 1);
+			} 
+			if (fieldIsEmpty(introductionTextArea.getText())) {
+				validation = false;
+				Label errorText = new Label("Text field isn't filled in");
+				grid.add(errorText, 1, 5, 1, 1);
+			} 
+			if (cbxLevel.getSelectionModel().isEmpty()) {
+				validation = false;
+				Label errorText = new Label("dropdown menu isn't filled in");
+				grid.add(errorText, 1, 7, 1, 1);
+			}
+			if (cbxModule.getSelectionModel().isEmpty()) {
+				validation = false;
+				Label errorText = new Label("dropdown menu isn't filled in");
+				grid.add(errorText, 1, 9, 1, 1);
+			}
+
+			if (cbxWebcast.getSelectionModel().isEmpty()) {
+				validation = false;
+				Label errorText = new Label("dropdown menu isn't filled in");
+				grid.add(errorText, 1, 11, 1, 1);
+			}
+
+			if (validation) { 
+				Course course = new Course(nameTextArea.getText(), topicTextArea.getText(), introductionTextArea.getText(), cbxLevel.getSelectionModel().getSelectedItem().name());
+				sql.setCourseName(cbxModule.getSelectionModel().getSelectedItem(), course.getName());
+				sql.setCourseName(cbxWebcast.getSelectionModel().getSelectedItem(),course.getName());
+				sql.createCourse(course);
+				window.setScene(courseOverviewScene.courseOverviewScene(window));
+			}
+		});
+
 		grid.add(nameLabel, 0, 0 , 1, 1);
 		grid.add(nameTextArea, 1, 0, 1, 1);
-		grid.add(topicLabel, 0, 1 , 1, 1);
-		grid.add(topicTextArea, 1, 1, 1, 1);
-		grid.add(introductionLabel, 0, 2, 1, 1);
-		grid.add(introductionTextArea, 1, 2, 1, 1);
-		grid.add(levelLabel, 0, 3, 1, 1);
-		grid.add(cbxLevel, 1, 3, 1, 1);
-		grid.add(moduleLabel, 0, 4, 1, 1);
-		grid.add(cbxModule, 1, 4, 1, 1);
-		grid.add(webcastLabel, 0, 5, 1, 1);
-		grid.add(cbxWebcast, 1, 5, 1, 1);
-		grid.add(buttonHBox, 0, 7, 1, 1);
+		grid.add(topicLabel, 0, 2 , 1, 1);
+		grid.add(topicTextArea, 1, 2, 1, 1);
+		grid.add(introductionLabel, 0, 4, 1, 1);
+		grid.add(introductionTextArea, 1, 4, 1, 1);
+		grid.add(levelLabel, 0, 6, 1, 1);
+		grid.add(cbxLevel, 1, 6, 1, 1);
+		grid.add(moduleLabel, 0, 8, 1, 1);
+		grid.add(cbxModule, 1, 8, 1, 1);
+		grid.add(webcastLabel, 0, 10, 1, 1);
+		grid.add(cbxWebcast, 1, 10, 1, 1);
+		grid.add(buttonHBox, 0, 13, 1, 1);
 
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(15, 15, 15, 15));
