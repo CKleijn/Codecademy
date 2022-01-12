@@ -39,8 +39,8 @@ public class StudentCreateScene extends domain.Validation{
         backButton.setOnAction((event) -> {
             window.setScene(studentOverviewScene.studentOverviewScene(window));
         });
-
-        //All labels and input fields
+		
+        //All labels, input fields and error messages
 		Label emailLabel = new Label("Email: ");
 		TextArea emailTextArea = new TextArea();
 		emailTextArea.setPrefHeight(12);
@@ -76,7 +76,7 @@ public class StudentCreateScene extends domain.Validation{
         Label postalCodeLabel = new Label("Postal code: ");
 		TextArea postalCodeTextArea = new TextArea();
 		postalCodeTextArea.setPrefHeight(12);
-		
+
 		Label residenceLabel = new Label("Residence: ");
 		TextArea residenceTextArea = new TextArea();
 		residenceTextArea.setPrefHeight(12);
@@ -86,18 +86,13 @@ public class StudentCreateScene extends domain.Validation{
 		residenceTextArea.setPrefHeight(12);
 
 		//Last button to create with al the information in the textareas
+		
 		Button createStudentButton = new Button("Add student");
 		createStudentButton.setPrefSize(120, 40);
 		createStudentButton.setFont(font);
 		createStudentButton.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
-		createStudentButton.setOnAction((event) -> {
-			if(!checkEmail(emailTextArea.getText()) && checkDate(Integer.parseInt(birthDayTextArea.getText()), Integer.parseInt(birthMonthTextArea.getText()), Integer.parseInt(birthYearTextArea.getText())) 
-			&& checkPostalCode(postalCodeTextArea.getText()) && checkGender(genderTextArea.getText()) && !emailTextArea.getText().isEmpty() && !nameTextArea.getText().isEmpty() && !birthDayTextArea.getText().isEmpty() && !birthMonthTextArea.getText().isEmpty() && !birthYearTextArea.getText().isEmpty() && !genderTextArea.getText().isEmpty() && !streetTextArea.getText().isEmpty() && !houseNumberTextArea.getText().isEmpty() && !residenceTextArea.getText().isEmpty() && !countryTextArea.getText().isEmpty()){
-				sql.createStudent(new Student(emailTextArea.getText(), nameTextArea.getText(), Integer.parseInt(birthDayTextArea.getText()), Integer.parseInt(birthMonthTextArea.getText()), Integer.parseInt(birthYearTextArea.getText()), genderTextArea.getText(), streetTextArea.getText(), houseNumberTextArea.getText(), houseNumberAdditionTextArea.getText(), postalCodeTextArea.getText(), residenceTextArea.getText(), countryTextArea.getText()));
-				window.setScene(studentOverviewScene.studentOverviewScene(window));
-			}
-		});
-
+		
+		//Create a gridPane for the labels and textArea's
         HBox buttonHBox = new HBox();
         buttonHBox.getChildren().addAll(createStudentButton);
 
@@ -105,29 +100,89 @@ public class StudentCreateScene extends domain.Validation{
 		grid.setPadding(new Insets(40, 0, 0, 0));
 		grid.setHgap(5);
 		grid.setVgap(2);
+
+		//Set an on action event for the button
+		createStudentButton.setOnAction((event) -> {
+			boolean validation = true;
+			if(!checkEmail(emailTextArea.getText())) { 
+				validation = false;
+				Label errorText = new Label("email isn't valid");
+				grid.add(errorText, 1, 1, 1, 1);
+			}
+			if(fieldIsEmpty(birthDayTextArea.getText()) || fieldIsEmpty(birthMonthTextArea.getText()) || fieldIsEmpty(birthYearTextArea.getText())){
+				validation = false;
+				Label errorText = new Label("birthdate isn't valid");	
+				grid.add(errorText, 1, 5, 1, 1);
+			} else if (!checkDate(Integer.parseInt(birthDayTextArea.getText()), Integer.parseInt(birthMonthTextArea.getText()), Integer.parseInt(birthYearTextArea.getText()))) {
+				validation = false;
+				Label errorText = new Label("birthdate isn't valid");	
+				grid.add(errorText, 1, 5, 1, 1);
+			}
+			if (!checkPostalCode(postalCodeTextArea.getText())) {
+				validation = false;
+				Label errorText = new Label("postal code isn't must be 4 digits space 2 letters");
+				grid.add(errorText, 1, 15, 1, 1);
+			}
+			if (!checkGender(genderTextArea.getText())) {
+				validation = false;
+				Label errorText = new Label("gender must be 'M' for male or 'F' for female");
+				grid.add(errorText, 1, 7, 1, 1);
+			}
+			if (fieldIsEmpty(nameTextArea.getText())) {
+				validation = false;
+				Label errorText = new Label("Text field isn't filled in");
+				grid.add(errorText, 1, 3, 1, 1);
+			}
+			if (fieldIsEmpty(streetTextArea.getText())) {
+				validation = false;
+				Label errorText = new Label("Text field isn't filled in");
+				grid.add(errorText, 1, 9, 1, 1);
+			} 
+			if (fieldIsEmpty(houseNumberTextArea.getText())) {
+				validation = false;
+				Label errorText = new Label("Text field isn't filled in");
+				grid.add(errorText, 1, 11, 1, 1);
+			} 
+			if (fieldIsEmpty(residenceTextArea.getText())) {
+				validation = false;
+				Label errorText = new Label("Text field isn't filled in");
+				grid.add(errorText, 1, 17, 1, 1);
+			}
+			if (fieldIsEmpty(countryTextArea.getText())) {
+				validation = false;
+				Label errorText = new Label("Text field isn't filled in");
+				grid.add(errorText, 1, 19, 1, 1);
+			}
+			
+			if (validation) { 
+				sql.createStudent(new Student(emailTextArea.getText(), nameTextArea.getText(), Integer.parseInt(birthDayTextArea.getText()), Integer.parseInt(birthMonthTextArea.getText()), Integer.parseInt(birthYearTextArea.getText()), genderTextArea.getText(), streetTextArea.getText(), houseNumberTextArea.getText(), houseNumberAdditionTextArea.getText(), postalCodeTextArea.getText(), residenceTextArea.getText(), countryTextArea.getText()));
+				window.setScene(studentOverviewScene.studentOverviewScene(window));
+			}			
+		});
+
 		grid.add(emailLabel, 0, 0 , 1, 1);
 		grid.add(emailTextArea, 1, 0, 1, 1);
-		grid.add(nameLabel, 0, 1 , 1, 1);
-		grid.add(nameTextArea, 1, 1, 1, 1);
-		grid.add(birthDayLabel, 0, 2, 1, 1);
-		grid.add(birthDayTextArea, 1, 2, 1, 1);
-		grid.add(birthMonthTextArea, 2, 2, 1, 1);
-		grid.add(birthYearTextArea, 3, 2, 1, 1);
-		grid.add(genderLabel, 0, 3 , 1, 1);
-		grid.add(genderTextArea, 1, 3 , 1, 1);
-		grid.add(streetLabel, 0, 4, 1, 1);
-		grid.add(streetTextArea, 1, 4 , 1, 1);
-        grid.add(houseNumberLabel, 0, 5 , 1, 1);
-		grid.add(houseNumberTextArea, 1, 5 , 1, 1);
-        grid.add(houseNumberAdditionLabel, 0, 6 , 1, 1);
-		grid.add(houseNumberAdditionTextArea, 1, 6 , 1, 1);
-        grid.add(postalCodeLabel, 0, 7 , 1, 1);
-		grid.add(postalCodeTextArea, 1, 7 , 1, 1);
-		grid.add(residenceLabel, 0, 8 , 1, 1);
-		grid.add(residenceTextArea, 1, 8 , 1, 1);
-		grid.add(countryLabel, 0, 9, 1, 1);
-		grid.add(countryTextArea, 1, 9, 1, 1);
-		grid.add(buttonHBox, 1, 10, 1, 1);
+		grid.add(nameLabel, 0, 2 , 1, 1);
+		grid.add(nameTextArea, 1, 2, 1, 1);
+		grid.add(birthDayLabel, 0, 4, 1, 1);
+		grid.add(birthDayTextArea, 1, 4, 1, 1);
+		grid.add(birthMonthTextArea, 2, 4, 1, 1);
+		grid.add(birthYearTextArea, 3, 4, 1, 1);
+		grid.add(genderLabel, 0, 6 , 1, 1);
+		grid.add(genderTextArea, 1, 6 , 1, 1);
+		grid.add(streetLabel, 0, 8, 1, 1);
+		grid.add(streetTextArea, 1, 8 , 1, 1);
+        grid.add(houseNumberLabel, 0, 10 , 1, 1);
+		grid.add(houseNumberTextArea, 1, 10 , 1, 1);
+        grid.add(houseNumberAdditionLabel, 0, 12 , 1, 1);
+		grid.add(houseNumberAdditionTextArea, 1, 12 , 1, 1);
+        grid.add(postalCodeLabel, 0, 14 , 1, 1);
+		grid.add(postalCodeTextArea, 1, 14 , 1, 1);
+		grid.add(residenceLabel, 0,16 , 1, 1);
+		grid.add(residenceTextArea, 1, 16 , 1, 1);
+		grid.add(countryLabel, 0, 18, 1, 1);
+		grid.add(countryTextArea, 1, 18, 1, 1);
+		grid.add(buttonHBox, 1, 20, 1, 1);
 
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(15, 15, 15, 15));
