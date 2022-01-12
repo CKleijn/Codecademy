@@ -54,12 +54,6 @@ public class RegistrationUpdateScene extends domain.Validation{
         Button updateRegistration = new Button("Update registration");
 		updateRegistration.setPrefSize(120, 40);
         updateRegistration.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
-		updateRegistration.setOnAction((event) -> {
-            if(!cbxCourse.getSelectionModel().getSelectedItem().isEmpty()){
-                sqlR.updateRegistration(current_registration, new Registration(Date.valueOf(LocalDate.now()), current_student.getEmail(), cbxCourse.getSelectionModel().getSelectedItem()));
-                window.setScene(studentDetailScene.studentRegistrationScene(window, current_student));
-            }
-		});
 
         HBox buttonHBox = new HBox();
         buttonHBox.getChildren().addAll(updateRegistration);
@@ -68,6 +62,23 @@ public class RegistrationUpdateScene extends domain.Validation{
 		grid.setPadding(new Insets(40, 0, 0, 0));
 		grid.setHgap(5);
 		grid.setVgap(2);
+
+		updateRegistration.setOnAction((event) -> {
+
+            boolean validation = true;
+
+            if(cbxCourse.getSelectionModel().isEmpty()){
+                validation = false;
+                Label errorText = new Label("dropdown menu isn't filled in");
+				grid.add(errorText, 1, 1, 1, 1);
+            }
+
+            if(validation){
+                sqlR.updateRegistration(current_registration, new Registration(Date.valueOf(LocalDate.now()), current_student.getEmail(), cbxCourse.getSelectionModel().getSelectedItem()));
+                window.setScene(studentDetailScene.studentRegistrationScene(window, current_student));
+            }
+		});
+
         grid.add(courseLabel, 0, 0 , 1, 1);
 		grid.add(cbxCourse, 1, 0 , 1, 1);
         grid.add(buttonHBox, 0, 1 , 1, 1);
