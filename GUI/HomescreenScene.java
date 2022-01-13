@@ -57,12 +57,8 @@ public class HomescreenScene{
 		firstTitelLabel.setId("firstTitelLabel");
 		Label secondTitelLabel = new Label("Codecademy Application");
 		secondTitelLabel.setId("secondTitelLabel");
-		
-		//Logo of Codecademy under the titel
-		// Image logo = new Image("../resources/logo.png");
-		// ImageView imageViewLogo = new ImageView(logo);
 
-		//Vbox with the two titel labels and the logo.
+		//Vbox with the two titel labels.
 		VBox front = new VBox(firstTitelLabel, secondTitelLabel);
 		front.setSpacing(5);
 		front.setAlignment(Pos.BASELINE_CENTER);

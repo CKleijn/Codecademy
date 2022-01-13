@@ -25,10 +25,6 @@
     -fx-font-size: 18;
 }
 
-.table-view .column-header {
-    -fx-background-color: #0a9ec2;
-}
-
 #createStudentButton, #editStudentButton, #updateRegistration, #createCourseButton {
     -fx-background-color: #0a9ec2;
 }
@@ -54,4 +50,42 @@
 }
 .combo-box .list-cell{
     -fx-background-color:white;
+}
+
+.table-view{
+    -fx-background-color: transparent;
+ }
+ 
+ .table-view .column-header-background{
+     -fx-background-color: #2478E9;
+ }
+
+.table-view .column-header-background .label{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+
+.table-view .table-cell{
+    -fx-text-fill: white;
+}
+
+.table-row-cell{
+    -fx-background-color: -fx-table-cell-border-color, #0a9ec2;
+    -fx-background-insets: 0, 0 0 1 0;
+}
+
+.table-row-cell:odd{
+    -fx-background-color: -fx-table-cell-border-color, #0a9ec2;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em; /* 0 */  
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #2478E9;
+    -fx-background-insets: 0;
+    -fx-background-radius: 1;
 }

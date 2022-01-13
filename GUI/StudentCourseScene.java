@@ -47,13 +47,13 @@ public class StudentCourseScene {
         });
 
         Button createButton = new Button("Create certificate");
-        createButton.setPrefSize(80, 37);
+        createButton.setPrefSize(120, 37);
         createButton.setOnAction((event) -> {
             window.setScene(certificateCreateScene.certificateCreateScene(window, registration, course, current_student));
         });
 
         Button checkButton = new Button("Check certificates");
-        checkButton.setPrefSize(80, 37);
+        checkButton.setPrefSize(120, 37);
         checkButton.setOnAction((event) -> {
             sqlC.checkIfStudentReceiveCertificate(sqlC.getSingleCertificateFromStudentForSpecificCourse(course, current_student), registration);
             window.setScene(studentCourseScene(window, registration, course, current_student));

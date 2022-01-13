@@ -12,7 +12,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class StudentCreateScene extends domain.Validation{
@@ -43,7 +42,11 @@ public class StudentCreateScene extends domain.Validation{
 		
 		Label birthDayLabel = new Label("Birthday: ");
 		TextArea birthDayTextArea = new TextArea();
+
+		Label birthMonthLabel = new Label("Birthmonth: ");
 		TextArea birthMonthTextArea = new TextArea();
+
+		Label birthYearLabel = new Label("Birthyear: ");
 		TextArea birthYearTextArea = new TextArea();
 		
 		Label genderLabel = new Label("Gender: ");
@@ -68,12 +71,9 @@ public class StudentCreateScene extends domain.Validation{
 		TextArea countryTextArea = new TextArea();
 
 		//Last button to create with al the information in the textareas
-		
 		Button createStudentButton = new Button("Add student");
 		createStudentButton.setPrefSize(120, 40);
-
-        HBox buttonHBox = new HBox();
-        buttonHBox.getChildren().addAll(createStudentButton);
+		createStudentButton.setId("createStudentButton");
 
         GridPane grid = new GridPane();
 		grid.setPadding(new Insets(40, 0, 0, 0));
@@ -145,23 +145,25 @@ public class StudentCreateScene extends domain.Validation{
 		grid.add(nameTextArea, 1, 2, 1, 1);
 		grid.add(birthDayLabel, 0, 4, 1, 1);
 		grid.add(birthDayTextArea, 1, 4, 1, 1);
-		grid.add(birthMonthTextArea, 2, 4, 1, 1);
-		grid.add(birthYearTextArea, 3, 4, 1, 1);
-		grid.add(genderLabel, 0, 6 , 1, 1);
-		grid.add(genderTextArea, 1, 6 , 1, 1);
-		grid.add(streetLabel, 0, 8, 1, 1);
-		grid.add(streetTextArea, 1, 8 , 1, 1);
-        grid.add(houseNumberLabel, 0, 10 , 1, 1);
-		grid.add(houseNumberTextArea, 1, 10 , 1, 1);
-        grid.add(houseNumberAdditionLabel, 0, 12 , 1, 1);
-		grid.add(houseNumberAdditionTextArea, 1, 12 , 1, 1);
-        grid.add(postalCodeLabel, 0, 14 , 1, 1);
-		grid.add(postalCodeTextArea, 1, 14 , 1, 1);
-		grid.add(residenceLabel, 0,16 , 1, 1);
-		grid.add(residenceTextArea, 1, 16 , 1, 1);
-		grid.add(countryLabel, 0, 18, 1, 1);
-		grid.add(countryTextArea, 1, 18, 1, 1);
-		grid.add(buttonHBox, 1, 20, 1, 1);
+		grid.add(birthMonthLabel, 0, 6, 1, 1);
+		grid.add(birthMonthTextArea, 1, 6, 1, 1);
+		grid.add(birthYearLabel, 0, 8, 1, 1);
+		grid.add(birthYearTextArea, 1, 8, 1, 1);
+		grid.add(genderLabel, 0, 10 , 1, 1);
+		grid.add(genderTextArea, 1, 10 , 1, 1);
+		grid.add(streetLabel, 0, 12, 1, 1);
+		grid.add(streetTextArea, 1, 12 , 1, 1);
+        grid.add(houseNumberLabel, 0, 14 , 1, 1);
+		grid.add(houseNumberTextArea, 1, 14 , 1, 1);
+        grid.add(houseNumberAdditionLabel, 0, 16 , 1, 1);
+		grid.add(houseNumberAdditionTextArea, 1, 16 , 1, 1);
+        grid.add(postalCodeLabel, 0, 18 , 1, 1);
+		grid.add(postalCodeTextArea, 1, 18 , 1, 1);
+		grid.add(residenceLabel, 0, 20 , 1, 1);
+		grid.add(residenceTextArea, 1, 20 , 1, 1);
+		grid.add(countryLabel, 0, 22, 1, 1);
+		grid.add(countryTextArea, 1, 22, 1, 1);
+		grid.add(createStudentButton, 1, 24, 1, 1);
 
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(15, 15, 15, 15));

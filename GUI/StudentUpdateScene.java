@@ -42,13 +42,15 @@ public class StudentUpdateScene extends domain.Validation {
 		TextArea nameTextArea = new TextArea();
         nameTextArea.setText(old_student.getName());
 		
-		Label birthDateLabel = new Label("Birthdate: ");
+		Label birthDayLabel = new Label("Birthday: ");
 		TextArea birthDayTextArea = new TextArea();
         birthDayTextArea.setText(String.valueOf(old_student.getBirthDay()));
 
+		Label birthMonthLabel = new Label("Birthmonth: ");
 		TextArea birthMonthTextArea = new TextArea();
         birthMonthTextArea.setText(String.valueOf(old_student.getBirthMonth()));
 
+		Label birthYearLabel = new Label("Birthyear: ");
 		TextArea birthYearTextArea = new TextArea();
         birthYearTextArea.setText(String.valueOf(old_student.getBirthYear()));
 		
@@ -90,7 +92,7 @@ public class StudentUpdateScene extends domain.Validation {
         GridPane grid = new GridPane();
 		grid.setPadding(new Insets(50, 50, 50, 50));
 		grid.setHgap(5);
-		grid.setVgap(5);
+		grid.setVgap(2);
 
 		editStudentButton.setOnAction((event) -> {
 			boolean validation = true;
@@ -152,25 +154,27 @@ public class StudentUpdateScene extends domain.Validation {
 
 		grid.add(nameLabel, 0, 2 , 1, 1);
 		grid.add(nameTextArea, 1, 2 , 1, 1);
-		grid.add(birthDateLabel, 0, 4 , 1, 1);
+		grid.add(birthDayLabel, 0, 4 , 1, 1);
 		grid.add(birthDayTextArea, 1, 4 , 1, 1);
-		grid.add(birthMonthTextArea, 2, 4 , 1, 1);
-		grid.add(birthYearTextArea, 3, 4 , 1, 1);
-		grid.add(genderLabel, 0, 6 , 1, 1);
-		grid.add(genderTextArea, 1, 6 , 1, 1);
-		grid.add(streetLabel, 0, 8 , 1, 1);
-		grid.add(streetTextArea, 1, 8 , 1, 1);
-        grid.add(houseNumberLabel, 0, 10 , 1, 1);
-		grid.add(houseNumberTextArea, 1, 10 , 1, 1);
-        grid.add(houseNumberAdditionLabel, 0, 12 , 1, 1);
-		grid.add(houseNumberAdditionTextArea, 1, 12 , 1, 1);
-        grid.add(postalCodeLabel, 0, 14 , 1, 1);
-		grid.add(postalCodeTextArea, 1, 14 , 1, 1);
-		grid.add(residenceLabel, 0, 16 , 1, 1);
-		grid.add(residenceTextArea, 1, 16 , 1, 1);
-		grid.add(countryLabel, 0, 18, 1, 1);
-		grid.add(countryTextArea, 1, 18, 1, 1);
-		grid.add(buttonHBox, 1, 20, 1, 1);
+		grid.add(birthMonthLabel, 0, 6 , 1, 1);
+		grid.add(birthMonthTextArea, 1, 6 , 1, 1);
+		grid.add(birthYearLabel, 0, 8 , 1, 1);
+		grid.add(birthYearTextArea, 1, 8 , 1, 1);
+		grid.add(genderLabel, 0, 10 , 1, 1);
+		grid.add(genderTextArea, 1, 10 , 1, 1);
+		grid.add(streetLabel, 0, 12 , 1, 1);
+		grid.add(streetTextArea, 1, 12 , 1, 1);
+        grid.add(houseNumberLabel, 0, 14 , 1, 1);
+		grid.add(houseNumberTextArea, 1, 14 , 1, 1);
+        grid.add(houseNumberAdditionLabel, 0, 16 , 1, 1);
+		grid.add(houseNumberAdditionTextArea, 1, 16 , 1, 1);
+        grid.add(postalCodeLabel, 0, 18 , 1, 1);
+		grid.add(postalCodeTextArea, 1, 18 , 1, 1);
+		grid.add(residenceLabel, 0, 20 , 1, 1);
+		grid.add(residenceTextArea, 1, 20 , 1, 1);
+		grid.add(countryLabel, 0, 22, 1, 1);
+		grid.add(countryTextArea, 1, 22, 1, 1);
+		grid.add(buttonHBox, 1, 24, 1, 1);
 
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(15, 15, 15, 15));

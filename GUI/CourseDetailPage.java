@@ -138,6 +138,9 @@ public class CourseDetailPage {
 
 
         Scene sscene = new Scene(pane, 1080, 620);
+
+        sscene.getStylesheets().add("/resources/styleSheet.css");
+
         return sscene;
 
         

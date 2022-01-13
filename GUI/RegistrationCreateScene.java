@@ -46,7 +46,7 @@ public class RegistrationCreateScene extends domain.Validation{
         cbxCourse.getItems().setAll(sqlC.getCourses());
 
         Button createRegistration = new Button("Create registration");
-		createRegistration.setPrefSize(120, 40);
+		createRegistration.setPrefSize(140, 40);
         createRegistration.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
 
         HBox buttonHBox = new HBox();
