@@ -115,7 +115,7 @@ public class CourseSQL extends ConnectToDatabase {
     public String[] getModules() {
         Connection conn = getConnection();
         ArrayList<String> modules = new ArrayList<>();
-        String query = "SELECT ItemTitle FROM Item JOIN Module ON Item.ItemID = Module.ItemID WHERE CourseName IS NULL";
+        String query = "SELECT ItemTitle FROM Item JOIN Module ON Item.ItemID = Module.ItemID WHERE Module.CourseName IS NULL";
         Statement st;
         ResultSet rs;
         try {
@@ -139,39 +139,11 @@ public class CourseSQL extends ConnectToDatabase {
         return strModules;
     }
 
-    //Method that returns all of the Webcast names in a String Array
-    public String[] getWebcasts() {
-        Connection conn = getConnection();
-        ArrayList<String> webcasts = new ArrayList<>();
-        String query = "SELECT ItemTitle FROM Item JOIN Webcast ON Item.ItemID = Webcast.ItemID WHERE CourseName IS NULL";
-        Statement st;
-        ResultSet rs;
-        try {
-            st = conn.createStatement();
-            rs = st.executeQuery(query);
-            String webcastTitle;
-            while(rs.next()){
-                webcastTitle = new String(rs.getString("ItemTitle"));
-                webcasts.add(webcastTitle);
-            }
-            System.out.println("got the webcasts!");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        String[] strWebcasts = new String[webcasts.size()];
-        for(int i = 0; i < webcasts.size(); i++){
-            strWebcasts[i] = webcasts.get(i);
-        }
-
-        return strWebcasts;
-    }
-
     //Method that returns the Modules belonging to a given Course in a ArrayList
     public ArrayList<Module> getSpecificModules(Course course) {
         Connection conn = getConnection();
         ArrayList<Module> modules = new ArrayList<>();
-        String query = "SELECT * FROM Item JOIN Module ON Item.ItemID = Module.ItemID WHERE CourseName = '" + course.getName() + "'";
+        String query = "SELECT * FROM Item JOIN Module ON Item.ItemID = Module.ItemID WHERE Module.CourseName = '" + course.getName() + "'";
         Statement st;
         ResultSet rs;
         try {
@@ -191,33 +163,10 @@ public class CourseSQL extends ConnectToDatabase {
 
     }
 
-    //Method that returns the Webcasts belonging to a given Course in a ArrayList
-    public ArrayList<Webcast> getSpecificWebcasts(Course course) {
-        Connection conn = getConnection();
-        ArrayList<Webcast> webcasts = new ArrayList<>();
-        String query = "SELECT * FROM Item JOIN Webcast ON Item.ItemID = Webcast.ItemID WHERE CourseName = '" + course.getName() + "'";
-        Statement st;
-        ResultSet rs;
-        try {
-            st = conn.createStatement();
-            rs = st.executeQuery(query);
-            Webcast webcast;
-            while(rs.next()){
-                webcast = new Webcast(rs.getInt("ItemID"), rs.getString("ItemTitle"), rs.getString("ItemDescription"), rs.getDate("ItemPublicationDate"), rs.getInt("ExternalPersonID"), rs.getString("ItemStatus"), rs.getInt("WebcastDuration"), rs.getString("WebcastURL"));
-                webcasts.add(webcast);
-            }
-            System.out.println("got the webcasts!");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return webcasts;
-    }
-
     //Method that changes the name of a Course that belongs to a given Item to a given name
     public void setCourseName(String itemTitle, String CourseName){
         Connection conn = getConnection();
-        String query = "UPDATE Item SET CourseName = '" + CourseName + "' WHERE ItemTitle = '" + itemTitle + "'";
+        String query = "UPDATE Module SET Module.CourseName = '" + CourseName + "' INNER JOIN Item ON Module.ItemID = Item.ItemID WHERE Item.ItemTitle = '" + itemTitle + "'";
         Statement st;
         
         try {
@@ -232,7 +181,7 @@ public class CourseSQL extends ConnectToDatabase {
     //Method that changes the name of a Course that belongs to a given Item to NULL
     public void setNull(String itemTitle){
         Connection conn = getConnection();
-        String query = "UPDATE Item SET CourseName = NULL WHERE ItemTitle = ('" + itemTitle + "')";
+        String query = "UPDATE Module SET Module.CourseName = NULL INNER JOIN Item ON Module.ItemID = Item.ItemID WHERE Item.ItemTitle = ('" + itemTitle + "')";
         Statement st;
         try {
             st = conn.createStatement();

@@ -55,10 +55,6 @@ public class CourseCreateScene extends domain.Validation {
         ComboBox<String>cbxModule = new ComboBox<>();
         cbxModule.getItems().setAll(sql.getModules());
 
-		Label webcastLabel = new Label("Add Webcast ");
-		ComboBox<String>cbxWebcast = new ComboBox<>();
-		cbxWebcast.getItems().setAll(sql.getWebcasts());
-
 
 		//Last button to create with al the information in the textareas
 		Button createCourseButton = new Button("Add course");
@@ -102,16 +98,9 @@ public class CourseCreateScene extends domain.Validation {
 				grid.add(errorText, 1, 9, 1, 1);
 			}
 
-			if (cbxWebcast.getSelectionModel().isEmpty()) {
-				validation = false;
-				Label errorText = new Label("dropdown menu isn't filled in");
-				grid.add(errorText, 1, 11, 1, 1);
-			}
-
 			if (validation) { 
 				Course course = new Course(nameTextArea.getText(), topicTextArea.getText(), introductionTextArea.getText(), cbxLevel.getSelectionModel().getSelectedItem().name());
 				sql.setCourseName(cbxModule.getSelectionModel().getSelectedItem(), course.getName());
-				sql.setCourseName(cbxWebcast.getSelectionModel().getSelectedItem(),course.getName());
 				sql.createCourse(course);
 				window.setScene(courseOverviewScene.courseOverviewScene(window));
 			}
@@ -127,9 +116,7 @@ public class CourseCreateScene extends domain.Validation {
 		grid.add(cbxLevel, 1, 6, 1, 1);
 		grid.add(moduleLabel, 0, 8, 1, 1);
 		grid.add(cbxModule, 1, 8, 1, 1);
-		grid.add(webcastLabel, 0, 10, 1, 1);
-		grid.add(cbxWebcast, 1, 10, 1, 1);
-		grid.add(buttonHBox, 0, 13, 1, 1);
+		grid.add(buttonHBox, 0, 10, 1, 1);
 
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(15, 15, 15, 15));
