@@ -29,7 +29,6 @@ public class StudentCourseScene {
     public Scene studentCourseScene(Stage window, Registration registration, Course course, Student current_student) {
         StudentRegistrationScene studentRegistrationScene = new StudentRegistrationScene();
         StudentCourseModuleScene studentCourseModuleScene = new StudentCourseModuleScene();
-        StudentCourseWebcastScene studentCourseWebcastScene = new StudentCourseWebcastScene();
         CertificateCreateScene certificateCreateScene = new CertificateCreateScene();
         CertificateUpdateScene certificateUpdateScene = new CertificateUpdateScene();
 
@@ -91,18 +90,6 @@ public class StudentCourseScene {
             i++;
         }
 
-        Label infoWebcastLabel = new Label("Webcasts: ");
-        int j = 4;
-        for (Webcast webcast : sqlR.getSpecificWebcasts(registration)) {
-            Button button = new Button(webcast.getTitle());
-            button.setOnAction((event) -> {
-                window.setScene(studentCourseWebcastScene.studentCourseWebcastScene(window, webcast, registration, course, current_student));
-            });
-            button.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
-            grid.add(button, 3, j, 1, 1);
-            j++;
-        }
-
         int k = 4;
         for (Certificate certificate : sqlC.getCertificatesFromStudentForSpecificCourse(course, current_student)) {
             Label infoCertificateLabel = new Label("Certificate: ");
@@ -138,7 +125,6 @@ public class StudentCourseScene {
         grid.add(infoLevelLabel, 0, 3 , 1, 1);
         grid.add(levelLabel, 1, 3 , 1, 1);
         grid.add(infoModuleLabel, 0, 4 , 1, 1);
-        grid.add(infoWebcastLabel, 2, 4 , 1, 1);
 
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(15, 15, 15, 15));

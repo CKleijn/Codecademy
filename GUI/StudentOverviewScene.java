@@ -149,7 +149,7 @@ public class StudentOverviewScene {
         deleteCol.setCellFactory(deleteCellFactory);
 
         table.setItems(list);
-        table.setMaxSize(1485, 400);
+        table.setMaxSize(1090, 400);
 
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(15, 15, 15, 15));

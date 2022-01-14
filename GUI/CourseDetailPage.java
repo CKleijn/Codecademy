@@ -24,9 +24,7 @@ public class CourseDetailPage {
 
         CourseOverviewScene courseOverviewScene = new CourseOverviewScene();
         CourseModifyModules courseModifyModules = new CourseModifyModules();
-        CourseModifyWebcasts courseModifyWebcasts = new CourseModifyWebcasts();
         CourseModuleScene courseModuleScene = new CourseModuleScene();
-        CourseWebcastScene courseWebcastScene = new CourseWebcastScene();
         CourseDetailPage courseDetailPage = new CourseDetailPage();
 
         // Background image
@@ -45,15 +43,9 @@ public class CourseDetailPage {
         modifyModules.setPrefSize(120, 37);
         modifyModules.setOnAction((event) -> {
             window.setScene(courseModifyModules.CourseModifyModulesScene(window, course));
-        });
+        });    
 
-        Button modifyWebcasts = new Button("modify webcasts");
-        modifyWebcasts.setPrefSize(120, 37);
-        modifyWebcasts.setOnAction((event)-> {
-            window.setScene(courseModifyWebcasts.CourseModifyWebcastsScene(window, course));
-        });        
-
-        HBox menu = new HBox(backButton, modifyModules, modifyWebcasts);
+        HBox menu = new HBox(backButton, modifyModules);
         menu.setSpacing(15);
 
         //Course inforamtion
@@ -86,18 +78,6 @@ public class CourseDetailPage {
                 window.setScene(courseModuleScene.courseModuleScene(window, module, course));
             });
             button.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
-            grid.add(button, 1, j, 1, 1);
-            j++;
-        }
-
-        Label infoWebcastLabel = new Label("Webcasts: ");
-        j+=2;
-        grid.add(infoWebcastLabel, 0, j, 1, 1) ;
-        for(Webcast webcast : sql.getSpecificWebcasts(course)){
-            Button button = new Button(webcast.getTitle());
-            button.setOnAction((event) -> {
-                window.setScene(courseWebcastScene.courseWebcastScene(window, webcast, course));
-            });
             grid.add(button, 1, j, 1, 1);
             j++;
         }

@@ -59,14 +59,6 @@ public class CourseUpdateScene extends domain.Validation{
         Level level = Level.valueOf(old_course.getLevel());
         cbxLevel.getSelectionModel().select(level);
 
-        Label moduleLabel = new Label("Add module: ");
-        ComboBox<String>cbxModule = new ComboBox<>();
-        cbxModule.getItems().setAll(sql.getModules());
-
-        Label webcastLabel = new Label("Add webcast: ");
-        ComboBox<String>cbxWebcast = new ComboBox<>();
-        cbxWebcast.getItems().setAll(sql.getWebcasts());
-
         Button updateCourse = new Button("Update course");
 		updateCourse.setPrefSize(120, 40);
 
@@ -98,8 +90,6 @@ public class CourseUpdateScene extends domain.Validation{
 
 			if(validation){
 				Course course = new Course(nameTextArea.getText(), topicTextArea.getText(), introductionTextArea.getText(), cbxLevel.getSelectionModel().getSelectedItem().name());
-                sql.setCourseName(cbxModule.getSelectionModel().getSelectedItem(), course.getName());
-                sql.setCourseName(cbxWebcast.getSelectionModel().getSelectedItem(), course.getName());
 				sql.updateCourse(course);
 				window.setScene(courseOverviewScene.courseOverviewScene(window));
 			}
@@ -113,11 +103,7 @@ public class CourseUpdateScene extends domain.Validation{
 		grid.add(introductionTextArea, 1, 4, 1, 1);
 		grid.add(levelLabel, 0, 6, 1, 1);
 		grid.add(cbxLevel, 1, 6, 1, 1);
-		grid.add(moduleLabel, 0, 8, 1, 1);
-		grid.add(cbxModule, 1, 8, 1, 1);
-		grid.add(webcastLabel, 0, 10, 1, 1);
-		grid.add(cbxWebcast, 1, 10, 1, 1);
-		grid.add(buttonHBox, 0, 13, 1, 1);
+		grid.add(buttonHBox, 0, 8, 1, 1);
 
 
         BorderPane pane = new BorderPane();

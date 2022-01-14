@@ -10,7 +10,6 @@ import domain.Item;
 import domain.Module;
 import domain.Registration;
 import domain.Student;
-import domain.Webcast;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -64,7 +63,7 @@ public class RegistrationSQL extends ConnectToDatabase {
     public ArrayList<Module> getSpecificModules(Registration registration) {
         Connection conn = getConnection();
         ArrayList<Module> modules = new ArrayList<>();
-        String query = "SELECT * FROM Registration INNER JOIN Course ON Registration.CourseName = Course.CourseName INNER JOIN Item ON Course.CourseName = Item.CourseName INNER JOIN Module ON Item.ItemID = Module.ItemID WHERE RegistrationDate = '" + registration.getRegistrationDate() + "' AND StudentEmail = '" + registration.getStudentEmail() + "' AND Registration.CourseName = '" + registration.getCourseName() + "'";
+        String query = "SELECT * FROM Registration INNER JOIN Course ON Registration.CourseName = Course.CourseName INNER JOIN Module ON Course.CourseName = Module.CourseName INNER JOIN Item ON Module.ItemID = Item.ItemID WHERE RegistrationDate = '" + registration.getRegistrationDate() + "' AND StudentEmail = '" + registration.getStudentEmail() + "' AND Registration.CourseName = '" + registration.getCourseName() + "'";
         Statement st;
         ResultSet rs;
         try {
@@ -81,29 +80,6 @@ public class RegistrationSQL extends ConnectToDatabase {
         }
 
         return modules;
-    }
-
-    //Method that returns a ArrayList of Webcasts that belong to a given Registration
-    public ArrayList<Webcast> getSpecificWebcasts(Registration registration) {
-        Connection conn = getConnection();
-        ArrayList<Webcast> webcasts = new ArrayList<>();
-        String query = "SELECT * FROM Registration INNER JOIN Course ON Registration.CourseName = Course.CourseName INNER JOIN Item ON Course.CourseName = Item.CourseName INNER JOIN Webcast ON Item.ItemID = Webcast.ItemID WHERE RegistrationDate = '" + registration.getRegistrationDate() + "' AND StudentEmail = '" + registration.getStudentEmail() + "' AND Registration.CourseName = '" + registration.getCourseName() + "'";
-        Statement st;
-        ResultSet rs;
-        try {
-            st = conn.createStatement();
-            rs = st.executeQuery(query);
-            Webcast webcast;
-            while(rs.next()){
-                webcast = new Webcast(rs.getInt("ItemID"), rs.getString("ItemTitle"), rs.getString("ItemDescription"), rs.getDate("ItemPublicationDate"), rs.getInt("ExternalPersonID"), rs.getString("ItemStatus"), rs.getInt("WebcastDuration"), rs.getString("WebcastURL"));
-                webcasts.add(webcast);
-            }
-            System.out.println("got the webcasts!");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return webcasts;
     }
 
     //Method that returns the amount of views from a given Item and Registration
