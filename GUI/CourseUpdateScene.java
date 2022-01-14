@@ -41,22 +41,24 @@ public class CourseUpdateScene extends domain.Validation{
         Label nameLabel = new Label("CourseName: ");
 		TextArea nameTextArea = new TextArea();
         nameTextArea.setText(old_course.getName());
+		nameTextArea.setPrefHeight(1.0);
 		
 		Label topicLabel = new Label("Topic: ");
 		TextArea topicTextArea = new TextArea();
         topicTextArea.setText(old_course.getTopic());
-		topicTextArea.setPrefHeight(12);
+		topicTextArea.setPrefHeight(1.0);
 		
 		Label introductionLabel = new Label("Introduction: ");
 		TextArea introductionTextArea = new TextArea();
         introductionTextArea.setText(String.valueOf(old_course.getIntroduction()));
-		introductionTextArea.setPrefHeight(12);
+		introductionTextArea.setPrefHeight(1.0);
 
         Label levelLabel = new Label("Level: ");
 		ComboBox<Level>cbxLevel = new ComboBox<>();
         cbxLevel.getItems().setAll(Level.values());
         Level level = Level.valueOf(old_course.getLevel());
         cbxLevel.getSelectionModel().select(level);
+		cbxLevel.setPrefHeight(1.0);
 
         Button updateCourse = new Button("Update course");
 		updateCourse.setPrefSize(120, 40);

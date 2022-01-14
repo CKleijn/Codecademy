@@ -39,20 +39,25 @@ public class CourseCreateScene extends domain.Validation {
         //All labels and input fields		
 		Label nameLabel = new Label("Name: ");
 		TextArea nameTextArea = new TextArea();
+		nameTextArea.setPrefHeight(1.0);
 		
 		Label topicLabel = new Label("Topic: ");
 		TextArea topicTextArea = new TextArea();
+		topicTextArea.setPrefHeight(1.0);
 		
 		Label introductionLabel = new Label("Introduction: ");
 		TextArea introductionTextArea = new TextArea();
+		introductionTextArea.setPrefHeight(1.0);
 
         Label levelLabel = new Label("Level: ");
 		ComboBox<Level> cbxLevel = new ComboBox<>();
 		cbxLevel.getItems().setAll(Level.values());
+		cbxLevel.setPrefHeight(1.0);
 
 		Label moduleLabel = new Label("Add module: ");
         ComboBox<String>cbxModule = new ComboBox<>();
         cbxModule.getItems().setAll(sql.getModules());
+		cbxModule.setPrefHeight(1.0);
 
 		//Last button to create with al the information in the textareas
 		Button createCourseButton = new Button("Add course");

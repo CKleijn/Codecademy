@@ -36,53 +36,66 @@ public class StudentUpdateScene extends domain.Validation {
         });
 
         //Student
+		Label emailLabel = new Label("Email: ");
 		TextArea emailTextArea = new TextArea();
         emailTextArea.setText(old_student.getEmail());
+		emailTextArea.setPrefHeight(1.0);
 		
 		Label nameLabel = new Label("Name: ");
 		TextArea nameTextArea = new TextArea();
         nameTextArea.setText(old_student.getName());
+		nameTextArea.setPrefHeight(1.0);
 		
 		Label birthDayLabel = new Label("Birthday: ");
 		TextArea birthDayTextArea = new TextArea();
         birthDayTextArea.setText(String.valueOf(old_student.getBirthDay()));
+		birthDayTextArea.setPrefHeight(1.0);
 
 		Label birthMonthLabel = new Label("Birthmonth: ");
 		TextArea birthMonthTextArea = new TextArea();
         birthMonthTextArea.setText(String.valueOf(old_student.getBirthMonth()));
+		birthMonthTextArea.setPrefHeight(1.0);
 
 		Label birthYearLabel = new Label("Birthyear: ");
 		TextArea birthYearTextArea = new TextArea();
         birthYearTextArea.setText(String.valueOf(old_student.getBirthYear()));
+		birthYearTextArea.setPrefHeight(1.0);
 		
 		Label genderLabel = new Label("Gender: ");
 		ComboBox<String> cbxGender = new ComboBox<>();
 		cbxGender.getItems().setAll("M", "F");
 		cbxGender.getSelectionModel().select(old_student.getGender());
+		cbxGender.setPrefHeight(1.0);
 		
 		Label streetLabel = new Label("Street: ");
 		TextArea streetTextArea = new TextArea();
         streetTextArea.setText(old_student.getStreet());
+		streetTextArea.setPrefHeight(1.0);
 
         Label houseNumberLabel = new Label("House number: ");
 		TextArea houseNumberTextArea = new TextArea();
         houseNumberTextArea.setText(old_student.getHouseNumber());
+		houseNumberTextArea.setPrefHeight(1.0);
 
         Label houseNumberAdditionLabel = new Label("House number addition: ");
 		TextArea houseNumberAdditionTextArea = new TextArea();
         houseNumberAdditionTextArea.setText(old_student.getHouseNumberAddition());
+		houseNumberAdditionTextArea.setPrefHeight(1.0);
 
         Label postalCodeLabel = new Label("Postal code: ");
 		TextArea postalCodeTextArea = new TextArea();
         postalCodeTextArea.setText(old_student.getPostalCode());
+		postalCodeTextArea.setPrefHeight(1.0);
 		
 		Label residenceLabel = new Label("Residence: ");
 		TextArea residenceTextArea = new TextArea();
         residenceTextArea.setText(old_student.getResidence());
+		residenceTextArea.setPrefHeight(1.0);
 		
 		Label countryLabel = new Label("Country: ");
 		TextArea countryTextArea = new TextArea();
         countryTextArea.setText(old_student.getCountry());
+		countryTextArea.setPrefHeight(1.0);
 
         Button editStudentButton = new Button("Update student");
 		editStudentButton.setId("editStudentButton");
@@ -148,7 +161,8 @@ public class StudentUpdateScene extends domain.Validation {
 				window.getScene().setRoot(studentOverviewScene.studentOverviewScene(window));
 			}
 		});
-
+		grid.add(emailLabel, 0, 0, 1, 1);
+		grid.add(emailTextArea, 1, 0, 1, 1);
 		grid.add(nameLabel, 0, 2 , 1, 1);
 		grid.add(nameTextArea, 1, 2 , 1, 1);
 		grid.add(birthDayLabel, 0, 4 , 1, 1);

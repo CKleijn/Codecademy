@@ -37,42 +37,54 @@ public class StudentCreateScene extends domain.Validation{
         //All labels, input fields and error messages
 		Label emailLabel = new Label("Email: ");
 		TextArea emailTextArea = new TextArea();
+		emailTextArea.setPrefHeight(1.0);
 		
 		Label nameLabel = new Label("Name: ");
 		TextArea nameTextArea = new TextArea();
+		nameTextArea.setPrefHeight(1.0);
 		
 		Label birthDayLabel = new Label("Birthday: ");
 		TextArea birthDayTextArea = new TextArea();
+		birthDayTextArea.setPrefHeight(1.0);
 
 		Label birthMonthLabel = new Label("Birthmonth: ");
 		TextArea birthMonthTextArea = new TextArea();
+		birthMonthTextArea.setPrefHeight(1.0);
 
 		Label birthYearLabel = new Label("Birthyear: ");
 		TextArea birthYearTextArea = new TextArea();
+		birthYearTextArea.setPrefHeight(1.0);
 		
 		Label genderLabel = new Label("Gender: ");
 		ComboBox<String> cbxGender = new ComboBox<>();
 		cbxGender.getItems().addAll("M", "F");
+		cbxGender.setPrefHeight(1.0);
 		
 		Label streetLabel = new Label("Street: ");
 		TextArea streetTextArea = new TextArea();
+		streetTextArea.setPrefHeight(1.0);
 
         Label houseNumberLabel = new Label("House number: ");
 		TextArea houseNumberTextArea = new TextArea();
+		houseNumberTextArea.setPrefHeight(1.0);
 
         Label houseNumberAdditionLabel = new Label("House number addition: ");
 		TextArea houseNumberAdditionTextArea = new TextArea();
+		houseNumberAdditionTextArea.setPrefHeight(1.0);
 
         Label postalCodeLabel = new Label("Postal code: ");
 		TextArea postalCodeTextArea = new TextArea();
+		postalCodeTextArea.setPrefHeight(1.0);
 
 		Label residenceLabel = new Label("Residence: ");
 		TextArea residenceTextArea = new TextArea();
+		residenceTextArea.setPrefHeight(1.0);
 		
 		Label countryLabel = new Label("Country: ");
 		TextArea countryTextArea = new TextArea();
+		countryTextArea.setPrefHeight(1.0);
 
-		//Last button to create with al the information in the textareas
+		//Last button to create with all the information in the textareas
 		Button createStudentButton = new Button("Add student");
 		createStudentButton.setPrefSize(120, 40);
 		createStudentButton.setId("createStudentButton");

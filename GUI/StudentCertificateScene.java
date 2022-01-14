@@ -43,21 +43,21 @@ public class StudentCertificateScene {
         menu.setSpacing(10);
 
         TableView<Certificate> table = new TableView<Certificate>();
+        TableColumn<Certificate, String> studentEmailCol = new TableColumn<Certificate, String>("Student email");
+        TableColumn<Certificate, String> courseNameCol = new TableColumn<Certificate, String>("Course name");
         TableColumn<Certificate, String> idCol = new TableColumn<Certificate, String>("Certificate ID");
         TableColumn<Certificate, String> gradeCol = new TableColumn<Certificate, String>("Certificate grade");
         TableColumn<Certificate, String> externalPersonIdCol = new TableColumn<Certificate, String>("External Person ID");
-        TableColumn<Certificate, String> studentEmailCol = new TableColumn<Certificate, String>("Student email");
-        TableColumn<Certificate, String> courseNameCol = new TableColumn<Certificate, String>("Course name");
         
-        table.getColumns().addAll(Arrays.asList(idCol, gradeCol, externalPersonIdCol, studentEmailCol, courseNameCol));
+        table.getColumns().addAll(Arrays.asList(studentEmailCol, courseNameCol, idCol, gradeCol, externalPersonIdCol));
 
         ObservableList<Certificate> list = sqlC.getCertificateListFromStudent(current_student);
 
+        studentEmailCol.setCellValueFactory(new PropertyValueFactory<Certificate, String>("studentEmail"));
+        courseNameCol.setCellValueFactory(new PropertyValueFactory<Certificate, String>("courseName"));
         idCol.setCellValueFactory(new PropertyValueFactory<Certificate, String>("certificateID"));
         gradeCol.setCellValueFactory(new PropertyValueFactory<Certificate, String>("certificateGrade"));
         externalPersonIdCol.setCellValueFactory(new PropertyValueFactory<Certificate, String>("externalPersonID"));
-        studentEmailCol.setCellValueFactory(new PropertyValueFactory<Certificate, String>("studentEmail"));
-        courseNameCol.setCellValueFactory(new PropertyValueFactory<Certificate, String>("courseName"));
 
         table.setItems(list);
         table.setMaxSize(1485, 400);

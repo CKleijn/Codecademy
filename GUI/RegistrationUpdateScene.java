@@ -44,6 +44,7 @@ public class RegistrationUpdateScene extends domain.Validation{
         ComboBox<String>cbxCourse = new ComboBox<>();
         cbxCourse.getItems().setAll(sqlC.getCourses());
         cbxCourse.getSelectionModel().select(current_registration.getCourseName());
+        cbxCourse.setPrefHeight(1.0);
 
         Button updateRegistration = new Button("Update registration");
 		updateRegistration.setPrefSize(140, 40);

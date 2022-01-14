@@ -43,11 +43,13 @@ public class CertificateUpdateScene extends domain.Validation{
         Label gradeLabel = new Label("Grade: ");
 		TextArea gradeTextArea = new TextArea();
         gradeTextArea.setText(String.valueOf(current_certificate.getCertificateGrade()));
+        gradeTextArea.setPrefHeight(1.0);
 
         Label externalPersonLabel = new Label("External person: ");
         ComboBox<String>cbxExternalPerson = new ComboBox<>();
         cbxExternalPerson.setValue(sqlE.getEmployeeNameById(current_certificate));
         cbxExternalPerson.getItems().setAll(sqlE.getEmployeeExternalPersons());
+        cbxExternalPerson.setPrefHeight(1.0);
 
         Button updateCertificate = new Button("Update registration");
 		updateCertificate.setPrefSize(120, 40);

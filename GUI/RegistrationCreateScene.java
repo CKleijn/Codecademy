@@ -44,6 +44,7 @@ public class RegistrationCreateScene extends domain.Validation{
         Label courseLabel = new Label("Choose course: ");
         ComboBox<String>cbxCourse = new ComboBox<>();
         cbxCourse.getItems().setAll(sqlC.getCourses());
+        cbxCourse.setPrefHeight(1.0);
 
         Button createRegistration = new Button("Create registration");
 		createRegistration.setPrefSize(140, 40);

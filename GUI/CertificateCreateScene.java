@@ -42,10 +42,12 @@ public class CertificateCreateScene extends domain.Validation{
 
         Label gradeLabel = new Label("Grade: ");
 		TextArea gradeTextArea = new TextArea();
+        gradeTextArea.setPrefHeight(1.0);
 
         Label externalPersonLabel = new Label("External person: ");
         ComboBox<String>cbxExternalPerson = new ComboBox<>();
         cbxExternalPerson.getItems().setAll(sqlE.getEmployeeExternalPersons());
+        cbxExternalPerson.setPrefHeight(1.0);
 
         Button createCertificate = new Button("Create registration");
 		createCertificate.setPrefSize(120, 40);
