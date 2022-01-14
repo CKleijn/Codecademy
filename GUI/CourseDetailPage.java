@@ -15,9 +15,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+//Class that creates the Course Detail scene
 public class CourseDetailPage {
     private CourseSQL sql = new CourseSQL();
 
+    //Method that creates the Course Detail scene with the information from the given attribute
     public Parent CourseDetailScene(Stage window, Course course) {
 
         CourseOverviewScene courseOverviewScene = new CourseOverviewScene();

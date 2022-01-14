@@ -13,11 +13,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+//Class that creates the Homescreen scene
 public class HomescreenScene{
 	StudentOverviewScene studentOverviewScene = new StudentOverviewScene();
 	CourseOverviewScene courseOverviewScene = new CourseOverviewScene();
 	StatisticOverviewScene statisticOverviewScene = new StatisticOverviewScene();
 	
+	//Method that creates the Homescreen scene with the given Stage
 	public Parent homeScene(Stage window) {
 		
 		//Background image

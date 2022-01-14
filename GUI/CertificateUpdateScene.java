@@ -20,10 +20,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+//Class that creates the Certificate Update scene
 public class CertificateUpdateScene extends domain.Validation{
     private CertificateSQL sqlC = new CertificateSQL();
     private ExternalPersonSQL sqlE = new ExternalPersonSQL();
 
+    //Method that creates the Certificate Update scene with the information from the given attributes
     public Parent certificateUpdateScene(Stage window, Certificate current_certificate, Registration registration, Course course, Student current_student) {
         StudentCourseScene studentCourseScene = new StudentCourseScene();
 

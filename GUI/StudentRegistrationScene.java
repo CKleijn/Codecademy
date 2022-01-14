@@ -22,9 +22,11 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
+//Class that creates the Student Registration scene
 public class StudentRegistrationScene extends domain.Validation {
     private RegistrationSQL sqlR = new RegistrationSQL();
 
+    //Method that creates the Student Registration scene with the information from the given attribute
     public Parent studentRegistrationScene(Stage window, Student current_student) {
         StudentOverviewScene studentOverviewScene = new StudentOverviewScene();
         StudentRegistrationScene studentDetailScene = new StudentRegistrationScene();

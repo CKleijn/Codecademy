@@ -16,8 +16,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+//Class that creates the Course Modify Modules scene
 public class CourseModifyModules {
     
+    //Method that creates the Course Modify scene with the information from the given attribute
     public Parent CourseModifyModulesScene(Stage window, Course course){
         CourseDetailPage courseDetailPage = new CourseDetailPage();
         CourseSQL sql = new CourseSQL();

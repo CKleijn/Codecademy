@@ -15,9 +15,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+//Class that creates the Student Create scene
 public class StudentCreateScene extends domain.Validation{
     private StudentSQL sql = new StudentSQL();
 
+	//Method that creates the Student Create scene with the given Stage
     public Parent studentCreateScene(Stage window) {
         StudentOverviewScene studentOverviewScene = new StudentOverviewScene();
 

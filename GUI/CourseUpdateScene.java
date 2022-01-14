@@ -17,10 +17,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+//Class that creates the Course Update scene
 public class CourseUpdateScene extends domain.Validation{
 
     private CourseSQL sql = new CourseSQL();
 
+	//Method that creates the Course Update scene with the information from the given attribute
     public Parent courseUpdateScene(Stage window, Course old_course) {
         CourseOverviewScene courseOverviewScene = new CourseOverviewScene();
 

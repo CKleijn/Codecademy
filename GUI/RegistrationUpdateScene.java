@@ -20,10 +20,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+//Class that creates the Registration Update scene
 public class RegistrationUpdateScene extends domain.Validation{
     private CourseSQL sqlC = new CourseSQL();
     private RegistrationSQL sqlR = new RegistrationSQL();
 
+    //Method that creates the Registration Update scene with the information from the given attributes
     public Parent registrationUpdateScene(Stage window, Registration current_registration, Student current_student) {
         StudentRegistrationScene studentDetailScene = new StudentRegistrationScene();
 

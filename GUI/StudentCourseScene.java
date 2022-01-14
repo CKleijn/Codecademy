@@ -20,11 +20,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+//Class that creates the Student Course scene
 public class StudentCourseScene {
     RegistrationSQL sqlR = new RegistrationSQL();
     CertificateSQL sqlC = new CertificateSQL();
     ExternalPersonSQL sqlE = new ExternalPersonSQL();
 
+    //Method that creates the Student Course scene with the information from the given attributes
     public Parent studentCourseScene(Stage window, Registration registration, Course course, Student current_student) {
         StudentRegistrationScene studentRegistrationScene = new StudentRegistrationScene();
         StudentCourseModuleScene studentCourseModuleScene = new StudentCourseModuleScene();

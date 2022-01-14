@@ -21,10 +21,11 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
+//Class that creates the Course Overview scene
 public class CourseOverviewScene {
     private CourseSQL sql = new CourseSQL();
     
-
+    //Method that creates the Course Overview scene with the given Stage
     public Parent courseOverviewScene(Stage window) {
         HomescreenScene homescreenScene = new HomescreenScene();
         CourseOverviewScene courseOverviewScene = new CourseOverviewScene();

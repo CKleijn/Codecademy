@@ -19,10 +19,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+//Class that creates the Student Certificate scene
 public class StudentCertificateScene {
     private CertificateSQL sqlC = new CertificateSQL();
     
-
+    //Method that creates the Student Certificate scene with the information from the given attribute
     public Parent studentCertificateScene(Stage window, Student current_student) {
         StudentRegistrationScene studentRegistrationScene = new StudentRegistrationScene();
 

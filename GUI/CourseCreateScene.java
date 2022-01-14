@@ -17,9 +17,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+//Class that creates the Course Create scene
 public class CourseCreateScene extends domain.Validation {
     private CourseSQL sql = new CourseSQL();
 
+	//Method that creates the Course Create scene with the given Stage
     public Parent courseCreateScene(Stage window) {
         CourseOverviewScene courseOverviewScene = new CourseOverviewScene();
 		

@@ -14,9 +14,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+//Class that creates the Statistic Overview scene
 public class StatisticOverviewScene {
     StatisticSQL sqlS = new StatisticSQL();
 
+    //Method that creates the Statistic Overview scene with the given Stage
     public Parent statisticOverviewScene(Stage window) {
         HomescreenScene homescreenScene = new HomescreenScene();
 

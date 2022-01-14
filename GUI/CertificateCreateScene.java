@@ -20,20 +20,22 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+//Class that creates the Certificate Create scene
 public class CertificateCreateScene extends domain.Validation{
     private CertificateSQL sqlC = new CertificateSQL();
     private ExternalPersonSQL sqlE = new ExternalPersonSQL();
 
+    //Method that creates the Certificate Create scene with the information from the given attributes
     public Parent certificateCreateScene(Stage window, Registration registration, Course course, Student current_student) {
         StudentCourseScene studentCourseScene = new StudentCourseScene();
 		
-		//Background image
+		//Adds the background image
 		Image image = new Image("resources/backgroundImage.jpg");
 		ImageView imageView = new ImageView(image);
 		Group root = new Group();
 		root.getChildren().addAll(imageView);
 
-        // Button to go back to the StudentOverviewScene.
+        //Adds the Button to go back to the StudentOverviewScene.
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
         backButton.setOnAction((event) -> {
