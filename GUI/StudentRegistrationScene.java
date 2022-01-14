@@ -78,7 +78,7 @@ public class StudentRegistrationScene extends domain.Validation {
 
         table.setOnMouseClicked((event) -> {
             Registration registration = table.getSelectionModel().getSelectedItem();
-            Course course = sqlR.getStudentRegistrationCourseList(registration);
+            Course course = sqlR.getStudentRegistrationCourseFromList(registration);
             window.getScene().setRoot(studentCourseScene.studentCourseScene(window, registration, course, current_student));
         });
         

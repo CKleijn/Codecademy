@@ -39,7 +39,7 @@ public class RegistrationSQL extends ConnectToDatabase {
     }
 
     //Method that returns a Course belonging to a given Registration
-    public Course getStudentRegistrationCourseList(Registration registration) {
+    public Course getStudentRegistrationCourseFromList(Registration registration) {
         Connection conn = getConnection();
         String query = "SELECT * FROM Registration INNER JOIN Course ON Registration.CourseName = Course.CourseName WHERE RegistrationDate = '" + registration.getRegistrationDate() + "' AND StudentEmail = '" + registration.getStudentEmail() + "' AND Registration.CourseName = '" + registration.getCourseName() + "'";
         Statement st;

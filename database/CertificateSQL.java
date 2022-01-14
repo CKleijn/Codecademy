@@ -88,7 +88,7 @@ public class CertificateSQL extends ConnectToDatabase {
 
     }
 
-    //Method that checks if a given Registration has a linked Certificate
+    //Method that checks if a given Registration has a linked Certificate and if the Student has finished all their modules
     public void checkIfStudentReceiveCertificate(Certificate certificate, Registration registration) {
         Connection conn = getConnection();
         String querySelect = "SELECT (SELECT SUM(ItemProgress) FROM Registration INNER JOIN Student_View_Item ON Registration.StudentEmail = Student_View_Item.StudentEmail INNER JOIN Item ON Student_View_Item.ItemID = Item.ItemID INNER JOIN Module ON Item.ItemID = Module.ItemID WHERE Registration.StudentEmail = '" + certificate.getStudentEmail() + "' AND Registration.CourseName = '" + certificate.getCourseName()  + "' AND Module.CourseName = '" + certificate.getCourseName() + "' AND NOT Item.ItemStatus = 'CONCEPT') / (SELECT COUNT(*) FROM Registration INNER JOIN Student_View_Item ON Registration.StudentEmail = Student_View_Item.StudentEmail INNER JOIN Item ON Student_View_Item.ItemID = Item.ItemID INNER JOIN Module ON Item.ItemID = Module.ItemID WHERE Registration.StudentEmail = '" + certificate.getStudentEmail() + "' AND Registration.CourseName = '" + certificate.getCourseName() + "' AND Module.CourseName = '" + certificate.getCourseName() + "' AND NOT Item.ItemStatus = 'CONCEPT') AS AverageProgress";
