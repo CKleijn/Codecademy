@@ -157,7 +157,9 @@ public class StudentOverviewScene {
         pane.setTop(menu);
         pane.setCenter(table);
 
-        Scene sscene = new Scene(pane, 1080, 620);
+        Scene sscene = new Scene(pane);
+
+        window.setFullScreen(true);
 
         sscene.getStylesheets().add("/resources/styleSheet.css");
 

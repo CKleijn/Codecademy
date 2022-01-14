@@ -71,7 +71,9 @@ public class HomescreenScene{
 		pane.setTop(menu);
 		pane.setCenter(front);
 		
-		Scene homescreenScene = new Scene(pane, 1080, 620);
+		Scene homescreenScene = new Scene(pane);
+
+		window.setFullScreen(true);
 
 		homescreenScene.getStylesheets().add("/resources/styleSheet.css");
 		

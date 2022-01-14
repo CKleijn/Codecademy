@@ -145,7 +145,9 @@ public class StudentRegistrationScene extends domain.Validation {
         pane.setTop(menu);
         pane.setCenter(table);
 
-        Scene sscene = new Scene(pane, 1080, 620);
+        Scene sscene = new Scene(pane);
+
+        window.setFullScreen(true);
 
         sscene.getStylesheets().add("/resources/styleSheet.css");
 

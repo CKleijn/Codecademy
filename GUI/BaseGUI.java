@@ -18,6 +18,10 @@ public class BaseGUI extends Application{
 		}
 		
 		window.setTitle("Codecademy");
+
+
+		window.setFullScreen(true);
+		window.setMaximized(true);
 		window.setScene(homeScreen.homeScene(window));
 		window.show();
 	}

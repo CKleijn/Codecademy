@@ -116,7 +116,9 @@ public class StudentCourseModuleScene {
         pane.setCenter(grid);
 
 
-        Scene sscene = new Scene(pane, 1080, 620);
+        Scene sscene = new Scene(pane);
+
+        window.setFullScreen(true);
 
         sscene.getStylesheets().add("/resources/styleSheet.css");
 

@@ -95,7 +95,9 @@ public class CertificateCreateScene extends domain.Validation{
         pane.setTop(backButton);
         pane.setCenter(grid);
 
-        Scene sscene = new Scene(pane, 1080, 620);
+        Scene sscene = new Scene(pane);
+
+        window.setFullScreen(true);
 
         sscene.getStylesheets().add("/resources/styleSheet.css");
 
