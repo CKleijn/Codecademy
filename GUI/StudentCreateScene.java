@@ -102,12 +102,12 @@ public class StudentCreateScene extends domain.Validation{
 			if (!checkPostalCode(postalCodeTextArea.getText())) {
 				validation = false;
 				Label errorText = new Label("postal code isn't must be 4 digits space 2 letters");
-				grid.add(errorText, 1, 15, 1, 1);
+				grid.add(errorText, 1, 19, 1, 1);
 			}
 			if (cbxGender.getSelectionModel().isEmpty()) {
 				validation = false;
 				Label errorText = new Label("gender must be 'M' for male or 'F' for female");
-				grid.add(errorText, 1, 7, 1, 1);
+				grid.add(errorText, 1, 11, 1, 1);
 			}
 			if (fieldIsEmpty(nameTextArea.getText())) {
 				validation = false;
@@ -117,22 +117,22 @@ public class StudentCreateScene extends domain.Validation{
 			if (fieldIsEmpty(streetTextArea.getText())) {
 				validation = false;
 				Label errorText = new Label("Text field isn't filled in");
-				grid.add(errorText, 1, 9, 1, 1);
+				grid.add(errorText, 1, 13, 1, 1);
 			} 
 			if (fieldIsEmpty(houseNumberTextArea.getText())) {
 				validation = false;
 				Label errorText = new Label("Text field isn't filled in");
-				grid.add(errorText, 1, 11, 1, 1);
+				grid.add(errorText, 1, 15, 1, 1);
 			} 
 			if (fieldIsEmpty(residenceTextArea.getText())) {
 				validation = false;
 				Label errorText = new Label("Text field isn't filled in");
-				grid.add(errorText, 1, 17, 1, 1);
+				grid.add(errorText, 1, 21, 1, 1);
 			}
 			if (fieldIsEmpty(countryTextArea.getText())) {
 				validation = false;
 				Label errorText = new Label("Text field isn't filled in");
-				grid.add(errorText, 1, 19, 1, 1);
+				grid.add(errorText, 1, 23, 1, 1);
 			}
 			
 			if (validation) { 
