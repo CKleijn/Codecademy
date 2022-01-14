@@ -10,7 +10,7 @@ import domain.Course;
 import domain.Student;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
-import javafx.scene.Scene;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -25,7 +25,7 @@ public class StudentCourseScene {
     CertificateSQL sqlC = new CertificateSQL();
     ExternalPersonSQL sqlE = new ExternalPersonSQL();
 
-    public Scene studentCourseScene(Stage window, Registration registration, Course course, Student current_student) {
+    public Parent studentCourseScene(Stage window, Registration registration, Course course, Student current_student) {
         StudentRegistrationScene studentRegistrationScene = new StudentRegistrationScene();
         StudentCourseModuleScene studentCourseModuleScene = new StudentCourseModuleScene();
         CertificateCreateScene certificateCreateScene = new CertificateCreateScene();
@@ -41,20 +41,20 @@ public class StudentCourseScene {
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
         backButton.setOnAction((event) -> {
-            window.setScene(studentRegistrationScene.studentRegistrationScene(window, current_student));
+            window.getScene().setRoot(studentRegistrationScene.studentRegistrationScene(window, current_student));
         });
 
         Button createButton = new Button("Create certificate");
         createButton.setPrefSize(120, 37);
         createButton.setOnAction((event) -> {
-            window.setScene(certificateCreateScene.certificateCreateScene(window, registration, course, current_student));
+            window.getScene().setRoot(certificateCreateScene.certificateCreateScene(window, registration, course, current_student));
         });
 
         Button checkButton = new Button("Check certificates");
         checkButton.setPrefSize(120, 37);
         checkButton.setOnAction((event) -> {
             sqlC.checkIfStudentReceiveCertificate(sqlC.getSingleCertificateFromStudentForSpecificCourse(course, current_student), registration);
-            window.setScene(studentCourseScene(window, registration, course, current_student));
+            window.getScene().setRoot(studentCourseScene(window, registration, course, current_student));
         });
 
         HBox menu = new HBox(backButton, createButton, checkButton);
@@ -83,7 +83,7 @@ public class StudentCourseScene {
         for (Module module : sqlR.getSpecificModules(registration)) {
             Button button = new Button(module.getTitle());
             button.setOnAction((event) -> {
-                window.setScene(studentCourseModuleScene.studentCourseModuleScene(window, module, registration, course, current_student));
+                window.getScene().setRoot(studentCourseModuleScene.studentCourseModuleScene(window, module, registration, course, current_student));
             });
             grid.add(button, 1, i, 1, 1);
             i++;
@@ -96,12 +96,12 @@ public class StudentCourseScene {
             Label certificateExternalPersonLabel = new Label("Certificate employee: " + sqlE.getEmployeeNameById(certificate));
             Button editButton = new Button("Edit");
             editButton.setOnAction((event) -> {
-                window.setScene(certificateUpdateScene.certificateUpdateScene(window, certificate, registration, course, current_student));
+                window.getScene().setRoot(certificateUpdateScene.certificateUpdateScene(window, certificate, registration, course, current_student));
             });
             Button deleteButton = new Button("Delete");
             deleteButton.setOnAction((event) -> {
                 sqlC.deleteCertificate(certificate);
-                window.setScene(studentCourseScene(window, registration, course, current_student));
+                window.getScene().setRoot(studentCourseScene(window, registration, course, current_student));
             });
             grid.add(infoCertificateLabel, 4, 4 , 1, 1);
             grid.add(certificateGradeLabel, 5, k, 1, 1);
@@ -111,7 +111,6 @@ public class StudentCourseScene {
             k++;
         }
 
-        
 		grid.setPadding(new Insets(40, 0, 0, 0));
 		grid.setHgap(5);
 		grid.setVgap(5);
@@ -131,13 +130,9 @@ public class StudentCourseScene {
         pane.setTop(menu);
         pane.setCenter(grid);
 
-        Scene sscene = new Scene(pane);
+        pane.getStylesheets().add("/resources/styleSheet.css");
 
-        window.setFullScreen(true);
-
-        sscene.getStylesheets().add("/resources/styleSheet.css");
-
-        return sscene;
+        return pane;
 
         
     }

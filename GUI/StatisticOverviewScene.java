@@ -3,7 +3,7 @@ package GUI;
 import database.StatisticSQL;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
-import javafx.scene.Scene;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 public class StatisticOverviewScene {
     StatisticSQL sqlS = new StatisticSQL();
 
-    public Scene statisticOverviewScene(Stage window) {
+    public Parent statisticOverviewScene(Stage window) {
         HomescreenScene homescreenScene = new HomescreenScene();
 
         // Background image
@@ -30,7 +30,7 @@ public class StatisticOverviewScene {
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
         backButton.setOnAction((event) -> {
-            window.setScene(homescreenScene.homeScene(window));
+            window.getScene().setRoot(homescreenScene.homeScene(window));
         });
 
         HBox menu = new HBox(backButton);
@@ -90,12 +90,8 @@ public class StatisticOverviewScene {
         pane.setTop(menu);
         pane.setCenter(grid);
 
-        Scene sscene = new Scene(pane);
+        pane.getStylesheets().add("/resources/styleSheet.css");
 
-        window.setFullScreen(true);
-
-        sscene.getStylesheets().add("/resources/styleSheet.css");
-
-        return sscene;
+        return pane;
     }
 }

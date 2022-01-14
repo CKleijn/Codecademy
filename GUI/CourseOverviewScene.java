@@ -7,7 +7,7 @@ import domain.Course;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
-import javafx.scene.Scene;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
@@ -25,7 +25,7 @@ public class CourseOverviewScene {
     private CourseSQL sql = new CourseSQL();
     
 
-    public Scene courseOverviewScene(Stage window) {
+    public Parent courseOverviewScene(Stage window) {
         HomescreenScene homescreenScene = new HomescreenScene();
         CourseOverviewScene courseOverviewScene = new CourseOverviewScene();
         CourseUpdateScene  courseUpdateScene = new CourseUpdateScene();
@@ -42,13 +42,13 @@ public class CourseOverviewScene {
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
         backButton.setOnAction((event) -> {
-            window.setScene(homescreenScene.homeScene(window));
+            window.getScene().setRoot(homescreenScene.homeScene(window));
         });
 
         Button createButton = new Button("Create");
         createButton.setPrefSize(80, 37);
         createButton.setOnAction((event) -> {
-            window.setScene(courseCreateScene.courseCreateScene(window));
+            window.getScene().setRoot(courseCreateScene.courseCreateScene(window));
         });
 
         HBox menu = new HBox(backButton, createButton);
@@ -76,7 +76,7 @@ public class CourseOverviewScene {
 
         table.setOnMouseClicked((event) -> {
             Course course = table.getSelectionModel().getSelectedItem();
-            window.setScene(courseDetailPage.CourseDetailScene(window, course));
+            window.getScene().setRoot(courseDetailPage.CourseDetailScene(window, course));
         });
         
 
@@ -95,7 +95,7 @@ public class CourseOverviewScene {
                         } else {
                             editBtn.setOnAction(event -> {
                                 Course course = getTableView().getItems().get(getIndex());
-                                window.setScene(courseUpdateScene.courseUpdateScene(window, course));
+                                window.getScene().setRoot(courseUpdateScene.courseUpdateScene(window, course));
                             });
                             setGraphic(editBtn);
                         }
@@ -127,7 +127,7 @@ public class CourseOverviewScene {
                                 if(feedback.equals("Can't delete course because there are still people that are not graduated yet!")){
                                     deleteFeedback.setText(feedback);
                                 } else {
-                                    window.setScene(courseOverviewScene.courseOverviewScene(window));
+                                    window.getScene().setRoot(courseOverviewScene.courseOverviewScene(window));
                                 } 
                             });
                             setGraphic(deleteBtn);
@@ -151,12 +151,8 @@ public class CourseOverviewScene {
         pane.setCenter(table);
         pane.setBottom(deleteFeedback);
 
-        Scene sscene = new Scene(pane);
+        pane.getStylesheets().add("/resources/styleSheet.css");
 
-        window.setFullScreen(true);
-
-        sscene.getStylesheets().add("/resources/styleSheet.css");
-
-        return sscene;
+        return pane;
     }
 }

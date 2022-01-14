@@ -7,7 +7,7 @@ import domain.Course;
 import domain.Module;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
-import javafx.scene.Scene;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.image.Image;
@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 
 public class CourseModifyModules {
     
-    public Scene CourseModifyModulesScene(Stage window, Course course){
+    public Parent CourseModifyModulesScene(Stage window, Course course){
         CourseDetailPage courseDetailPage = new CourseDetailPage();
         CourseSQL sql = new CourseSQL();
 
@@ -29,11 +29,10 @@ public class CourseModifyModules {
         root.getChildren().addAll(imageView);
  
         // Button to go back to the courseDetailScene
-
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
         backButton.setOnAction((event) -> {
-            window.setScene(courseDetailPage.CourseDetailScene(window, course));
+            window.getScene().setRoot(courseDetailPage.CourseDetailScene(window, course));
         });
         
         //create the gridpane
@@ -66,7 +65,7 @@ public class CourseModifyModules {
         }
 
         //make a button to submit the changes
-        Button submitButton = new Button("update modules");
+        Button submitButton = new Button("Update modules");
         submitButton.setPrefSize(180, 40);
 
         //Set an onclick event with a loop wich iterates over all the checkboxes and submit the changes to the db
@@ -81,7 +80,7 @@ public class CourseModifyModules {
                     System.out.println("test 2");
                 }
             }
-            window.setScene(courseDetailPage.CourseDetailScene(window, course));
+            window.getScene().setRoot(courseDetailPage.CourseDetailScene(window, course));
         });
 
         grid.add(submitButton, 0, i+2, 1, 1);
@@ -92,13 +91,9 @@ public class CourseModifyModules {
         pane.setTop(backButton);
         pane.setCenter(grid);
 
-        Scene sscene = new Scene(pane);
+        pane.getStylesheets().add("/resources/styleSheet.css");
 
-        window.setFullScreen(true);
-
-        sscene.getStylesheets().add("/resources/styleSheet.css");
-
-        return sscene;
+        return pane;
     }
     
 }

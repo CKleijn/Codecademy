@@ -4,7 +4,7 @@ import database.StudentSQL;
 import domain.Student;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
-import javafx.scene.Scene;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 public class StudentUpdateScene extends domain.Validation {
     private StudentSQL sql = new StudentSQL();
 
-    public Scene studentUpdateScene(Stage window, Student old_student) {
+    public Parent studentUpdateScene(Stage window, Student old_student) {
         StudentOverviewScene studentOverviewScene = new StudentOverviewScene();
 
         // Background image
@@ -32,7 +32,7 @@ public class StudentUpdateScene extends domain.Validation {
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
         backButton.setOnAction((event) -> {
-            window.setScene(studentOverviewScene.studentOverviewScene(window));
+            window.getScene().setRoot(studentOverviewScene.studentOverviewScene(window));
         });
 
         //Student
@@ -145,7 +145,7 @@ public class StudentUpdateScene extends domain.Validation {
 			
 			if (validation) { 
 				sql.updateStudent(new Student(emailTextArea.getText(), nameTextArea.getText(), Integer.parseInt(birthDayTextArea.getText()), Integer.parseInt(birthMonthTextArea.getText()), Integer.parseInt(birthYearTextArea.getText()), cbxGender.getSelectionModel().getSelectedItem(), streetTextArea.getText(), houseNumberTextArea.getText(), houseNumberAdditionTextArea.getText(), postalCodeTextArea.getText(), residenceTextArea.getText(), countryTextArea.getText()));
-				window.setScene(studentOverviewScene.studentOverviewScene(window));
+				window.getScene().setRoot(studentOverviewScene.studentOverviewScene(window));
 			}
 		});
 
@@ -179,12 +179,8 @@ public class StudentUpdateScene extends domain.Validation {
         pane.setTop(backButton);
         pane.setCenter(grid);
 
-        Scene sscene = new Scene(pane);
+		pane.getStylesheets().add("/resources/styleSheet.css");
 
-		window.setFullScreen(true);
-
-		sscene.getStylesheets().add("/resources/styleSheet.css");
-
-        return sscene;
+        return pane;
     }
 }

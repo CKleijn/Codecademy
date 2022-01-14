@@ -8,7 +8,7 @@ import domain.Registration;
 import domain.Student;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
-import javafx.scene.Scene;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -24,7 +24,7 @@ public class CertificateCreateScene extends domain.Validation{
     private CertificateSQL sqlC = new CertificateSQL();
     private ExternalPersonSQL sqlE = new ExternalPersonSQL();
 
-    public Scene certificateCreateScene(Stage window, Registration registration, Course course, Student current_student) {
+    public Parent certificateCreateScene(Stage window, Registration registration, Course course, Student current_student) {
         StudentCourseScene studentCourseScene = new StudentCourseScene();
 		
 		//Background image
@@ -37,7 +37,7 @@ public class CertificateCreateScene extends domain.Validation{
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
         backButton.setOnAction((event) -> {
-            window.setScene(studentCourseScene.studentCourseScene(window, registration, course, current_student));
+            window.getScene().setRoot(studentCourseScene.studentCourseScene(window, registration, course, current_student));
         });
 
         Label gradeLabel = new Label("Grade: ");
@@ -79,7 +79,7 @@ public class CertificateCreateScene extends domain.Validation{
             if(validation){
                 Certificate certificate = new Certificate(Integer.valueOf(gradeTextArea.getText()), sqlE.findExternalPersonID(cbxExternalPerson.getSelectionModel().getSelectedItem()), current_student.getEmail(), course.getName());
                 sqlC.createCertificate(certificate);
-                window.setScene(studentCourseScene.studentCourseScene(window, registration, course, current_student));
+                window.getScene().setRoot(studentCourseScene.studentCourseScene(window, registration, course, current_student));
             }
 		});
 
@@ -95,12 +95,8 @@ public class CertificateCreateScene extends domain.Validation{
         pane.setTop(backButton);
         pane.setCenter(grid);
 
-        Scene sscene = new Scene(pane);
+        pane.getStylesheets().add("/resources/styleSheet.css");
 
-        window.setFullScreen(true);
-
-        sscene.getStylesheets().add("/resources/styleSheet.css");
-
-        return sscene;
+        return pane;
     }
 }

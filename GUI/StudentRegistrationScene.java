@@ -9,7 +9,7 @@ import domain.Student;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
-import javafx.scene.Scene;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -25,7 +25,7 @@ import javafx.util.Callback;
 public class StudentRegistrationScene extends domain.Validation {
     private RegistrationSQL sqlR = new RegistrationSQL();
 
-    public Scene studentRegistrationScene(Stage window, Student current_student) {
+    public Parent studentRegistrationScene(Stage window, Student current_student) {
         StudentOverviewScene studentOverviewScene = new StudentOverviewScene();
         StudentRegistrationScene studentDetailScene = new StudentRegistrationScene();
         StudentCourseScene studentCourseScene = new StudentCourseScene();
@@ -43,19 +43,19 @@ public class StudentRegistrationScene extends domain.Validation {
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
         backButton.setOnAction((event) -> {
-            window.setScene(studentOverviewScene.studentOverviewScene(window));
+            window.getScene().setRoot(studentOverviewScene.studentOverviewScene(window));
         });
 
         Button registerButton = new Button("Register");
         registerButton.setPrefSize(80, 37);
         registerButton.setOnAction((event) -> {
-            window.setScene(registrationCreateScene.registrationCreateScene(window, current_student));
+            window.getScene().setRoot(registrationCreateScene.registrationCreateScene(window, current_student));
         });
 
         Button certificateButton = new Button("View certificates");
         certificateButton.setPrefSize(120, 37);
         certificateButton.setOnAction((event) -> {
-            window.setScene(studentCertificateScene.studentCertificateScene(window, current_student));
+            window.getScene().setRoot(studentCertificateScene.studentCertificateScene(window, current_student));
         });
 
         HBox menu = new HBox(backButton, registerButton, certificateButton);
@@ -79,7 +79,7 @@ public class StudentRegistrationScene extends domain.Validation {
         table.setOnMouseClicked((event) -> {
             Registration registration = table.getSelectionModel().getSelectedItem();
             Course course = sqlR.getStudentRegistrationCourseList(registration);
-            window.setScene(studentCourseScene.studentCourseScene(window, registration, course, current_student));
+            window.getScene().setRoot(studentCourseScene.studentCourseScene(window, registration, course, current_student));
         });
         
         Callback<TableColumn<Registration, String>, TableCell<Registration, String>> editCellFactory = new Callback<TableColumn<Registration, String>, TableCell<Registration, String>>() {
@@ -97,7 +97,7 @@ public class StudentRegistrationScene extends domain.Validation {
                         } else {
                             editBtn.setOnAction(event -> {
                                 Registration registration = getTableView().getItems().get(getIndex());
-                                window.setScene(registrationUpdateScene.registrationUpdateScene(window, registration, current_student));
+                                window.getScene().setRoot(registrationUpdateScene.registrationUpdateScene(window, registration, current_student));
                             });
                             setGraphic(editBtn);
                         }
@@ -123,7 +123,7 @@ public class StudentRegistrationScene extends domain.Validation {
                             deleteBtn.setOnAction(event -> {
                                 Registration registration = getTableView().getItems().get(getIndex());
                                 sqlR.deleteRegistration(registration);
-                                window.setScene(studentDetailScene.studentRegistrationScene(window, current_student));
+                                window.getScene().setRoot(studentDetailScene.studentRegistrationScene(window, current_student));
                             });
                             setGraphic(deleteBtn);
                         }
@@ -145,12 +145,8 @@ public class StudentRegistrationScene extends domain.Validation {
         pane.setTop(menu);
         pane.setCenter(table);
 
-        Scene sscene = new Scene(pane);
+        pane.getStylesheets().add("/resources/styleSheet.css");
 
-        window.setFullScreen(true);
-
-        sscene.getStylesheets().add("/resources/styleSheet.css");
-
-        return sscene;
+        return pane;
     }
 }

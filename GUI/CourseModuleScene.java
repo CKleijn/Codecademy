@@ -6,7 +6,7 @@ import domain.Course;
 import domain.Module;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
-import javafx.scene.Scene;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -20,7 +20,7 @@ public class CourseModuleScene {
     ExternalPersonSQL sqlE = new ExternalPersonSQL();
     RegistrationSQL sqlR = new RegistrationSQL();
 
-    public Scene courseModuleScene(Stage window, Module module, Course course) {
+    public Parent courseModuleScene(Stage window, Module module, Course course) {
         CourseDetailPage courseDetailPage = new CourseDetailPage();
 
         // Background image
@@ -33,7 +33,7 @@ public class CourseModuleScene {
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
         backButton.setOnAction((event) -> {
-            window.setScene(courseDetailPage.CourseDetailScene(window, course));
+            window.getScene().setRoot(courseDetailPage.CourseDetailScene(window, course));
         });
 
         HBox menu = new HBox(backButton);
@@ -117,13 +117,8 @@ public class CourseModuleScene {
         pane.setTop(menu);
         pane.setCenter(grid);
 
+        pane.getStylesheets().add("/resources/styleSheet.css");
 
-        Scene sscene = new Scene(pane);
-
-        window.setFullScreen(true);
-
-        sscene.getStylesheets().add("/resources/styleSheet.css");
-
-        return sscene;
+        return pane;
     }
 }

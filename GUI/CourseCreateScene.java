@@ -5,7 +5,7 @@ import domain.Course;
 import domain.Level;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
-import javafx.scene.Scene;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -20,7 +20,7 @@ import javafx.stage.Stage;
 public class CourseCreateScene extends domain.Validation {
     private CourseSQL sql = new CourseSQL();
 
-    public Scene courseCreateScene(Stage window) {
+    public Parent courseCreateScene(Stage window) {
         CourseOverviewScene courseOverviewScene = new CourseOverviewScene();
 		
 		//Background image
@@ -33,9 +33,8 @@ public class CourseCreateScene extends domain.Validation {
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
         backButton.setOnAction((event) -> {
-            window.setScene(courseOverviewScene.courseOverviewScene(window));
+            window.getScene().setRoot(courseOverviewScene.courseOverviewScene(window));
         });
-
 
         //All labels and input fields		
 		Label nameLabel = new Label("Name: ");
@@ -54,7 +53,6 @@ public class CourseCreateScene extends domain.Validation {
 		Label moduleLabel = new Label("Add module: ");
         ComboBox<String>cbxModule = new ComboBox<>();
         cbxModule.getItems().setAll(sql.getModules());
-
 
 		//Last button to create with al the information in the textareas
 		Button createCourseButton = new Button("Add course");
@@ -102,7 +100,7 @@ public class CourseCreateScene extends domain.Validation {
 				Course course = new Course(nameTextArea.getText(), topicTextArea.getText(), introductionTextArea.getText(), cbxLevel.getSelectionModel().getSelectedItem().name());
 				sql.setCourseName(cbxModule.getSelectionModel().getSelectedItem(), course.getName());
 				sql.createCourse(course);
-				window.setScene(courseOverviewScene.courseOverviewScene(window));
+				window.getScene().setRoot(courseOverviewScene.courseOverviewScene(window));
 			}
 		});
 
@@ -124,13 +122,9 @@ public class CourseCreateScene extends domain.Validation {
         pane.setTop(backButton);
         pane.setCenter(grid);
 
-        Scene sscene = new Scene(pane);
+		pane.getStylesheets().add("/resources/styleSheet.css");
 
-		window.setFullScreen(true);
-
-		sscene.getStylesheets().add("/resources/styleSheet.css");
-
-        return sscene;
+        return pane;
     }
     
 }

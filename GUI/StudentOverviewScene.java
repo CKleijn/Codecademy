@@ -7,7 +7,7 @@ import domain.Student;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
-import javafx.scene.Scene;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -23,7 +23,7 @@ import javafx.util.Callback;
 public class StudentOverviewScene {
     private StudentSQL sql = new StudentSQL();
 
-    public Scene studentOverviewScene(Stage window) {
+    public Parent studentOverviewScene(Stage window) {
         HomescreenScene homescreenScene = new HomescreenScene();
         StudentOverviewScene studentOverviewScene = new StudentOverviewScene();
         StudentCreateScene studentCreateScene = new StudentCreateScene();
@@ -40,14 +40,14 @@ public class StudentOverviewScene {
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
         backButton.setOnAction((event) -> {
-            window.setScene(homescreenScene.homeScene(window));
+            window.getScene().setRoot(homescreenScene.homeScene(window));
         });
 
         // Button which leads to the StudentCreateScene.
         Button createButton = new Button("Create student");
         createButton.setPrefSize(120, 37);
         createButton.setOnAction((event) -> {
-            window.setScene(studentCreateScene.studentCreateScene(window));
+            window.getScene().setRoot(studentCreateScene.studentCreateScene(window));
         });
 
         //Hbox with the two buttons above
@@ -91,7 +91,7 @@ public class StudentOverviewScene {
 
         table.setOnMouseClicked((event) -> {
             Student student = table.getSelectionModel().getSelectedItem();
-            window.setScene(studentDetailScene.studentRegistrationScene(window, student));
+            window.getScene().setRoot(studentDetailScene.studentRegistrationScene(window, student));
         });
         
         Callback<TableColumn<Student, String>, TableCell<Student, String>> editCellFactory = new Callback<TableColumn<Student, String>, TableCell<Student, String>>() {
@@ -109,7 +109,7 @@ public class StudentOverviewScene {
                         } else {
                             editBtn.setOnAction(event -> {
                                 Student student = getTableView().getItems().get(getIndex());
-                                window.setScene(studentUpdateScene.studentUpdateScene(window, student));
+                                window.getScene().setRoot(studentUpdateScene.studentUpdateScene(window, student));
                             });
                             setGraphic(editBtn);
                         }
@@ -135,7 +135,7 @@ public class StudentOverviewScene {
                             deleteBtn.setOnAction(event -> {
                                 Student student = getTableView().getItems().get(getIndex());
                                 sql.deleteStudent(student);
-                                window.setScene(studentOverviewScene.studentOverviewScene(window));
+                                window.getScene().setRoot(studentOverviewScene.studentOverviewScene(window));
                             });
                             setGraphic(deleteBtn);
                         }
@@ -157,12 +157,8 @@ public class StudentOverviewScene {
         pane.setTop(menu);
         pane.setCenter(table);
 
-        Scene sscene = new Scene(pane);
+        pane.getStylesheets().add("/resources/styleSheet.css");
 
-        window.setFullScreen(true);
-
-        sscene.getStylesheets().add("/resources/styleSheet.css");
-
-        return sscene;
+        return pane;
     }
 }

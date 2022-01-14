@@ -8,7 +8,7 @@ import domain.Registration;
 import domain.Student;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
-import javafx.scene.Scene;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -21,7 +21,7 @@ public class StudentCourseModuleScene {
     ExternalPersonSQL sqlE = new ExternalPersonSQL();
     RegistrationSQL sqlR = new RegistrationSQL();
 
-    public Scene studentCourseModuleScene(Stage window, Module module, Registration registration, Course course, Student current_student) {
+    public Parent studentCourseModuleScene(Stage window, Module module, Registration registration, Course course, Student current_student) {
         StudentCourseScene studentCourseScene = new StudentCourseScene();
 
         // Background image
@@ -34,7 +34,7 @@ public class StudentCourseModuleScene {
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
         backButton.setOnAction((event) -> {
-            window.setScene(studentCourseScene.studentCourseScene(window, registration, course, current_student));
+            window.getScene().setRoot(studentCourseScene.studentCourseScene(window, registration, course, current_student));
         });
 
         Label infoIDLabel = new Label("Module ID: ");
@@ -115,13 +115,8 @@ public class StudentCourseModuleScene {
         pane.setTop(backButton);
         pane.setCenter(grid);
 
+        pane.getStylesheets().add("/resources/styleSheet.css");
 
-        Scene sscene = new Scene(pane);
-
-        window.setFullScreen(true);
-
-        sscene.getStylesheets().add("/resources/styleSheet.css");
-
-        return sscene;
+        return pane;
     }
 }

@@ -8,7 +8,7 @@ import domain.Student;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
-import javafx.scene.Scene;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -23,7 +23,7 @@ public class StudentCertificateScene {
     private CertificateSQL sqlC = new CertificateSQL();
     
 
-    public Scene studentCertificateScene(Stage window, Student current_student) {
+    public Parent studentCertificateScene(Stage window, Student current_student) {
         StudentRegistrationScene studentRegistrationScene = new StudentRegistrationScene();
 
         // Background image
@@ -36,7 +36,7 @@ public class StudentCertificateScene {
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
         backButton.setOnAction((event) -> {
-            window.setScene(studentRegistrationScene.studentRegistrationScene(window, current_student));
+            window.getScene().setRoot(studentRegistrationScene.studentRegistrationScene(window, current_student));
         });
 
         HBox menu = new HBox(backButton);
@@ -68,12 +68,8 @@ public class StudentCertificateScene {
         pane.setTop(menu);
         pane.setCenter(table);
 
-        Scene sscene = new Scene(pane);
+        pane.getStylesheets().add("/resources/styleSheet.css");
 
-        window.setFullScreen(true);
-
-        sscene.getStylesheets().add("/resources/styleSheet.css");
-
-        return sscene;
+        return pane;
     }
 }

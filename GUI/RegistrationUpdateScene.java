@@ -9,7 +9,7 @@ import domain.Registration;
 import domain.Student;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
-import javafx.scene.Scene;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -24,7 +24,7 @@ public class RegistrationUpdateScene extends domain.Validation{
     private CourseSQL sqlC = new CourseSQL();
     private RegistrationSQL sqlR = new RegistrationSQL();
 
-    public Scene registrationUpdateScene(Stage window, Registration current_registration, Student current_student) {
+    public Parent registrationUpdateScene(Stage window, Registration current_registration, Student current_student) {
         StudentRegistrationScene studentDetailScene = new StudentRegistrationScene();
 
 		//Background image
@@ -37,7 +37,7 @@ public class RegistrationUpdateScene extends domain.Validation{
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
         backButton.setOnAction((event) -> {
-            window.setScene(studentDetailScene.studentRegistrationScene(window, current_student));
+            window.getScene().setRoot(studentDetailScene.studentRegistrationScene(window, current_student));
         });
 
         Label courseLabel = new Label("Choose course: ");
@@ -69,7 +69,7 @@ public class RegistrationUpdateScene extends domain.Validation{
 
             if(validation){
                 sqlR.updateRegistration(current_registration, new Registration(Date.valueOf(LocalDate.now()), current_student.getEmail(), cbxCourse.getSelectionModel().getSelectedItem()));
-                window.setScene(studentDetailScene.studentRegistrationScene(window, current_student));
+                window.getScene().setRoot(studentDetailScene.studentRegistrationScene(window, current_student));
             }
 		});
 
@@ -83,12 +83,8 @@ public class RegistrationUpdateScene extends domain.Validation{
         pane.setTop(backButton);
         pane.setCenter(grid);
 
-        Scene sscene = new Scene(pane);
+        pane.getStylesheets().add("/resources/styleSheet.css");
 
-        window.setFullScreen(true);
-
-        sscene.getStylesheets().add("/resources/styleSheet.css");
-
-        return sscene;
+        return pane;
     }
 }
