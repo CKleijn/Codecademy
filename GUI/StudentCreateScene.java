@@ -6,6 +6,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
@@ -50,7 +51,8 @@ public class StudentCreateScene extends domain.Validation{
 		TextArea birthYearTextArea = new TextArea();
 		
 		Label genderLabel = new Label("Gender: ");
-		TextArea genderTextArea = new TextArea();
+		ComboBox<String> cbxGender = new ComboBox<>();
+		cbxGender.getItems().addAll("M", "F");
 		
 		Label streetLabel = new Label("Street: ");
 		TextArea streetTextArea = new TextArea();
@@ -102,7 +104,7 @@ public class StudentCreateScene extends domain.Validation{
 				Label errorText = new Label("postal code isn't must be 4 digits space 2 letters");
 				grid.add(errorText, 1, 15, 1, 1);
 			}
-			if (!checkGender(genderTextArea.getText())) {
+			if (cbxGender.getSelectionModel().isEmpty()) {
 				validation = false;
 				Label errorText = new Label("gender must be 'M' for male or 'F' for female");
 				grid.add(errorText, 1, 7, 1, 1);
@@ -134,7 +136,7 @@ public class StudentCreateScene extends domain.Validation{
 			}
 			
 			if (validation) { 
-				sql.createStudent(new Student(emailTextArea.getText(), nameTextArea.getText(), Integer.parseInt(birthDayTextArea.getText()), Integer.parseInt(birthMonthTextArea.getText()), Integer.parseInt(birthYearTextArea.getText()), genderTextArea.getText(), streetTextArea.getText(), houseNumberTextArea.getText(), houseNumberAdditionTextArea.getText(), postalCodeTextArea.getText(), residenceTextArea.getText(), countryTextArea.getText()));
+				sql.createStudent(new Student(emailTextArea.getText(), nameTextArea.getText(), Integer.parseInt(birthDayTextArea.getText()), Integer.parseInt(birthMonthTextArea.getText()), Integer.parseInt(birthYearTextArea.getText()), cbxGender.getSelectionModel().getSelectedItem() , streetTextArea.getText(), houseNumberTextArea.getText(), houseNumberAdditionTextArea.getText(), postalCodeTextArea.getText(), residenceTextArea.getText(), countryTextArea.getText()));
 				window.setScene(studentOverviewScene.studentOverviewScene(window));
 			}			
 		});
@@ -150,7 +152,7 @@ public class StudentCreateScene extends domain.Validation{
 		grid.add(birthYearLabel, 0, 8, 1, 1);
 		grid.add(birthYearTextArea, 1, 8, 1, 1);
 		grid.add(genderLabel, 0, 10 , 1, 1);
-		grid.add(genderTextArea, 1, 10 , 1, 1);
+		grid.add(cbxGender, 1, 10 , 1, 1);
 		grid.add(streetLabel, 0, 12, 1, 1);
 		grid.add(streetTextArea, 1, 12 , 1, 1);
         grid.add(houseNumberLabel, 0, 14 , 1, 1);

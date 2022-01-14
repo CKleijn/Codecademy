@@ -55,20 +55,6 @@ public abstract class Validation {
 
     }
 
-    //Method that checks a given gender
-    public boolean checkGender(String gender){
-        //Regex checks if the String gender is a M or a F
-        String regex = "[MF]";
-
-        if(gender.matches(regex)){
-            System.out.println("The gender is correct");
-            return true;
-        }
-
-        System.out.println("The gender is incorrect");
-        return false;
-    }
-
     //Method that checks a given url
     public boolean checkUrl(String url){
         //Regex checks if the url starts with https:// or with http:// that it checks if there are one or more caraters followed by a "." then another set of caraters another "." and if there are 1 or more caraters at the end
