@@ -105,8 +105,8 @@ public class CourseOverviewScene {
             }
         };
         
-        //make a table that tells the user what the delete did
-        Label deleteFeedback = new Label("test");
+        //Make a label that tells the user why the delete wasn't succeed
+        Label deleteFeedback = new Label();
 
         Callback<TableColumn<Course, String>, TableCell<Course, String>> deletecellFactory = new Callback<TableColumn<Course, String>, TableCell<Course, String>>() {
             @Override
@@ -142,7 +142,7 @@ public class CourseOverviewScene {
         deleteCol.setCellFactory(deletecellFactory);
 
         table.setItems(list);
-        table.setMaxSize(1485, 400);
+        table.setMaxSize(588, 400);
 
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(15, 15, 15, 15));
