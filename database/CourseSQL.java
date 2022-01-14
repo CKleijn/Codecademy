@@ -54,9 +54,9 @@ public class CourseSQL extends ConnectToDatabase {
     }
 
     //Method that updates a existing Course record in the Course table
-    public void updateCourse(Course course) {
+    public void updateCourse(Course course, Course old_course) {
         Connection conn = getConnection();
-        String query = "UPDATE Course SET CourseName = '" + course.getName() + "', CourseTopic = '" + course.getTopic() + "', CourseIntroduction = '" + course.getIntroduction() + "', CourseLevel = '" + course.getLevel() + "' WHERE CourseName = '" + course.getName() + "'";
+        String query = "UPDATE Course SET CourseName = '" + course.getName() + "', CourseTopic = '" + course.getTopic() + "', CourseIntroduction = '" + course.getIntroduction() + "', CourseLevel = '" + course.getLevel() + "' WHERE CourseName = '" + old_course.getName() + "'";
         Statement st;
 
         try {

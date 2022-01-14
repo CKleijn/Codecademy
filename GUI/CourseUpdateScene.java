@@ -91,7 +91,7 @@ public class CourseUpdateScene extends domain.Validation{
 
 			if(validation){
 				Course course = new Course(nameTextArea.getText(), topicTextArea.getText(), introductionTextArea.getText(), cbxLevel.getSelectionModel().getSelectedItem().name());
-				sql.updateCourse(course);
+				sql.updateCourse(course, old_course);
 				window.getScene().setRoot(courseOverviewScene.courseOverviewScene(window));
 			}
 		});

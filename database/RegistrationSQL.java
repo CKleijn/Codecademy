@@ -179,9 +179,9 @@ public class RegistrationSQL extends ConnectToDatabase {
     }
 
     //Method that updates a existing Registration record in the Registration table
-    public void updateRegistration(Registration current_registration, Registration new_registration) {
+    public void updateRegistration(Registration old_registration, Registration registration) {
         Connection conn = getConnection();
-        String query = "UPDATE Registration SET RegistrationDate = '" + new_registration.getRegistrationDate() + "', StudentEmail = '" + new_registration.getStudentEmail() + "', CourseName = '" + new_registration.getCourseName() + "', CertificateID = NULL WHERE RegistrationDate = '" + current_registration.getRegistrationDate() + "' AND StudentEmail = '" + current_registration.getStudentEmail() + "' AND CourseName = '" + current_registration.getCourseName() + "'";
+        String query = "UPDATE Registration SET RegistrationDate = '" + registration.getRegistrationDate() + "', StudentEmail = '" + registration.getStudentEmail() + "', CourseName = '" + registration.getCourseName() + "', CertificateID = NULL WHERE RegistrationDate = '" + old_registration.getRegistrationDate() + "' AND StudentEmail = '" + old_registration.getStudentEmail() + "' AND CourseName = '" + old_registration.getCourseName() + "'";
         Statement st;
 
         try {
