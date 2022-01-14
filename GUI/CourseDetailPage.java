@@ -3,7 +3,6 @@ package GUI;
 import database.CourseSQL;
 import domain.Course;
 import domain.Module;
-import domain.Webcast;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;

@@ -8,7 +8,6 @@ import domain.Registration;
 import domain.Certificate;
 import domain.Course;
 import domain.Student;
-import domain.Webcast;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;

@@ -9,6 +9,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -53,6 +54,7 @@ public class CourseOverviewScene {
         HBox menu = new HBox(backButton, createButton);
         menu.setSpacing(10);
 
+
         TableView<Course> table = new TableView<Course>();
         TableColumn<Course, String> nameCol = new TableColumn<Course, String>("Course name");
         TableColumn<Course, String> topicCol = new TableColumn<Course, String>("Course topic");
@@ -71,7 +73,7 @@ public class CourseOverviewScene {
         levelCol.setCellValueFactory(new PropertyValueFactory<Course, String>("level"));
         editCol.setCellValueFactory(new PropertyValueFactory<>("Edit"));
         deleteCol.setCellValueFactory(new PropertyValueFactory<>("Delete"));
-        
+
         table.setOnMouseClicked((event) -> {
             Course course = table.getSelectionModel().getSelectedItem();
             window.setScene(courseDetailPage.CourseDetailScene(window, course));
@@ -102,6 +104,9 @@ public class CourseOverviewScene {
                 return cell;
             }
         };
+        
+        //make a table that tells the user what the delete did
+        Label deleteFeedback = new Label("test");
 
         Callback<TableColumn<Course, String>, TableCell<Course, String>> deletecellFactory = new Callback<TableColumn<Course, String>, TableCell<Course, String>>() {
             @Override
@@ -118,8 +123,12 @@ public class CourseOverviewScene {
                         } else {
                             deleteBtn.setOnAction(event -> {
                                 Course course = getTableView().getItems().get(getIndex());
-                                sql.deleteCourse(course);
-                                window.setScene(courseOverviewScene.courseOverviewScene(window));
+                                String feedback =  sql.deleteCourse(course);
+                                if(feedback.equals("Can't delete course because there are still people that are not graduated yet!")){
+                                    deleteFeedback.setText(feedback);
+                                } else {
+                                    window.setScene(courseOverviewScene.courseOverviewScene(window));
+                                } 
                             });
                             setGraphic(deleteBtn);
                         }
@@ -140,6 +149,7 @@ public class CourseOverviewScene {
         pane.getChildren().add(imageView);
         pane.setTop(menu);
         pane.setCenter(table);
+        pane.setBottom(deleteFeedback);
 
         Scene sscene = new Scene(pane);
 

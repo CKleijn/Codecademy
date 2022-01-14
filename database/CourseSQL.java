@@ -2,10 +2,10 @@ package database;
 
 import domain.Course;
 import domain.Module;
-import domain.Webcast;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -69,17 +69,38 @@ public class CourseSQL extends ConnectToDatabase {
     }
 
     //Method that deletes a existing Course record in the Course table
-    public void deleteCourse(Course course) {
+    public String deleteCourse(Course course) {
+
         Connection conn = getConnection();
-        String query = "DELETE FROM Course WHERE CourseName = '" + course.getName() + "'";
+        String query1 = "SELECT COUNT(*) AS studentsWithoutCertificate FROM Registration WHERE CourseName = '" + course.getName() + "' AND CertificateID IS NULL";
         Statement st;
+        ResultSet rs;
+        int studentsWithoutCertificate = 0;
         try {
-            st = conn.createStatement();
-            st.executeQuery(query);
-            System.out.println("Course deleted!");
-        } catch (Exception e) {
+            st= conn.createStatement();
+            rs = st.executeQuery(query1);
+            
+            while(rs.next()){
+                studentsWithoutCertificate = rs.getInt("studentsWithoutCertificate");
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        if(studentsWithoutCertificate == 0){
+            String query2 = "DELETE FROM Course WHERE CourseName = '" + course.getName() + "'";
+            try {
+                st = conn.createStatement();
+                st.executeQuery(query2);
+                return "Course deleted" + course.getName() + "!";
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            return "Can't delete course because there are still people that are not graduated yet!";
+        }
+
+        return "There was a mistake with deleting the course";
     }
 
     //Method that returns all of the Course names in a String Array
