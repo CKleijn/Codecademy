@@ -60,7 +60,7 @@ public class CourseDetailPage {
         Label topicLabel = new Label();
         topicLabel.setText(course.getTopic());
 
-        Label infoIntroLabel = new Label("Course intoduction: ");
+        Label infoIntroLabel = new Label("Course introduction: ");
         Label introLabel = new Label();
         introLabel.setText(course.getIntroduction());
 
