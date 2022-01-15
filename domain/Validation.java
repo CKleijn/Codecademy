@@ -30,10 +30,12 @@ public abstract class Validation {
             System.out.println("The given date is correct");
             return true;
         //if the first and second statemt aren't true it checks if the day is between 1 and 28 after that is checks if the month is febuary (the second month) after that it checks if the year is between now and this year minus 120 years
-        } else if ((day <= 28 && day > 0) && month == 2 && currentYear >= year && year > currentYear-120){
+        } else if ((day <= 28 && day > 0) && (month == 2 && (year % 4 != 0 || (year % 100 == 0 && year % 400 != 0)) && currentYear >= year && year > currentYear-120)){
             System.out.println("The given date is correct");
             return true;
-        }
+        } else if(day >= 1 && day <= 29 && (month == 2 && (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))) && currentYear >= year && year > currentYear-120) {
+            return true;
+        } 
 
         System.out.println("The given date in incorrect");
         return false;

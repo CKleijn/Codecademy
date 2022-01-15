@@ -3,7 +3,6 @@ package GUI;
 import java.util.Arrays;
 
 import database.CertificateSQL;
-import database.ExternalPersonSQL;
 import domain.Certificate;
 import domain.Student;
 import javafx.collections.ObservableList;

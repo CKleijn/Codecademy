@@ -17,6 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -113,7 +114,7 @@ public class CourseOverviewScene {
         };
         
         //Creates a label that tells the user why the delete didn't succeed
-        Label deleteFeedback = new Label();
+        Label deleteFeedback = new Label("");
 
         //Creates a Callback and adds methods to it that delete given information
         Callback<TableColumn<Course, String>, TableCell<Course, String>> deletecellFactory = new Callback<TableColumn<Course, String>, TableCell<Course, String>>() {
@@ -132,7 +133,7 @@ public class CourseOverviewScene {
                             deleteBtn.setOnAction(event -> {
                                 Course course = getTableView().getItems().get(getIndex());
                                 String feedback =  sql.deleteCourse(course);
-                                if(feedback.equals("Can't delete course because there are still people that are not graduated yet!")){
+                                if(feedback.contains("Can't delete course because there are still who are still participating in")){
                                     deleteFeedback.setText(feedback);
                                 } else {
                                     window.getScene().setRoot(courseOverviewScene.courseOverviewScene(window));
@@ -165,13 +166,17 @@ public class CourseOverviewScene {
         table.setPadding(new Insets(30, 0, 0, 0));
         table.setFixedCellSize(40);
 
+        GridPane grid = new GridPane();
+        // grid.add(new Label(), 0, 0, 1, 1);
+        grid.add(table, 0, 1, 1, 1);
+        grid.add(deleteFeedback, 0, 2, 1, 1);
+
         //Creates a BorderPane and adds elements to it
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(15, 15, 15, 15));
         pane.getChildren().add(imageView);
         pane.setTop(menu);
-        pane.setCenter(table);
-        pane.setBottom(deleteFeedback);
+        pane.setCenter(grid);
 
         //Sets the path to the Stylesheet to be used by the BorderPane
         pane.getStylesheets().add("/resources/styleSheet.css");

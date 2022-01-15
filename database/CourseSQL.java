@@ -72,22 +72,22 @@ public class CourseSQL extends ConnectToDatabase {
     public String deleteCourse(Course course) {
 
         Connection conn = getConnection();
-        String query1 = "SELECT COUNT(*) AS studentsWithoutCertificate FROM Registration WHERE CourseName = '" + course.getName() + "' AND CertificateID IS NULL";
+        String query1 = "SELECT COUNT(*) AS NumberOfStudents FROM Registration WHERE CourseName = '" + course.getName() + "'";
         Statement st;
         ResultSet rs;
-        int studentsWithoutCertificate = 0;
+        int participants = 0;
         try {
             st= conn.createStatement();
             rs = st.executeQuery(query1);
             
             while(rs.next()){
-                studentsWithoutCertificate = rs.getInt("studentsWithoutCertificate");
+                participants = rs.getInt("NumberOfStudents");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        if(studentsWithoutCertificate == 0){
+        if(participants == 0){
             String query2 = "DELETE FROM Course WHERE CourseName = '" + course.getName() + "'";
             try {
                 st = conn.createStatement();
@@ -97,10 +97,10 @@ public class CourseSQL extends ConnectToDatabase {
                 e.printStackTrace();
             }
         } else {
-            return "Can't delete course because there are still people that are not graduated yet!";
+            return "Can't delete course because there are still who are still participating in " + course.getName() + "\nThere are still " + participants + " participants to this course.";
         }
 
-        return "There was a mistake with deleting the course";
+        return "There was a mistake with deleting " + course.getName();
     }
 
     //Method that returns all of the Course names in a String Array
@@ -187,7 +187,7 @@ public class CourseSQL extends ConnectToDatabase {
     //Method that changes the name of a Course that belongs to a given Item to a given name
     public void setCourseName(String itemTitle, String CourseName){
         Connection conn = getConnection();
-        String query = "UPDATE Module SET Module.CourseName = '" + CourseName + "' INNER JOIN Item ON Module.ItemID = Item.ItemID WHERE Item.ItemTitle = '" + itemTitle + "'";
+        String query = "UPDATE Module SET Module.CourseName = '" + CourseName + "'FROM Module INNER JOIN Item ON Module.ItemID = Item.ItemID WHERE Item.ItemTitle = '" + itemTitle + "'";
         Statement st;
         
         try {
@@ -202,7 +202,7 @@ public class CourseSQL extends ConnectToDatabase {
     //Method that changes the name of a Course that belongs to a given Item to NULL
     public void setNull(String itemTitle){
         Connection conn = getConnection();
-        String query = "UPDATE Module SET Module.CourseName = NULL INNER JOIN Item ON Module.ItemID = Item.ItemID WHERE Item.ItemTitle = ('" + itemTitle + "')";
+        String query = "UPDATE Module SET Module.CourseName = NULL FROM Module INNER JOIN Item ON Module.ItemID = Item.ItemID WHERE Item.ItemTitle = ('" + itemTitle + "')";
         Statement st;
         try {
             st = conn.createStatement();
