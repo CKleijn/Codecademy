@@ -51,19 +51,17 @@
     -fx-background-color:#43C6DB;
     background-color:#43C6DB;
 }
+
 .combo-box .arrow-button{
-    -fx-background-color:white;
-    background-color:white;
+    -fx-background-color:#0a9ec2;
+    background-color:#0a9ec2;
     -fx-border-style:none;
     border-style:none;
 }
-.combo-box .arrow-button{
-    -fx-background-color:white;
-    background-color:white;
-}
+
 .combo-box .list-cell{
-    -fx-background-color:white;
-    background-color:white;
+    -fx-background-color:#43C6DB;
+    background-color:#43C6DB;
 }
 
 .table-view{
