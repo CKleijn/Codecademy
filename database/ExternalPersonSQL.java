@@ -59,9 +59,31 @@ public class ExternalPersonSQL extends ConnectToDatabase {
     }
 
     //Method that returns the name of the ExternalPerson that belongs to a given Certificate
-    public String getEmployeeNameById(Certificate certificate) {
+    public String getEmployeeNameByIdWithCertificateParameter(Certificate certificate) {
         Connection conn = getConnection();
         String query = "SELECT ExternalPersonName FROM ExternalPerson WHERE ExternalPersonID = '" + certificate.getExternalPersonID() + "'";
+        Statement st;
+        ResultSet rs;
+        String externalPersonName;
+
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            while(rs.next()){
+                externalPersonName = new String(rs.getString("ExternalPersonName"));
+                return externalPersonName;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    //Method that returns the name of the ExternalPerson that belongs to a given externalPersonId
+    public String getEmployeeNameByIdWithIntegerParameter(int externalPersonID) {
+        Connection conn = getConnection();
+        String query = "SELECT ExternalPersonName FROM ExternalPerson WHERE ExternalPersonID = '" + externalPersonID + "'";
         Statement st;
         ResultSet rs;
         String externalPersonName;

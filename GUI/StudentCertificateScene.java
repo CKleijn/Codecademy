@@ -3,6 +3,7 @@ package GUI;
 import java.util.Arrays;
 
 import database.CertificateSQL;
+import database.ExternalPersonSQL;
 import domain.Certificate;
 import domain.Student;
 import javafx.collections.ObservableList;
@@ -17,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 //Class that creates the Student Certificate scene
@@ -48,7 +50,7 @@ public class StudentCertificateScene {
         TableColumn<Certificate, String> courseNameCol = new TableColumn<Certificate, String>("Course name");
         TableColumn<Certificate, String> idCol = new TableColumn<Certificate, String>("Certificate ID");
         TableColumn<Certificate, String> gradeCol = new TableColumn<Certificate, String>("Certificate grade");
-        TableColumn<Certificate, String> externalPersonIdCol = new TableColumn<Certificate, String>("External Person ID");
+        TableColumn<Certificate, String> externalPersonIdCol = new TableColumn<Certificate, String>("Employee name");
         
         table.getColumns().addAll(Arrays.asList(studentEmailCol, courseNameCol, idCol, gradeCol, externalPersonIdCol));
 
@@ -58,10 +60,13 @@ public class StudentCertificateScene {
         courseNameCol.setCellValueFactory(new PropertyValueFactory<Certificate, String>("courseName"));
         idCol.setCellValueFactory(new PropertyValueFactory<Certificate, String>("certificateID"));
         gradeCol.setCellValueFactory(new PropertyValueFactory<Certificate, String>("certificateGrade"));
-        externalPersonIdCol.setCellValueFactory(new PropertyValueFactory<Certificate, String>("externalPersonID"));
+        externalPersonIdCol.setCellValueFactory(new PropertyValueFactory<Certificate, String>("externalPersonName"));
 
         table.setItems(list);
-        table.setMaxSize(1485, 400);
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY); 
+        table.setMinWidth(Screen.getPrimary().getBounds().getWidth() - 30);
+        table.setPadding(new Insets(30, 0, 0, 0));
+        table.setFixedCellSize(40);
 
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(15, 15, 15, 15));

@@ -51,7 +51,7 @@ public class CertificateCreateScene extends domain.Validation{
         cbxExternalPerson.getItems().setAll(sqlE.getEmployeeExternalPersons());
         cbxExternalPerson.setPrefHeight(1.0);
 
-        Button createCertificate = new Button("Create registration");
+        Button createCertificate = new Button("Create certificate");
 		createCertificate.setPrefSize(120, 40);
 
         HBox buttonHBox = new HBox();

@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 
 //Class that runs different queries on the Certificate table in the connected database
 public class CertificateSQL extends ConnectToDatabase {
+    private ExternalPersonSQL sql = new ExternalPersonSQL();
 
     //Method that returns all of the Certificate records belonging to a given Student
     public ObservableList<Certificate> getCertificateListFromStudent(Student student) {
@@ -27,7 +28,7 @@ public class CertificateSQL extends ConnectToDatabase {
             rs = st.executeQuery(query);
             Certificate certificate;
             while(rs.next()) {
-                certificate = new Certificate(rs.getInt("CertificateID"), rs.getInt("CertificateGrade"), rs.getInt("ExternalPersonID"), rs.getString("StudentEmail"), rs.getString("CourseName"));
+                certificate = new Certificate(rs.getInt("CertificateID"), rs.getInt("CertificateGrade"), rs.getInt("ExternalPersonID"), sql.getEmployeeNameByIdWithIntegerParameter(rs.getInt("ExternalPersonID")), rs.getString("StudentEmail"), rs.getString("CourseName"));
                 certificateList.add(certificate);
             }
         } catch (Exception e) {
@@ -115,12 +116,20 @@ public class CertificateSQL extends ConnectToDatabase {
     public void createCertificate(Certificate certificate) {
         Connection conn = getConnection();
         String query = "INSERT INTO Certificate VALUES ('" + certificate.getCertificateGrade() + "', '" + certificate.getExternalPersonID() + "', '" + certificate.getStudentEmail() + "', '" + certificate.getCourseName() + "')";
+        String checkQuery = "SELECT COUNT(*) AS TotalRecords FROM Certificate WHERE StudentEmail = '" + certificate.getStudentEmail() + "' AND CourseName = '" + certificate.getCourseName() + "'";
         Statement st;
+        ResultSet rs;
 
         try {
             st = conn.createStatement();
-            st.executeQuery(query);
-            System.out.println("Certificate created!");
+            rs = st.executeQuery(checkQuery);
+            while(rs.next()) {
+                if(rs.getInt("TotalRecords") < 1) {
+                    st.executeQuery(query);
+                    System.out.println("Certificate created!");
+                }
+            }
+            System.out.println("You've already created a certificate for this student/course!");
         } catch (Exception e) {
             e.printStackTrace();
         }
