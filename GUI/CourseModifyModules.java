@@ -24,29 +24,29 @@ public class CourseModifyModules {
         CourseDetailPage courseDetailPage = new CourseDetailPage();
         CourseSQL sql = new CourseSQL();
 
-        // Background image
+        //Adds the Background image
         Image image = new Image("resources/backgroundImage.jpg");
         ImageView imageView = new ImageView(image);
         Group root = new Group();
         root.getChildren().addAll(imageView);
  
-        // Button to go back to the courseDetailScene
+        //Adds the Button to go back to the courseDetailScene
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
         backButton.setOnAction((event) -> {
             window.getScene().setRoot(courseDetailPage.CourseDetailScene(window, course));
         });
         
-        //create the gridpane
+        //Creates the GridPane
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(40, 0, 0, 0));
 		grid.setHgap(5);
 		grid.setVgap(5);
 
-        //an arrayList van alle checkboxes
+        //Creates an ArrayList for CheckBoxes
         ArrayList<CheckBox> checkBoxes = new ArrayList<>();
 
-        //make a loop to iterate trough the modules that aren't added to a course yet
+        //Loops through the Modules that aren't added to a Course yet
         int i = 0;
         for(String module : sql.getModules()){
             CheckBox checkbox = new CheckBox(module);
@@ -56,7 +56,7 @@ public class CourseModifyModules {
             i++;
         }
 
-        //make a loop to iterate trough the modules that are added to the selected course
+        //Loops through the Modules that are added to the selected Course
         for(Module module : sql.getSpecificModules(course)){
             CheckBox checkBox = new CheckBox(module.getTitle());
             checkBoxes.add(checkBox);
@@ -66,11 +66,11 @@ public class CourseModifyModules {
             i++;
         }
 
-        //make a button to submit the changes
+        //Creates a button for submitting changes
         Button submitButton = new Button("Update modules");
         submitButton.setPrefSize(180, 40);
 
-        //Set an onclick event with a loop wich iterates over all the checkboxes and submit the changes to the db
+        //Adds an setOnAction event to the created Button that loops over all the checkboxes and submits the changes to the connected Database
         submitButton.setOnAction((event) -> {
             for(CheckBox checkBox : checkBoxes){
                 boolean isSelected = checkBox.isSelected();
@@ -85,17 +85,20 @@ public class CourseModifyModules {
             window.getScene().setRoot(courseDetailPage.CourseDetailScene(window, course));
         });
 
+        //Adds the Button to the GridPane
         grid.add(submitButton, 0, i+2, 1, 1);
         
+        //Creates a BorderPane and adds elements to it
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(15, 15, 15, 15));
         pane.getChildren().add(imageView);
         pane.setTop(backButton);
         pane.setCenter(grid);
 
+        //Sets the path to the Stylesheet to be used by the BorderPane
         pane.getStylesheets().add("/resources/styleSheet.css");
 
+        //Returns the BorderPane
         return pane;
     }
-    
 }

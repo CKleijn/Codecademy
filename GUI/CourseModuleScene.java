@@ -25,22 +25,24 @@ public class CourseModuleScene {
     public Parent courseModuleScene(Stage window, Module module, Course course) {
         CourseDetailPage courseDetailPage = new CourseDetailPage();
 
-        // Background image
+        //Adds the Background image
         Image image = new Image("resources/backgroundImage.jpg");
         ImageView imageView = new ImageView(image);
         Group root = new Group();
         root.getChildren().addAll(imageView);
 
-        // Button to go back to the homeScene.
+        //Adds the Button to go back to the homeScene
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
         backButton.setOnAction((event) -> {
             window.getScene().setRoot(courseDetailPage.CourseDetailScene(window, course));
         });
 
+        //Creates a HBox and adds a Button to it
         HBox menu = new HBox(backButton);
         menu.setSpacing(10);
 
+        //Sets the labels with Module information
         Label infoIDLabel = new Label("Module ID: ");
         Label moduleIDLabel = new Label();
         moduleIDLabel.setText(String.valueOf(module.getItemId()));
@@ -85,6 +87,7 @@ public class CourseModuleScene {
         Label moduleProgressLabel = new Label();
         moduleProgressLabel.setText(String.valueOf(sqlR.getAverageProgress(module) + "%"));
 
+        //Creates a GridPane and sets the position of the different elements that are added to it
         GridPane grid = new GridPane();
         
 		grid.setPadding(new Insets(40, 0, 0, 0));
@@ -113,14 +116,17 @@ public class CourseModuleScene {
         grid.add(infoProgressLabel, 0, 10 , 1, 1);
         grid.add(moduleProgressLabel, 1, 10 , 1, 1);
 
+        //Creates a BorderPane and adds elements to it
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(15, 15, 15, 15));
         pane.getChildren().add(imageView);
         pane.setTop(menu);
         pane.setCenter(grid);
 
+        //Sets the path to the Stylesheet to be used by the BorderPane
         pane.getStylesheets().add("/resources/styleSheet.css");
 
+        //Returns the BorderPane
         return pane;
     }
 }

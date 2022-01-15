@@ -30,36 +30,41 @@ public class RegistrationCreateScene extends domain.Validation{
         StudentOverviewScene studentOverviewScene = new StudentOverviewScene();
         StudentRegistrationScene studentDetailScene = new StudentRegistrationScene();
 
-		//Background image
+		//Adds the Background image
 		Image image = new Image("resources/backgroundImage.jpg");
 		ImageView imageView = new ImageView(image);
 		Group root = new Group();
 		root.getChildren().addAll(imageView);
 
-        // Button to go back to the StudentOverviewScene.
+        //Adds the Button to go back to the StudentOverviewScene
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
         backButton.setOnAction((event) -> {
             window.getScene().setRoot(studentOverviewScene.studentOverviewScene(window));
         });
 
+        //Creates a Label and a ComboBox which the user can use to choose a Course from a list
         Label courseLabel = new Label("Choose course: ");
         ComboBox<String>cbxCourse = new ComboBox<>();
         cbxCourse.getItems().setAll(sqlC.getCourses());
         cbxCourse.setPrefHeight(1.0);
 
+        //Adds the Button to create a Registration and gives it a style
         Button createRegistration = new Button("Create registration");
 		createRegistration.setPrefSize(140, 40);
         createRegistration.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
 
+        //Creates a HBox with the created Button
         HBox buttonHBox = new HBox();
         buttonHBox.getChildren().addAll(createRegistration);
 
+        //Creates a GridPane
         GridPane grid = new GridPane();
 		grid.setPadding(new Insets(40, 0, 0, 0));
 		grid.setHgap(5);
 		grid.setVgap(2);
 
+        //Adds an setOnAction event to the created Button
 		createRegistration.setOnAction((event) -> {
 
             boolean validation = true;
@@ -76,19 +81,22 @@ public class RegistrationCreateScene extends domain.Validation{
             }
 		});
 
-       
+        //Sets the position of the different elements that are added to the GridPane
         grid.add(courseLabel, 0, 0 , 1, 1);
 		grid.add(cbxCourse, 1, 0 , 1, 1);
         grid.add(buttonHBox, 0, 2 , 1, 1);
 		
+        //Creates a BorderPane and adds elements to it
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(15, 15, 15, 15));
         pane.getChildren().add(imageView);
         pane.setTop(backButton);
         pane.setCenter(grid);
 
+        //Sets the path to the Stylesheet to be used by the BorderPane
         pane.getStylesheets().add("/resources/styleSheet.css");
 
+        //Returns the BorderPane
         return pane;
     }
 }

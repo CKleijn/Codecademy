@@ -34,30 +34,31 @@ public class StudentOverviewScene {
         StudentUpdateScene studentUpdateScene = new StudentUpdateScene();
         StudentRegistrationScene studentDetailScene = new StudentRegistrationScene();
 
-        // Background image
+        //Adds the Background image
         Image image = new Image("resources/backgroundImage.jpg");
         ImageView imageView = new ImageView(image);
         Group root = new Group();
         root.getChildren().addAll(imageView);
 
-        // Button to go back to the homeScene.
+        //Adds the Button to go back to the homeScene
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
         backButton.setOnAction((event) -> {
             window.getScene().setRoot(homescreenScene.homeScene(window));
         });
 
-        // Button which leads to the StudentCreateScene.
+        //Adds the Button which leads to the StudentCreateScene
         Button createButton = new Button("Create student");
         createButton.setPrefSize(120, 37);
         createButton.setOnAction((event) -> {
             window.getScene().setRoot(studentCreateScene.studentCreateScene(window));
         });
 
-        //Hbox with the two buttons above
+        //Adds the Hbox with the two buttons above
         HBox menu = new HBox(backButton, createButton);
         menu.setSpacing(10);
 
+        //Creates a Table to show Student information in the application
         TableView<Student> table = new TableView<Student>();
         TableColumn<Student, String> emailCol = new TableColumn<Student, String>("Student email");
         TableColumn<Student, String> nameCol = new TableColumn<Student, String>("Student name");
@@ -76,8 +77,10 @@ public class StudentOverviewScene {
         
         table.getColumns().addAll(Arrays.asList(emailCol, nameCol, birthDayCol, birthMonthCol, birthYearCol, genderCol, streetCol, houseNumberCol, houseNumberAdditionCol, postalCodeCol, residenceCol, countryCol, editCol, deleteCol));
 
+        //Creates a ObservableList to store Students in it
         ObservableList<Student> list = sql.getStudentList();
 
+        //Fills the created TableColumns with Student information
         emailCol.setCellValueFactory(new PropertyValueFactory<Student, String>("email"));
         nameCol.setCellValueFactory(new PropertyValueFactory<Student, String>("name"));
         birthDayCol.setCellValueFactory(new PropertyValueFactory<Student, String>("birthDay"));
@@ -93,11 +96,13 @@ public class StudentOverviewScene {
         editCol.setCellValueFactory(new PropertyValueFactory<>("Edit"));
         deleteCol.setCellValueFactory(new PropertyValueFactory<>("Delete"));
 
+        //Sets an setOnMouseClicked event to the created Table that takes Student information from the clicked row
         table.setOnMouseClicked((event) -> {
             Student student = table.getSelectionModel().getSelectedItem();
             window.getScene().setRoot(studentDetailScene.studentRegistrationScene(window, student));
         });
         
+        //Creates a Callback and adds methods to it that edit given information
         Callback<TableColumn<Student, String>, TableCell<Student, String>> editCellFactory = new Callback<TableColumn<Student, String>, TableCell<Student, String>>() {
             @Override
             public TableCell<Student, String> call(final TableColumn<Student, String> param) {
@@ -123,6 +128,7 @@ public class StudentOverviewScene {
             }
         };
 
+        //Creates a Callback and adds methods to it that delete given information
         Callback<TableColumn<Student, String>, TableCell<Student, String>> deleteCellFactory = new Callback<TableColumn<Student, String>, TableCell<Student, String>>() {
             @Override
             public TableCell<Student, String> call(final TableColumn<Student, String> param) {
@@ -149,9 +155,11 @@ public class StudentOverviewScene {
             }
         };
 
+        //Fills the editCol and deleteCol with information
         editCol.setCellFactory(editCellFactory);
         deleteCol.setCellFactory(deleteCellFactory);
 
+        //Sets the widths of the created TableColumns
         birthDayCol.setMinWidth(70);
         birthDayCol.setMaxWidth(70);
         birthMonthCol.setMinWidth(80);
@@ -171,20 +179,26 @@ public class StudentOverviewScene {
         deleteCol.setMinWidth(65);
         deleteCol.setMaxWidth(65);
 
+        //Adds information from the given list to the Table
         table.setItems(list);
+
+        //Makes changes in the table size
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY); 
         table.setMinWidth(Screen.getPrimary().getBounds().getWidth() - 30);
         table.setPadding(new Insets(30, 0, 0, 0));
         table.setFixedCellSize(40);
 
+        //Creates a BorderPane and adds elements to it
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(15, 15, 15, 15));
         pane.getChildren().add(imageView);
         pane.setTop(menu);
         pane.setCenter(table);
 
+        //Sets the path to the Stylesheet to be used by the BorderPane
         pane.getStylesheets().add("/resources/styleSheet.css");
 
+        //Returns the BorderPane
         return pane;
     }
 }

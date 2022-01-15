@@ -42,6 +42,7 @@ public class CertificateCreateScene extends domain.Validation{
             window.getScene().setRoot(studentCourseScene.studentCourseScene(window, registration, course, current_student));
         });
 
+        //Creates the labels and textareas through which the user can input information
         Label gradeLabel = new Label("Grade: ");
 		TextArea gradeTextArea = new TextArea();
         gradeTextArea.setPrefHeight(1.0);
@@ -51,9 +52,11 @@ public class CertificateCreateScene extends domain.Validation{
         cbxExternalPerson.getItems().setAll(sqlE.getEmployeeExternalPersons());
         cbxExternalPerson.setPrefHeight(1.0);
 
+        //Adds the Button to create a certificate
         Button createCertificate = new Button("Create certificate");
 		createCertificate.setPrefSize(120, 40);
 
+        //Adds HBox and GridPane
         HBox buttonHBox = new HBox();
         buttonHBox.getChildren().addAll(createCertificate);
 
@@ -62,6 +65,7 @@ public class CertificateCreateScene extends domain.Validation{
 		grid.setHgap(5);
 		grid.setVgap(2);
 
+        //Adds an setOnAction event to the created Button
 		createCertificate.setOnAction((event) -> {
             boolean validation = true;
             if (fieldIsEmpty(gradeTextArea.getText())) {
@@ -87,20 +91,24 @@ public class CertificateCreateScene extends domain.Validation{
             }
 		});
 
+        //Sets the position of the different elements in the GridPane
         grid.add(gradeLabel, 0, 0 , 1, 1);
 		grid.add(gradeTextArea, 1, 0 , 1, 1);
         grid.add(externalPersonLabel, 0, 2 , 1, 1);
 		grid.add(cbxExternalPerson, 1, 2 , 1, 1);
         grid.add(buttonHBox, 0, 4 , 1, 1);
 		
+        //Creates a BorderPane and adds elements to it
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(15, 15, 15, 15));
         pane.getChildren().add(imageView);
         pane.setTop(backButton);
         pane.setCenter(grid);
 
+        //Sets the path to the Stylesheet to be used by the BorderPane
         pane.getStylesheets().add("/resources/styleSheet.css");
 
+        //Returns the BorderPane
         return pane;
     }
 }

@@ -33,25 +33,27 @@ public class StudentCourseScene {
         CertificateCreateScene certificateCreateScene = new CertificateCreateScene();
         CertificateUpdateScene certificateUpdateScene = new CertificateUpdateScene();
 
-        // Background image
+        //Adds the Background image
         Image image = new Image("resources/backgroundImage.jpg");
         ImageView imageView = new ImageView(image);
         Group root = new Group();
         root.getChildren().addAll(imageView);
 
-        // Button to go back to the homeScene.
+        //Adds the Button to go back to the homeScene
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
         backButton.setOnAction((event) -> {
             window.getScene().setRoot(studentRegistrationScene.studentRegistrationScene(window, current_student));
         });
 
+        //Adds the Button to create a Certificate
         Button createButton = new Button("Create certificate");
         createButton.setPrefSize(120, 37);
         createButton.setOnAction((event) -> {
             window.getScene().setRoot(certificateCreateScene.certificateCreateScene(window, registration, course, current_student));
         });
 
+        //Adds the Button to check a Certificate
         Button checkButton = new Button("Check certificates");
         checkButton.setPrefSize(120, 37);
         checkButton.setOnAction((event) -> {
@@ -59,9 +61,11 @@ public class StudentCourseScene {
             window.getScene().setRoot(studentCourseScene(window, registration, course, current_student));
         });
 
+        //Creates a HBox and adds the above created Buttons to it
         HBox menu = new HBox(backButton, createButton, checkButton);
         menu.setSpacing(10);
 
+        //Creates Labels to show information of Courses
         Label infoNameLabel = new Label("Course name: ");
         Label nameLabel = new Label();
         nameLabel.setText(course.getName());
@@ -78,9 +82,13 @@ public class StudentCourseScene {
         Label levelLabel = new Label();
         levelLabel.setText(course.getLevel());
 
+        //Creates a GridPane
         GridPane grid = new GridPane();
 
+        //Creates a Label
         Label infoModuleLabel = new Label("Modules: ");
+
+        //Adds a setOnAction event to a Button that shows Module information
         int i = 4;
         for (Module module : sqlR.getSpecificModules(registration)) {
             Button button = new Button(module.getTitle());
@@ -91,6 +99,7 @@ public class StudentCourseScene {
             i++;
         }
 
+        //Adds setOnAction events to the edit and delete buttons and adds information to new Labels for each Certificate
         int k = 4;
         for (Certificate certificate : sqlC.getCertificatesFromStudentForSpecificCourse(course, current_student)) {
             Label infoCertificateLabel = new Label("Certificate: ");
@@ -113,6 +122,7 @@ public class StudentCourseScene {
             k++;
         }
 
+        //Sets the position of the different elements that are added to the GridPane
 		grid.setPadding(new Insets(40, 0, 0, 0));
 		grid.setHgap(5);
 		grid.setVgap(5);
@@ -126,16 +136,17 @@ public class StudentCourseScene {
         grid.add(levelLabel, 1, 3 , 1, 1);
         grid.add(infoModuleLabel, 0, 4 , 1, 1);
 
+        //Creates a BorderPane and adds elements to it
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(15, 15, 15, 15));
         pane.getChildren().add(imageView);
         pane.setTop(menu);
         pane.setCenter(grid);
 
+        //Sets the path to the Stylesheet to be used by the BorderPane
         pane.getStylesheets().add("/resources/styleSheet.css");
 
+        //Returns the BorderPane
         return pane;
-
-        
     }
 }

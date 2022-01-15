@@ -26,19 +26,20 @@ public class StudentCourseModuleScene {
     public Parent studentCourseModuleScene(Stage window, Module module, Registration registration, Course course, Student current_student) {
         StudentCourseScene studentCourseScene = new StudentCourseScene();
 
-        // Background image
+        //Adds the Background image
         Image image = new Image("resources/backgroundImage.jpg");
         ImageView imageView = new ImageView(image);
         Group root = new Group();
         root.getChildren().addAll(imageView);
 
-        // Button to go back to the homeScene.
+        //Adds the Button to go back to the homeScene.
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
         backButton.setOnAction((event) -> {
             window.getScene().setRoot(studentCourseScene.studentCourseScene(window, registration, course, current_student));
         });
 
+        //Creates Labels to show information of Modules in the application
         Label infoIDLabel = new Label("Module ID: ");
         Label moduleIDLabel = new Label();
         moduleIDLabel.setText(String.valueOf(module.getItemId()));
@@ -83,8 +84,10 @@ public class StudentCourseModuleScene {
         Label moduleProgressLabel = new Label();
         moduleProgressLabel.setText(String.valueOf(sqlR.getProgress(registration, module) + "%"));
 
+        //Creates a GridPane
         GridPane grid = new GridPane();
         
+        //Sets the position of the different elements that are added to the GridPane
 		grid.setPadding(new Insets(40, 0, 0, 0));
 		grid.setHgap(5);
 		grid.setVgap(5);
@@ -111,14 +114,17 @@ public class StudentCourseModuleScene {
         grid.add(infoProgressLabel, 0, 10 , 1, 1);
         grid.add(moduleProgressLabel, 1, 10 , 1, 1);
 
+        //Creates a BorderPane and adds elements to it
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(15, 15, 15, 15));
         pane.getChildren().add(imageView);
         pane.setTop(backButton);
         pane.setCenter(grid);
 
+        //Sets the path to the Stylesheet to be used by the BorderPane
         pane.getStylesheets().add("/resources/styleSheet.css");
 
+        //Returns the BorderPane
         return pane;
     }
 }

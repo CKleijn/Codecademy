@@ -22,58 +22,60 @@ public class HomescreenScene{
 	//Method that creates the Homescreen scene with the given Stage
 	public Parent homeScene(Stage window) {
 		
-		//Background image
+		//Adds the Background image
 		Image image = new Image("resources/backgroundImage.jpg");
 		ImageView imageViewBackground = new ImageView(image);
 		Group root = new Group();
 		root.getChildren().addAll(imageViewBackground);
 		
-		//First button which leads to the studentOverviewScene.
+		//Adds the first button which leads to the studentOverviewScene
 		Button studentButton = new Button("Students");
 		studentButton.setPrefSize(80, 37);
 		studentButton.setOnAction((event) -> {
 			window.getScene().setRoot(studentOverviewScene.studentOverviewScene(window));
 		});
 
-		//Second button which leads to courseOverviewScene
+		//Adds the second button which leads to courseOverviewScene
 		Button courseButton = new Button("Courses");
 		courseButton.setPrefSize(80, 37);
 		courseButton.setOnAction((event) -> {
 			window.getScene().setRoot(courseOverviewScene.courseOverviewScene(window));
 		});
 
-		//Third button which leads to statisticOverviewScene
+		//Adds the third button which leads to statisticOverviewScene
 		Button statisticButton = new Button("Statistics");
 		statisticButton.setPrefSize(80, 37);
 		statisticButton.setOnAction((event) -> {
 			window.getScene().setRoot(statisticOverviewScene.statisticOverviewScene(window));
 		});
 
-		//Hbox with the three buttons above
+		//Creates a Hbox and adds the three buttons created above
 		HBox menu = new HBox(studentButton, courseButton, statisticButton);
 		menu.setSpacing(10);
 			
-		//Titel in the middel of the homscreen which welcomes the user.
+		//Title in the middle of the homescreen that welcomes the user
 		Label firstTitelLabel = new Label("Welcome to the");
 		firstTitelLabel.setId("firstTitelLabel");
 		Label secondTitelLabel = new Label("Codecademy Application");
 		secondTitelLabel.setId("secondTitelLabel");
 
-		//Vbox with the two titel labels.
+		//Creates a Vbox with the two title labels
 		VBox front = new VBox(firstTitelLabel, secondTitelLabel);
 		front.setSpacing(5);
 		front.setAlignment(Pos.BASELINE_CENTER);
 		front.setPadding(new Insets(50, 0, 0, 0));
 		
+		//Creates a BorderPane and adds elements to it
 		BorderPane pane = new BorderPane();
 		pane.setPadding(new Insets(15, 15, 15, 15));
 		pane.getChildren().add(imageViewBackground);
 		pane.setTop(menu);
 		pane.setCenter(front);
 
+		//Sets the path to the Stylesheet to be used by the BorderPane
 		pane.getStylesheets().add("/resources/styleSheet.css");
 		
+		//Returns the BorderPane
 		return pane;
 	}
-	
 }

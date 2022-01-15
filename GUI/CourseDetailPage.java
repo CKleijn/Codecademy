@@ -27,28 +27,31 @@ public class CourseDetailPage {
         CourseModuleScene courseModuleScene = new CourseModuleScene();
         CourseDetailPage courseDetailPage = new CourseDetailPage();
 
-        // Background image
+        //Adds the Background image
         Image image = new Image("resources/backgroundImage.jpg");
         ImageView imageView = new ImageView(image);
         Group root = new Group();
         root.getChildren().addAll(imageView);
 
+        //Adds the Button to go back to the StudentOverviewScene
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
         backButton.setOnAction((event) -> {
             window.getScene().setRoot(courseOverviewScene.courseOverviewScene(window));
         });
 
+        //Adds the Button to modify Modules
         Button modifyModules = new Button("Modify modules");
         modifyModules.setPrefSize(120, 37);
         modifyModules.setOnAction((event) -> {
             window.getScene().setRoot(courseModifyModules.CourseModifyModulesScene(window, course));
         });    
 
+        //Adds a HBox and adds elements to it
         HBox menu = new HBox(backButton, modifyModules);
         menu.setSpacing(15);
 
-        //Course inforamtion
+        //Sets the labels with Course information
         Label infoNameLabel = new Label("Course name: ");
         Label nameLabel = new Label();
         nameLabel.setText(course.getName());
@@ -68,8 +71,10 @@ public class CourseDetailPage {
         Label infoCertificateLabel = new Label("Certificates obtained : ");
         Label certificateLabel = new Label(String.valueOf(sql.obtainedCertificates(course)));
 
+        //Creates a GridPane 
         GridPane grid = new GridPane();
 
+        //Adds an setOnAction event and a style to a created Button
         Label infoModulesLabel = new Label("Modules: ");
         int j = 6;
         for(Module module : sql.getSpecificModules(course)){
@@ -82,6 +87,7 @@ public class CourseDetailPage {
             j++;
         }
 
+        //Adds an setOnAction event to a created Button
         Label hasRelevantLabel = new Label("Relevant courses: ");
         j+=2;
         grid.add(hasRelevantLabel, 0, j, 1, 1);
@@ -94,6 +100,7 @@ public class CourseDetailPage {
             j++;
         }
         
+        //Sets the position of the different elements in the GridPane
 		grid.setPadding(new Insets(40, 0, 0, 0));
 		grid.setHgap(5);
 		grid.setVgap(5);
@@ -109,16 +116,17 @@ public class CourseDetailPage {
         grid.add(infoCertificateLabel, 0, 4 , 1, 1);
         grid.add(infoModulesLabel, 0, 6 , 1, 1);
         
+        //Creates a BorderPane and adds elements to it
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(15, 15, 15, 15));
         pane.getChildren().add(imageView);
         pane.setTop(menu);
         pane.setCenter(grid);
 
+        //Sets the path to the Stylesheet to be used by the BorderPane
         pane.getStylesheets().add("/resources/styleSheet.css");
 
+        //Returns the BorderPane
         return pane;
-
-        
     }
 }

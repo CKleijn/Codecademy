@@ -23,20 +23,20 @@ public class StudentCreateScene extends domain.Validation{
     public Parent studentCreateScene(Stage window) {
         StudentOverviewScene studentOverviewScene = new StudentOverviewScene();
 
-		//Background image
+		//Adds the Background image
 		Image image = new Image("resources/backgroundImage.jpg");
 		ImageView imageView = new ImageView(image);
 		Group root = new Group();
 		root.getChildren().addAll(imageView);
 
-        // Button to go back to the StudentOverviewScene.
+        //Adds the Button to go back to the StudentOverviewScene.
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
         backButton.setOnAction((event) -> {
             window.getScene().setRoot(studentOverviewScene.studentOverviewScene(window));
         });
 		
-        //All labels, input fields and error messages
+        //Adds all labels, input fields and error messages
 		Label emailLabel = new Label("Email: ");
 		TextArea emailTextArea = new TextArea();
 		emailTextArea.setPrefHeight(1.0);
@@ -86,17 +86,18 @@ public class StudentCreateScene extends domain.Validation{
 		TextArea countryTextArea = new TextArea();
 		countryTextArea.setPrefHeight(1.0);
 
-		//Last button to create with all the information in the textareas
+		//Adds a Button to create a Student with all the information in the textareas
 		Button createStudentButton = new Button("Add student");
 		createStudentButton.setPrefSize(120, 40);
 		createStudentButton.setId("createStudentButton");
 
+		//Creates a GridPane
         GridPane grid = new GridPane();
 		grid.setPadding(new Insets(40, 0, 0, 0));
 		grid.setHgap(5);
 		grid.setVgap(2);
 
-		//Set an on action event for the button
+		//Sets an setOnAction event for the created Button that gives error messages when wrong input is given in a textarea
 		createStudentButton.setOnAction((event) -> {
 			boolean validation = true;
 			if(!checkEmail(emailTextArea.getText())) { 
@@ -155,6 +156,7 @@ public class StudentCreateScene extends domain.Validation{
 			}			
 		});
 
+		//Sets the position of the different elements that are added to the GridPane
 		grid.add(emailLabel, 0, 0 , 1, 1);
 		grid.add(emailTextArea, 1, 0, 1, 1);
 		grid.add(nameLabel, 0, 2 , 1, 1);
@@ -181,14 +183,17 @@ public class StudentCreateScene extends domain.Validation{
 		grid.add(countryTextArea, 1, 22, 1, 1);
 		grid.add(createStudentButton, 1, 24, 1, 1);
 
+		//Creates a BorderPane and adds elements to it
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(15, 15, 15, 15));
         pane.getChildren().add(imageView);
         pane.setTop(backButton);
         pane.setCenter(grid);
 
+		//Sets the path to the Stylesheet to be used by the BorderPane
 		pane.getStylesheets().add("/resources/styleSheet.css");
 
+		//Returns the BorderPane
         return pane;
     }
 }

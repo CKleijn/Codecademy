@@ -29,22 +29,24 @@ public class StudentCertificateScene {
     public Parent studentCertificateScene(Stage window, Student current_student) {
         StudentRegistrationScene studentRegistrationScene = new StudentRegistrationScene();
 
-        // Background image
+        //Adds the Background image
         Image image = new Image("resources/backgroundImage.jpg");
         ImageView imageView = new ImageView(image);
         Group root = new Group();
         root.getChildren().addAll(imageView);
 
-        // Button to go back to the previous scene.
+        //Adds the Button to go back to the previous scene
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
         backButton.setOnAction((event) -> {
             window.getScene().setRoot(studentRegistrationScene.studentRegistrationScene(window, current_student));
         });
 
+        //Creates the HBox and adds the above Button
         HBox menu = new HBox(backButton);
         menu.setSpacing(10);
 
+        //Creates the table to show records of different tables from the connected Database in the application
         TableView<Certificate> table = new TableView<Certificate>();
         TableColumn<Certificate, String> studentEmailCol = new TableColumn<Certificate, String>("Student email");
         TableColumn<Certificate, String> courseNameCol = new TableColumn<Certificate, String>("Course name");
@@ -54,28 +56,36 @@ public class StudentCertificateScene {
         
         table.getColumns().addAll(Arrays.asList(studentEmailCol, courseNameCol, idCol, gradeCol, externalPersonIdCol));
 
+        //Creates a ObservableList to add student information to it
         ObservableList<Certificate> list = sqlC.getCertificateListFromStudent(current_student);
 
+        //Fills the created TableColumns with information
         studentEmailCol.setCellValueFactory(new PropertyValueFactory<Certificate, String>("studentEmail"));
         courseNameCol.setCellValueFactory(new PropertyValueFactory<Certificate, String>("courseName"));
         idCol.setCellValueFactory(new PropertyValueFactory<Certificate, String>("certificateID"));
         gradeCol.setCellValueFactory(new PropertyValueFactory<Certificate, String>("certificateGrade"));
         externalPersonIdCol.setCellValueFactory(new PropertyValueFactory<Certificate, String>("externalPersonName"));
 
+        //Adds information from the given list to the Table
         table.setItems(list);
+
+        //Makes changes in the table size
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY); 
         table.setMinWidth(Screen.getPrimary().getBounds().getWidth() - 30);
         table.setPadding(new Insets(30, 0, 0, 0));
         table.setFixedCellSize(40);
 
+        //Creates a BorderPane and adds elements to it
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(15, 15, 15, 15));
         pane.getChildren().add(imageView);
         pane.setTop(menu);
         pane.setCenter(table);
 
+        //Sets the path to the Stylesheet to be used by the BorderPane
         pane.getStylesheets().add("/resources/styleSheet.css");
 
+        //Returns the BorderPane
         return pane;
     }
 }

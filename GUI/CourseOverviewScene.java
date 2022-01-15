@@ -34,29 +34,31 @@ public class CourseOverviewScene {
         CourseCreateScene courseCreateScene = new CourseCreateScene();
         CourseDetailPage courseDetailPage = new CourseDetailPage();
 
-        // Background image
+        //Adds the Background image
         Image image = new Image("resources/backgroundImage.jpg");
         ImageView imageView = new ImageView(image);
         Group root = new Group();
         root.getChildren().addAll(imageView);
 
-        // Button to go back to the homeScene.
+        //Adds the Button to go back to the homeScene
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
         backButton.setOnAction((event) -> {
             window.getScene().setRoot(homescreenScene.homeScene(window));
         });
 
+        //Adds the Button to go to the Course create scene
         Button createButton = new Button("Create");
         createButton.setPrefSize(80, 37);
         createButton.setOnAction((event) -> {
             window.getScene().setRoot(courseCreateScene.courseCreateScene(window));
         });
 
+        //Creates a HBox and adds created Buttons to it
         HBox menu = new HBox(backButton, createButton);
         menu.setSpacing(10);
 
-
+        //Creates the table to show all the records of the Course table from the connected Database in the application
         TableView<Course> table = new TableView<Course>();
         TableColumn<Course, String> nameCol = new TableColumn<Course, String>("Course name");
         TableColumn<Course, String> topicCol = new TableColumn<Course, String>("Course topic");
@@ -67,8 +69,10 @@ public class CourseOverviewScene {
         
         table.getColumns().addAll(Arrays.asList(nameCol, topicCol, introductionCol, levelCol, editCol, deleteCol));
 
+        //Creates a ObservableList to store all the Course information
         ObservableList<Course> list = sql.getCourseList();
 
+        //Fills the created TableColumns with Course information
         nameCol.setCellValueFactory(new PropertyValueFactory<Course, String>("name"));
         topicCol.setCellValueFactory(new PropertyValueFactory<Course, String>("topic"));
         introductionCol.setCellValueFactory(new PropertyValueFactory<Course, String>("introduction"));
@@ -76,12 +80,13 @@ public class CourseOverviewScene {
         editCol.setCellValueFactory(new PropertyValueFactory<>("Edit"));
         deleteCol.setCellValueFactory(new PropertyValueFactory<>("Delete"));
 
+        //Adds an setOnMouseClicked event to a created Button
         table.setOnMouseClicked((event) -> {
             Course course = table.getSelectionModel().getSelectedItem();
             window.getScene().setRoot(courseDetailPage.CourseDetailScene(window, course));
         });
         
-
+        //Creates a Callback and adds methods to it that edit given information
         Callback<TableColumn<Course, String>, TableCell<Course, String>> editCellFactory = new Callback<TableColumn<Course, String>, TableCell<Course, String>>() {
             @Override
             public TableCell<Course, String> call(final TableColumn<Course, String> param) {
@@ -107,9 +112,10 @@ public class CourseOverviewScene {
             }
         };
         
-        //Make a label that tells the user why the delete wasn't succeed
+        //Creates a label that tells the user why the delete didn't succeed
         Label deleteFeedback = new Label();
 
+        //Creates a Callback and adds methods to it that delete given information
         Callback<TableColumn<Course, String>, TableCell<Course, String>> deletecellFactory = new Callback<TableColumn<Course, String>, TableCell<Course, String>>() {
             @Override
             public TableCell<Course, String> call(final TableColumn<Course, String> param) {
@@ -140,20 +146,26 @@ public class CourseOverviewScene {
             }
         };
 
+        //Fills the editCol and deleteCol with information
         editCol.setCellFactory(editCellFactory);
         deleteCol.setCellFactory(deletecellFactory);
 
+        //Specifies the size of the editCol and deleteCol
         editCol.setMinWidth(50);
         editCol.setMaxWidth(50);
         deleteCol.setMinWidth(65);
         deleteCol.setMaxWidth(65);
 
+        //Adds information from the given list to the Table
         table.setItems(list);
+
+        //Makes changes in the table size
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY); 
         table.setMinWidth(Screen.getPrimary().getBounds().getWidth() - 30);
         table.setPadding(new Insets(30, 0, 0, 0));
         table.setFixedCellSize(40);
 
+        //Creates a BorderPane and adds elements to it
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(15, 15, 15, 15));
         pane.getChildren().add(imageView);
@@ -161,8 +173,10 @@ public class CourseOverviewScene {
         pane.setCenter(table);
         pane.setBottom(deleteFeedback);
 
+        //Sets the path to the Stylesheet to be used by the BorderPane
         pane.getStylesheets().add("/resources/styleSheet.css");
 
+        //Returns the BorderPane
         return pane;
     }
 }

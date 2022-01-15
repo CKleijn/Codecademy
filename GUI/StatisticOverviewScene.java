@@ -22,28 +22,30 @@ public class StatisticOverviewScene {
     public Parent statisticOverviewScene(Stage window) {
         HomescreenScene homescreenScene = new HomescreenScene();
 
-        // Background image
+        //Adds the Background image
         Image image = new Image("resources/backgroundImage.jpg");
         ImageView imageView = new ImageView(image);
         Group root = new Group();
         root.getChildren().addAll(imageView);
 
-        // Button to go back to the homeScene.
+        //Adds the Button to go back to the homeScene.
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
         backButton.setOnAction((event) -> {
             window.getScene().setRoot(homescreenScene.homeScene(window));
         });
 
+        //Creates a HBox with the above Button
         HBox menu = new HBox(backButton);
         menu.setSpacing(10);
 
+        //Creates a Label and a ComboBox which the user can use to choose a gender from a list
         Label genderLabel = new Label("Choose gender: ");
         ComboBox<String>cbxGender = new ComboBox<>();
         String[] genders = {"M", "F"};
         cbxGender.getItems().setAll(genders);
 
-        
+        //Adds an setOnAction event to the result Label
         Label resultGender = new Label();
         cbxGender.setOnAction((event) -> {
             if(cbxGender.getSelectionModel().getSelectedItem().equals("M")) {
@@ -55,8 +57,10 @@ public class StatisticOverviewScene {
             }
         });
 
+        //Creates a GridPane
         GridPane grid = new GridPane();
 
+        //Gets and shows the names of the top 3 most viewed webcasts
         Label infoWebcastLabel = new Label("Top 3 most viewed webcasts: ");
         int h = 1;
         int i = 2;
@@ -68,6 +72,7 @@ public class StatisticOverviewScene {
             h++;
         }
 
+        //Gets and shows the names of the top 3 Courses with the most certificates
         Label infoCourseLabel = new Label("Top 3 most certificates per course: ");
         int k = 1;
         int j = 5;
@@ -79,6 +84,7 @@ public class StatisticOverviewScene {
             k++;
         }
 
+        //Sets the position of the different elements that are added to the GridPane
 		grid.setPadding(new Insets(40, 0, 0, 0));
 		grid.setHgap(5);
 		grid.setVgap(2);
@@ -86,14 +92,17 @@ public class StatisticOverviewScene {
 		grid.add(cbxGender, 1, 0 , 1, 1);
         grid.add(resultGender, 0, 1, 1, 1);
 
+        //Creates a BorderPane and adds elements to it
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(15, 15, 15, 15));
         pane.getChildren().add(imageView);
         pane.setTop(menu);
         pane.setCenter(grid);
 
+        //Sets the path to the Stylesheet to be used by the BorderPane
         pane.getStylesheets().add("/resources/styleSheet.css");
 
+        //Returns the BorderPane
         return pane;
     }
 }

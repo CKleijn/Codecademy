@@ -26,20 +26,20 @@ public class CourseUpdateScene extends domain.Validation{
     public Parent courseUpdateScene(Stage window, Course old_course) {
         CourseOverviewScene courseOverviewScene = new CourseOverviewScene();
 
-        // Background image
+        //Adds the Background image
         Image image = new Image("resources/backgroundImage.jpg");
         ImageView imageView = new ImageView(image);
         Group root = new Group();
         root.getChildren().addAll(imageView);
 
-        // Button to go back to the homeScene.
+        //Adds the Button to go back to the homeScene.
         Button backButton = new Button("Back");
         backButton.setPrefSize(80, 37);
         backButton.setOnAction((event) -> {
             window.getScene().setRoot(courseOverviewScene.courseOverviewScene(window));
         });
 
-        //Course
+        //Creates the labels and textareas through which the user can input information
         Label nameLabel = new Label("CourseName: ");
 		TextArea nameTextArea = new TextArea();
         nameTextArea.setText(old_course.getName());
@@ -62,17 +62,21 @@ public class CourseUpdateScene extends domain.Validation{
         cbxLevel.getSelectionModel().select(level);
 		cbxLevel.setPrefHeight(1.0);
 
+		//Adds a Button to update a Course
         Button updateCourse = new Button("Update course");
 		updateCourse.setPrefSize(120, 40);
 
+		//Creates a HBox and adds the created Button to it
 		HBox buttonHBox = new HBox();
         buttonHBox.getChildren().addAll(updateCourse);
 
+		//Creates a GridPane
         GridPane grid = new GridPane();
 		grid.setPadding(new Insets(40, 0, 0, 0));
 		grid.setHgap(5);
 		grid.setVgap(2);
 
+		//Adds an setOnAction event and a style to the created Button
 		updateCourse.setOnAction((event) -> {
 			boolean validation = true;
 			if (fieldIsEmpty(nameTextArea.getText())) {
@@ -98,6 +102,7 @@ public class CourseUpdateScene extends domain.Validation{
 			}
 		});
 
+		//Sets the position of the different elements that are added to the GridPane
 		grid.add(nameLabel, 0, 0 , 1, 1);
 		grid.add(nameTextArea, 1, 0, 1, 1);
 		grid.add(topicLabel, 0, 2 , 1, 1);
@@ -108,15 +113,17 @@ public class CourseUpdateScene extends domain.Validation{
 		grid.add(cbxLevel, 1, 6, 1, 1);
 		grid.add(buttonHBox, 0, 8, 1, 1);
 
+		//Creates a BorderPane and adds elements to it
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(15, 15, 15, 15));
         pane.getChildren().add(imageView);
         pane.setTop(backButton);
         pane.setCenter(grid);
 
+		//Sets the path to the Stylesheet to be used by the BorderPane
 		pane.getStylesheets().add("/resources/styleSheet.css");
 
+		//Returns the BorderPane
         return pane;
     }
-    
 }
