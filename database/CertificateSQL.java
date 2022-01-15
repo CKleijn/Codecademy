@@ -150,10 +150,9 @@ public class CertificateSQL extends ConnectToDatabase {
         }
     }
 
-    //Method that deletes a existing Certificate record in the Certificate table
-    public void deleteCertificate(Certificate certificate) {
+    //Method that set the certificateID to null in the Registration table
+    public void setCertificateIDtoNull(Certificate certificate) {
         Connection conn = getConnection();
-        String queryDelete = "DELETE FROM Certificate WHERE CertificateID = '" + certificate.getCertificateID() + "'";
         String queryUpdate = "UPDATE Registration SET CertificateID = NULL WHERE CertificateID = '" + certificate.getCertificateID() + "'";
         Statement st;
 
@@ -161,6 +160,20 @@ public class CertificateSQL extends ConnectToDatabase {
             st = conn.createStatement();
             st.executeQuery(queryUpdate);
             System.out.println("CertificateID set null!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //Method that deletes a existing Certificate record in the Certificate table
+    public void deleteCertificate(Certificate certificate) {
+        Connection conn = getConnection();
+        String queryDelete = "DELETE FROM Certificate WHERE CertificateID = '" + certificate.getCertificateID() + "'";
+        Statement st;
+
+        try {
+            setCertificateIDtoNull(certificate);
+            st = conn.createStatement();
             st.executeQuery(queryDelete);
             System.out.println("Certificate deleted!");
         } catch (Exception e) {
