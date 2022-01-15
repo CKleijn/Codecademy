@@ -95,7 +95,7 @@ public class StudentCourseScene {
         for (Certificate certificate : sqlC.getCertificatesFromStudentForSpecificCourse(course, current_student)) {
             Label infoCertificateLabel = new Label("Certificate: ");
             Label certificateGradeLabel = new Label("Certificate grade: " + String.valueOf(certificate.getCertificateGrade()));
-            Label certificateExternalPersonLabel = new Label("Certificate employee: " + sqlE.getEmployeeNameById(certificate));
+            Label certificateExternalPersonLabel = new Label("Certificate employee: " + sqlE.getEmployeeNameByIdWithCertificateParameter(certificate));
             Button editButton = new Button("Edit");
             editButton.setOnAction((event) -> {
                 window.getScene().setRoot(certificateUpdateScene.certificateUpdateScene(window, certificate, registration, course, current_student));

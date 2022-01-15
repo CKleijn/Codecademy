@@ -9,6 +9,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -17,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -57,11 +59,11 @@ public class StudentOverviewScene {
         menu.setSpacing(10);
 
         TableView<Student> table = new TableView<Student>();
-        TableColumn<Student, String> emailCol = new TableColumn<Student, String>("Email");
-        TableColumn<Student, String> nameCol = new TableColumn<Student, String>("Name");
+        TableColumn<Student, String> emailCol = new TableColumn<Student, String>("Student email");
+        TableColumn<Student, String> nameCol = new TableColumn<Student, String>("Student name");
         TableColumn<Student, String> birthDayCol = new TableColumn<Student, String>("Birthday");
-        TableColumn<Student, String> birthMonthCol = new TableColumn<Student, String>("Month");
-        TableColumn<Student, String> birthYearCol = new TableColumn<Student, String>("Year");
+        TableColumn<Student, String> birthMonthCol = new TableColumn<Student, String>("Birthmonth");
+        TableColumn<Student, String> birthYearCol = new TableColumn<Student, String>("Birthyear");
         TableColumn<Student, String> genderCol = new TableColumn<Student, String>("Gender");
         TableColumn<Student, String> streetCol = new TableColumn<Student, String>("Street");
         TableColumn<Student, String> houseNumberCol = new TableColumn<Student, String>("House number");
@@ -150,8 +152,30 @@ public class StudentOverviewScene {
         editCol.setCellFactory(editCellFactory);
         deleteCol.setCellFactory(deleteCellFactory);
 
+        birthDayCol.setMinWidth(70);
+        birthDayCol.setMaxWidth(70);
+        birthMonthCol.setMinWidth(80);
+        birthMonthCol.setMaxWidth(80);
+        birthYearCol.setMinWidth(70);
+        birthYearCol.setMaxWidth(70);
+        genderCol.setMinWidth(70);
+        genderCol.setMaxWidth(70);
+        houseNumberCol.setMinWidth(110);
+        houseNumberCol.setMaxWidth(110);
+        houseNumberAdditionCol.setMinWidth(70);
+        houseNumberAdditionCol.setMaxWidth(70);
+        postalCodeCol.setMinWidth(90);
+        postalCodeCol.setMaxWidth(90);
+        editCol.setMinWidth(50);
+        editCol.setMaxWidth(50);
+        deleteCol.setMinWidth(65);
+        deleteCol.setMaxWidth(65);
+
         table.setItems(list);
-        table.setMaxSize(1090, 400);
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY); 
+        table.setMinWidth(Screen.getPrimary().getBounds().getWidth() - 30);
+        table.setPadding(new Insets(30, 0, 0, 0));
+        table.setFixedCellSize(40);
 
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(15, 15, 15, 15));

@@ -19,6 +19,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -138,8 +139,16 @@ public class StudentRegistrationScene extends domain.Validation {
         editCol.setCellFactory(editCellFactory);
         deleteCol.setCellFactory(deleteCellFactory);
 
+        editCol.setMinWidth(50);
+        editCol.setMaxWidth(50);
+        deleteCol.setMinWidth(65);
+        deleteCol.setMaxWidth(65);
+
         table.setItems(list);
-        table.setMaxSize(330, 400);
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY); 
+        table.setMinWidth(Screen.getPrimary().getBounds().getWidth() - 30);
+        table.setPadding(new Insets(30, 0, 0, 0));
+        table.setFixedCellSize(40);
 
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(15, 15, 15, 15));
