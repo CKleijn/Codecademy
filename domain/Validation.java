@@ -83,17 +83,20 @@ public abstract class Validation {
         return false;
     }
 
+    // Method that checks if a field is empty
     public static boolean fieldIsEmpty(String text){
+        //checks if the textfield is empty
         if(text.isEmpty()){   
             return true; 
         }
         return false;
     }
 
+    //Method that checks a given percentage
     public static boolean percentage(int percentage){
         String per = percentage + "";
         String regex = "^([0-9]|([1-9][0-9])|100)$";
-    
+        //check if the percentage matches the regex (between 0 and 100)
         if(per.matches(regex)){
             System.out.println("The percentage is right");
             return true;
