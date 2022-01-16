@@ -71,16 +71,19 @@ public class CertificateCreateScene extends domain.Validation{
             if (fieldIsEmpty(gradeTextArea.getText())) {
 				validation = false;
 				Label errorText = new Label("Text field isn't filled in");
+                errorText.setId("errorLabel");
 				grid.add(errorText, 1, 1, 1, 1);
 			} else if (!checkGrade(Integer.parseInt(gradeTextArea.getText()))) {
                 validation = false;
 				Label errorText = new Label("The grade isn't valid, must be between the 1 and the 10");
+                errorText.setId("errorLabel");
 				grid.add(errorText, 1, 1, 1, 1);
             }
 
             if (cbxExternalPerson.getSelectionModel().isEmpty()) {
 				validation = false;
 				Label errorText = new Label("dropdown menu isn't filled in");
+                errorText.setId("errorLabel");
 				grid.add(errorText, 1, 3, 1, 1);
 			}
 
@@ -88,7 +91,8 @@ public class CertificateCreateScene extends domain.Validation{
 
             if(validation){
                 //Making a label, for a error message that could occur if this  student already has a certificate for this course
-                Label feedback = new Label("test");
+                Label feedback = new Label("");
+                feedback.setId("errorLabel");
                 grid.add(feedback, 1, 4, 1, 1);
 
                 Certificate certificate = new Certificate(Integer.valueOf(gradeTextArea.getText()), sqlE.findExternalPersonID(cbxExternalPerson.getSelectionModel().getSelectedItem()), current_student.getEmail(), course.getName());

@@ -82,16 +82,19 @@ public class CourseUpdateScene extends domain.Validation{
 			if (fieldIsEmpty(nameTextArea.getText())) {
 				validation = false;
 				Label errorText = new Label("Text field isn't filled in");
+				errorText.setId("errorLabel");
 				grid.add(errorText, 1, 1, 1, 1);
 			}
 			if (fieldIsEmpty(topicTextArea.getText())) {
 				validation = false;
 				Label errorText = new Label("Text field isn't filled in");
+				errorText.setId("errorLabel");
 				grid.add(errorText, 1, 3, 1, 1);
 			} 
 			if (fieldIsEmpty(introductionTextArea.getText())) {
 				validation = false;
 				Label errorText = new Label("Text field isn't filled in");
+				errorText.setId("errorLabel");
 				grid.add(errorText, 1, 5, 1, 1);
 			}
 

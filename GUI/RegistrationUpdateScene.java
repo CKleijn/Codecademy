@@ -72,6 +72,7 @@ public class RegistrationUpdateScene extends domain.Validation{
             if(cbxCourse.getSelectionModel().isEmpty()){
                 validation = false;
                 Label errorText = new Label("dropdown menu isn't filled in");
+                errorText.setId("errorLabel");
 				grid.add(errorText, 1, 1, 1, 1);
             }
 

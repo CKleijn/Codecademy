@@ -30,7 +30,11 @@
     font-size: 35;
 }
 
-#createStudentButton, #editStudentButton, #updateRegistration, #createCourseButton {
+#errorLabel {
+    -fx-text-fill: red;
+}
+
+#createStudentButton, #editStudentButton, #updateRegistration, #createCourseButton, #createRegistrationButtin {
     -fx-background-color: #0a9ec2;
     background-color: #0a9ec2;
 }

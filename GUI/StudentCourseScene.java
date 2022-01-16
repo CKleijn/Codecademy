@@ -56,6 +56,7 @@ public class StudentCourseScene {
 
         //Adds the Button to check a Certificate
         Label message = new Label("");
+        message.setId("errorLabel");
         Button checkButton = new Button("Check certificates");
         checkButton.setPrefSize(120, 37);
         checkButton.setOnAction((event) -> {

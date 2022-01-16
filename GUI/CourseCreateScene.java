@@ -82,26 +82,31 @@ public class CourseCreateScene extends domain.Validation {
 			if (fieldIsEmpty(nameTextArea.getText())) {
 				validation = false;
 				Label errorText = new Label("Text field isn't filled in");
+				errorText.setId("errorLabel");
 				grid.add(errorText, 1, 1, 1, 1);
 			}
 			if (fieldIsEmpty(topicTextArea.getText())) {
 				validation = false;
 				Label errorText = new Label("Text field isn't filled in");
+				errorText.setId("errorLabel");
 				grid.add(errorText, 1, 3, 1, 1);
 			} 
 			if (fieldIsEmpty(introductionTextArea.getText())) {
 				validation = false;
 				Label errorText = new Label("Text field isn't filled in");
+				errorText.setId("errorLabel");
 				grid.add(errorText, 1, 5, 1, 1);
 			} 
 			if (cbxLevel.getSelectionModel().isEmpty()) {
 				validation = false;
 				Label errorText = new Label("dropdown menu isn't filled in");
+				errorText.setId("errorLabel");
 				grid.add(errorText, 1, 7, 1, 1);
 			}
 			if (cbxModule.getSelectionModel().isEmpty()) {
 				validation = false;
 				Label errorText = new Label("dropdown menu isn't filled in");
+				errorText.setId("errorLabel");
 				grid.add(errorText, 1, 9, 1, 1);
 			}
 

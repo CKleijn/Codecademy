@@ -51,8 +51,8 @@ public class RegistrationCreateScene extends domain.Validation{
 
         //Adds the Button to create a Registration and gives it a style
         Button createRegistration = new Button("Create registration");
+        createRegistration.setId("createRegistrationButtin");
 		createRegistration.setPrefSize(140, 40);
-        createRegistration.setStyle("-fx-background-color: #0a9ec2; -fx-text-fill: #FFFFFF; -fx-font-size: 13");
 
         //Creates a HBox with the created Button
         HBox buttonHBox = new HBox();
@@ -72,6 +72,7 @@ public class RegistrationCreateScene extends domain.Validation{
             if(cbxCourse.getSelectionModel().isEmpty()){
                 validation = false;
                 Label errorText = new Label("dropdown menu isn't filled in");
+                errorText.setId("errorLabel");
 				grid.add(errorText, 1, 1, 1, 1);
             }
 

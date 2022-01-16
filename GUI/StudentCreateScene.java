@@ -103,50 +103,60 @@ public class StudentCreateScene extends domain.Validation{
 			if(!checkEmail(emailTextArea.getText())) { 
 				validation = false;
 				Label errorText = new Label("email isn't valid");
+				errorText.setId("errorLabel");
 				grid.add(errorText, 1, 1, 1, 1);
 			}
 			if(fieldIsEmpty(birthDayTextArea.getText()) || fieldIsEmpty(birthMonthTextArea.getText()) || fieldIsEmpty(birthYearTextArea.getText())){
 				validation = false;
-				Label errorText = new Label("birthdate isn't valid");	
+				Label errorText = new Label("birthdate isn't valid");
+				errorText.setId("errorLabel");	
 				grid.add(errorText, 1, 5, 1, 1);
 			} else if (!checkDate(Integer.parseInt(birthDayTextArea.getText()), Integer.parseInt(birthMonthTextArea.getText()), Integer.parseInt(birthYearTextArea.getText()))) {
 				validation = false;
-				Label errorText = new Label("birthdate isn't valid");	
+				Label errorText = new Label("birthdate isn't valid");
+				errorText.setId("errorLabel");	
 				grid.add(errorText, 1, 5, 1, 1);
 			}
 			if (!checkPostalCode(postalCodeTextArea.getText())) {
 				validation = false;
 				Label errorText = new Label("postal code isn't must be 4 digits space 2 letters");
+				errorText.setId("errorLabel");
 				grid.add(errorText, 1, 19, 1, 1);
 			}
 			if (cbxGender.getSelectionModel().isEmpty()) {
 				validation = false;
 				Label errorText = new Label("gender must be 'M' for male or 'F' for female");
+				errorText.setId("errorLabel");
 				grid.add(errorText, 1, 11, 1, 1);
 			}
 			if (fieldIsEmpty(nameTextArea.getText())) {
 				validation = false;
 				Label errorText = new Label("Text field isn't filled in");
+				errorText.setId("errorLabel");
 				grid.add(errorText, 1, 3, 1, 1);
 			}
 			if (fieldIsEmpty(streetTextArea.getText())) {
 				validation = false;
 				Label errorText = new Label("Text field isn't filled in");
+				errorText.setId("errorLabel");
 				grid.add(errorText, 1, 13, 1, 1);
 			} 
 			if (fieldIsEmpty(houseNumberTextArea.getText())) {
 				validation = false;
 				Label errorText = new Label("Text field isn't filled in");
+				errorText.setId("errorLabel");
 				grid.add(errorText, 1, 15, 1, 1);
 			} 
 			if (fieldIsEmpty(residenceTextArea.getText())) {
 				validation = false;
 				Label errorText = new Label("Text field isn't filled in");
+				errorText.setId("errorLabel");
 				grid.add(errorText, 1, 21, 1, 1);
 			}
 			if (fieldIsEmpty(countryTextArea.getText())) {
 				validation = false;
 				Label errorText = new Label("Text field isn't filled in");
+				errorText.setId("errorLabel");
 				grid.add(errorText, 1, 23, 1, 1);
 			}
 			

@@ -73,10 +73,12 @@ public class CertificateUpdateScene extends domain.Validation{
             if (fieldIsEmpty(gradeTextArea.getText())) {
 				validation = false;
 				Label errorText = new Label("Text field isn't filled in");
+                errorText.setId("errorLabel");
 				grid.add(errorText, 1, 1, 1, 1);
 			} else if (!checkGrade(Integer.parseInt(gradeTextArea.getText()))) {
                 validation = false;
 				Label errorText = new Label("The grade isn't valid");
+                errorText.setId("errorLabel");
 				grid.add(errorText, 1, 1, 1, 1);
             }
 
