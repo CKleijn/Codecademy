@@ -47,13 +47,14 @@ public abstract class Validation {
         //regex checks if the first digit is between the 1 and 9 and if the next three digits are between the 0 and 9 followed by a space and ends with two capital letters
         String regex = "[1-9][0-9]{3}[ ][A-Z]{2}";
 
-        if(pc.matches(regex)){
+        if(pc.trim().matches(regex)){
             System.out.println("The postal code is correct");
             return true;
         }
 
         System.out.println("The postal code is incorrect");
-        return false;
+        throw new IllegalArgumentException();
+        //return false;
 
     }
 

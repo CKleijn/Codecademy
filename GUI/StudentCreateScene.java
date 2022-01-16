@@ -117,12 +117,17 @@ public class StudentCreateScene extends domain.Validation{
 				errorText.setId("errorLabel");	
 				grid.add(errorText, 1, 5, 1, 1);
 			}
-			if (!checkPostalCode(postalCodeTextArea.getText())) {
-				validation = false;
-				Label errorText = new Label("postal code isn't must be 4 digits space 2 letters");
-				errorText.setId("errorLabel");
-				grid.add(errorText, 1, 19, 1, 1);
+			try {
+				checkPostalCode(postalCodeTextArea.getText());
+			} catch (Exception e) {
+				if(e instanceof IllegalArgumentException){
+					validation = false;
+					Label errorText = new Label("postal code isn't formatted right must be formatted like 4 digits one space 2 letters");
+					errorText.setId("errorLabel");
+					grid.add(errorText, 1, 19, 1, 1);
+				}
 			}
+
 			if (cbxGender.getSelectionModel().isEmpty()) {
 				validation = false;
 				Label errorText = new Label("gender must be 'M' for male or 'F' for female");
