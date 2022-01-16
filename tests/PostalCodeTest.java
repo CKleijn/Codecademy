@@ -15,7 +15,7 @@ public class PostalCodeTest {
    */
 
    @Test (expected=NullPointerException.class)
-   public void checksPostalCodeWhenNull(){
+   public void testValidatePostalCodeRequiresPostalCodeIsNULLEnsuresNullPointerException(){
       // Arrage
       String postalCode = null;
       // Act
@@ -30,7 +30,7 @@ public class PostalCodeTest {
    */
 
    @Test
-   public void PostalCodeIsValid(){
+   public void testValidatePostalCodeRequires4824SpaceRTEnsuresTrue(){
       // Arrage
       String postalCode = "4824 RT";
       // Act
@@ -45,9 +45,8 @@ public class PostalCodeTest {
    *   @ensures \result = true
    *            
    */
-
    @Test
-   public void PostalCodeValidSpaceAtTheEnd(){
+   public void testValidatePostalCodeRequires4824SpaceRTSpaceEnsuresTrue(){
       // Arrage
       String postalCode = "4824 RT ";
       // Act
@@ -64,7 +63,7 @@ public class PostalCodeTest {
    */
 
    @Test (expected=IllegalArgumentException.class)
-   public void invalidPostalCode(){
+   public void testValidatePostalCodeRequires999SpaceZZEnsuresIllegalArgumentException(){
       // Arrage
       String postalCode = "999 ZZ";
       // Act
@@ -79,7 +78,7 @@ public class PostalCodeTest {
    */
 
    @Test (expected=IllegalArgumentException.class)
-   public void invalidFiveDigitsPostalCode(){
+   public void testValidatePostalCodeRequires56721SpaceTYEnsuresIllegalArgumentException(){
       // Arrage
       String postalCode = "56721 TY";
       // Act
@@ -94,7 +93,7 @@ public class PostalCodeTest {
    */
 
    @Test (expected=IllegalArgumentException.class)
-   public void invalidWithoutSpacePostalCode(){
+   public void testValidatePostalCodeRequires5129FNEnsuresIllegalArgumentException(){
       // Arrage
       String postalCode = "5129FN";
       // Act
@@ -109,7 +108,7 @@ public class PostalCodeTest {
    */
 
    @Test (expected=IllegalArgumentException.class)
-   public void invalidThreeLettersPostalCode(){
+   public void testValidatePostalCodeRequires2459SpaceFNDEnsuresIllegalArgumentException(){
       // Arrage
       String postalCode = "2459 FND";
       // Act
@@ -124,7 +123,7 @@ public class PostalCodeTest {
    */
 
    @Test (expected=IllegalArgumentException.class)
-   public void invalidsmallLettersPostalCode(){
+   public void testValidatePostalCodeRequires6317SpacetrEnsuresIllegalArgumentException(){
       // Arrage
       String postalCode = "6317 tr";
       // Act
@@ -139,7 +138,7 @@ public class PostalCodeTest {
    */
 
    @Test (expected=IllegalArgumentException.class)
-   public void invalidBelowThousandPostalCode(){
+   public void testValidatePostalCodeRequires0584SpaceHQEnsuresIllegalArgumentException(){
       // Arrage
       String postalCode = "0584 HQ";
       // Act
@@ -154,7 +153,7 @@ public class PostalCodeTest {
    */
 
    @Test (expected=IllegalArgumentException.class)
-   public void invalidTwoSpacesPostalCode(){
+   public void testValidatePostalCodeRequires7451SpaceSpaceTGEnsuresIllegalArgumentException(){
       // Arrage
       String postalCode = "7451  TG";
       // Act
@@ -169,7 +168,7 @@ public class PostalCodeTest {
    */
 
    @Test (expected=IllegalArgumentException.class)
-   public void invalidFourLettersPostalCode(){
+   public void testValidatePostalCodeRequiresKFAPSpace43EnsuresIllegalArgumentException(){
       // Arrage
       String postalCode = "KFAP 43";
       // Act
@@ -184,7 +183,7 @@ public class PostalCodeTest {
    */
 
   @Test (expected=IllegalArgumentException.class)
-  public void invalidOnlyFourDigitsPostalCode(){
+  public void testValidatePostalCodeRequires19820EnsuresIllegalArgumentException(){
      // Arrage
      String postalCode = "1982";
      // Act

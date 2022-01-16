@@ -91,4 +91,89 @@ public class NumericRangeToolsTest {
         // Assert
         assertEquals(false, result);
     }
+
+    /**
+    * @subcontract value within valid range {
+    * @requires 1 <= grade <= 10;
+    * @ensures \result = true;
+    * }
+    **/
+
+    @Test
+    public void testIsValidGradeRequiresGrade5EnsuresTrue() {
+        // Arrange
+        int grade = 5;
+        // Act
+        boolean result = Validation.checkGrade(grade);
+        // Assert
+        assertEquals(true, result);
+    }
+
+    /**
+    * @subcontract value within valid range {
+    * @requires 1 <= grade <= 10;
+    * @ensures \result = true;
+    * }
+    **/
+
+    @Test
+    public void testIsValidGradeRequiresGrade1EnsuresTrue() {
+        // Arrange
+        int grade = 1;
+        // Act
+        boolean result = Validation.checkGrade(grade);
+        // Assert
+        assertEquals(true, result);
+    }
+
+    /**
+    * @subcontract value within valid range {
+    * @requires 1 <= grade <= 10;
+    * @ensures \result = true;
+    * }
+    **/
+
+    @Test
+    public void testIsValidGradeRequiresGrade10EnsuresTrue() {
+        // Arrange
+        int grade = 10;
+        // Act
+        boolean result = Validation.checkGrade(grade);
+        // Assert
+        assertEquals(true, result);
+    }
+
+    /**
+    * @subcontract value out of range low {
+    * @requires grade < 1;
+    * @ensures \result = false;
+    * }
+    **/
+
+    @Test
+    public void testIsValidGradeRequiresGradeMinus1EnsuresFalse() {
+        // Arrange
+        int grade = 0;
+        // Act
+        boolean result = Validation.checkGrade(grade);
+        // Assert
+        assertEquals(false, result);
+    }
+
+    /**
+    * @subcontract value out of range high {
+    * @requires grade > 10;
+    * @signals \result = false;
+    * }
+    **/
+
+    @Test
+    public void testIsValidGradeRequiresgrade11EnsuresFalse() {
+        // Arrange
+        int grade = 11;
+        // Act
+        boolean result = Validation.checkGrade(grade);
+        // Assert
+        assertEquals(false, result);
+    }
 }

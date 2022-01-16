@@ -16,7 +16,7 @@ public class MailToolsTest {
     */
     
     @Test
-    public void MailAddressMissesFirstPart(){
+    public void testValidateMailAddressRequiresMissesFirstPartEnsuresFalse(){
         // Arrage
         String email = "@gmail.com";
         // Act
@@ -33,7 +33,7 @@ public class MailToolsTest {
     */
 
     @Test
-    public void MailAddresDoesnotContainAtSing(){
+    public void testValidateMailAddresRequiresnotContainingAtSingEnsuresFalse(){
         // Arrage
         String email = "testgmail.com";
         // Act
@@ -50,7 +50,7 @@ public class MailToolsTest {
     */
 
     @Test
-    public void MailAddressDoesNotContainAnyThingBeforeTheDot(){
+    public void testValidateMailAddressRequiresTestAtDotComEnsuresFalse(){
         // Arrage
         String email = "test@.com";
         // Act
@@ -67,7 +67,7 @@ public class MailToolsTest {
     */
 
     @Test
-    public void MailAddressDoesNotContainAnyThingAfterTheDot(){
+    public void testValidateMailAddressRequiresTestAtGmailDotEnsuresFalse(){
         // Arrage
         String email = "test@gmail.";
         // Act
@@ -78,13 +78,13 @@ public class MailToolsTest {
 
     /**
     * @subcontract valid email {
-    *   @requires no other precondition
+    *   @requires a valid email in format at least one caracter, atSign, ar least one caracter, dot, at least one caracter
     *   @ensures \result = true;
     * }
     */
 
     @Test
-    public void ValidEmail(){
+    public void testValidateEmailRequiresTestAtgmailDotcomEnsuresTrue(){
         // Arrage
         String email = "test@gmail.com";
         // Act
@@ -101,7 +101,7 @@ public class MailToolsTest {
     */
 
     @Test
-    public void MailAddressContainsMultipleAtSignsAtTheEnd(){
+    public void testValidateMailAddressRequiresTestAtGmailDotComAtAtAtEnsuresFalse(){
         // Arrage
         String email = "test@gmail.com@@@";
         // Act
@@ -118,7 +118,7 @@ public class MailToolsTest {
     */
 
     @Test
-    public void MailAddressContainsTwoAtSigns(){
+    public void testValidateMailAddressRequiresTestAtAtAtgmailDotcomFalse(){
         // Arrage
         String email = "test@@@gmail.com";
         // Act
@@ -135,7 +135,7 @@ public class MailToolsTest {
     */
 
     @Test
-    public void MailAddressContainsThreeLetters(){
+    public void testValidateMailAddressRequiresTAtgDotcEnsuresTrue(){
         // Arrage
         String email = "t@g.c";
         // Act
@@ -152,7 +152,7 @@ public class MailToolsTest {
     */
 
     @Test
-    public void MailAddressContainsOnlyCapitalLetters(){
+    public void testValidateMailAddressRequiresTESTAtGMAILDotCOMEnsuresTrue(){
         // Arrage
         String email = "TEST@GMAIL.COM";
         // Act
@@ -169,7 +169,7 @@ public class MailToolsTest {
     */
 
     @Test
-    public void MailAddressContainsDigits(){
+    public void testValidateMailAddressRequiresTest3AtGmailDotComEnsuresFalse(){
         // Arrage
         String email = "test3@gmail.com";
         // Act
@@ -186,7 +186,7 @@ public class MailToolsTest {
     */
 
     @Test
-    public void MailAddressContainsThreeDots(){
+    public void testValidateMailAddressRequiresTestDotTestAtGmailDotComDotComEnsuresFalse(){
         // Arrage
         String email = "test.test@gmail.com.com";
         // Act
@@ -203,7 +203,7 @@ public class MailToolsTest {
     */
 
     @Test
-    public void MailAddressContainsTwoDots(){
+    public void testValidateMailAddressRequiresTestDotTestAtGmailDotCom(){
         // Arrage
         String email = "test.test@gmail.com";
         // Act
