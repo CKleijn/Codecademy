@@ -97,7 +97,7 @@ public class CourseSQL extends ConnectToDatabase {
                 e.printStackTrace();
             }
         } else {
-            return "Can't delete course because there are still who are still participating in " + course.getName() + "\nThere are still " + participants + " participants to this course.";
+            return "Can't delete course because there are still " + participants + " participants in " + course.getName() + "";
         }
 
         return "There was a mistake with deleting " + course.getName();

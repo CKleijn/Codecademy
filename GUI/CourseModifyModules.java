@@ -76,10 +76,8 @@ public class CourseModifyModules {
                 boolean isSelected = checkBox.isSelected();
                 if(isSelected){
                     sql.setCourseName(checkBox.getText(), course.getName());
-                    System.out.println("test 1");
                 } else {
                     sql.setNull(checkBox.getText());
-                    System.out.println("test 2");
                 }
             }
             window.getScene().setRoot(courseDetailPage.CourseDetailScene(window, course));

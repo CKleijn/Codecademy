@@ -133,7 +133,7 @@ public class CourseOverviewScene {
                             deleteBtn.setOnAction(event -> {
                                 Course course = getTableView().getItems().get(getIndex());
                                 String feedback =  sql.deleteCourse(course);
-                                if(feedback.contains("Can't delete course because there are still who are still participating in")){
+                                if(feedback.contains("Can't delete course")){
                                     deleteFeedback.setText(feedback);
                                 } else {
                                     window.getScene().setRoot(courseOverviewScene.courseOverviewScene(window));

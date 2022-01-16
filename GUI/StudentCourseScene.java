@@ -51,14 +51,20 @@ public class StudentCourseScene {
         createButton.setPrefSize(120, 37);
         createButton.setOnAction((event) -> {
             window.getScene().setRoot(certificateCreateScene.certificateCreateScene(window, registration, course, current_student));
+
         });
 
         //Adds the Button to check a Certificate
+        Label message = new Label("");
         Button checkButton = new Button("Check certificates");
         checkButton.setPrefSize(120, 37);
         checkButton.setOnAction((event) -> {
-            sqlC.checkIfStudentReceiveCertificate(sqlC.getSingleCertificateFromStudentForSpecificCourse(course, current_student), registration);
-            window.getScene().setRoot(studentCourseScene(window, registration, course, current_student));
+            String feedback = sqlC.checkIfStudentReceiveCertificate(sqlC.getSingleCertificateFromStudentForSpecificCourse(course, current_student), registration);
+            if(feedback.contains("Certificate cannot be linked")){
+                message.setText(feedback);
+            } else {
+                window.getScene().setRoot(studentCourseScene(window, registration, course, current_student));
+            }
         });
 
         //Creates a HBox and adds the above created Buttons to it
@@ -135,6 +141,7 @@ public class StudentCourseScene {
         grid.add(infoLevelLabel, 0, 3 , 1, 1);
         grid.add(levelLabel, 1, 3 , 1, 1);
         grid.add(infoModuleLabel, 0, 4 , 1, 1);
+        grid.add(message, 1, i, 1, 1);
 
         //Creates a BorderPane and adds elements to it
         BorderPane pane = new BorderPane();

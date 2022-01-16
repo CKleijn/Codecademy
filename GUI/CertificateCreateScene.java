@@ -74,7 +74,7 @@ public class CertificateCreateScene extends domain.Validation{
 				grid.add(errorText, 1, 1, 1, 1);
 			} else if (!checkGrade(Integer.parseInt(gradeTextArea.getText()))) {
                 validation = false;
-				Label errorText = new Label("The grade isn't valid");
+				Label errorText = new Label("The grade isn't valid, must be between the 1 and the 10");
 				grid.add(errorText, 1, 1, 1, 1);
             }
 
@@ -84,10 +84,21 @@ public class CertificateCreateScene extends domain.Validation{
 				grid.add(errorText, 1, 3, 1, 1);
 			}
 
+            
+
             if(validation){
+                //Making a label, for a error message that could occur if this  student already has a certificate for this course
+                Label feedback = new Label("test");
+                grid.add(feedback, 1, 4, 1, 1);
+
                 Certificate certificate = new Certificate(Integer.valueOf(gradeTextArea.getText()), sqlE.findExternalPersonID(cbxExternalPerson.getSelectionModel().getSelectedItem()), current_student.getEmail(), course.getName());
-                sqlC.createCertificate(certificate);
-                window.getScene().setRoot(studentCourseScene.studentCourseScene(window, registration, course, current_student));
+                String outputCreate = sqlC.createCertificate(certificate);
+
+                if(outputCreate.contains("You've already created a certificate")){
+                    feedback.setText("Certificate can't be created, this student already has a certificate for this course");
+                } else {
+                    window.getScene().setRoot(studentCourseScene.studentCourseScene(window, registration, course, current_student));
+                }
             }
 		});
 
@@ -96,7 +107,7 @@ public class CertificateCreateScene extends domain.Validation{
 		grid.add(gradeTextArea, 1, 0 , 1, 1);
         grid.add(externalPersonLabel, 0, 2 , 1, 1);
 		grid.add(cbxExternalPerson, 1, 2 , 1, 1);
-        grid.add(buttonHBox, 0, 4 , 1, 1);
+        grid.add(buttonHBox, 0, 5 , 1, 1);
 		
         //Creates a BorderPane and adds elements to it
         BorderPane pane = new BorderPane();

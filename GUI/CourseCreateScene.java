@@ -107,8 +107,8 @@ public class CourseCreateScene extends domain.Validation {
 
 			if (validation) { 
 				Course course = new Course(nameTextArea.getText(), topicTextArea.getText(), introductionTextArea.getText(), cbxLevel.getSelectionModel().getSelectedItem().name());
-				sql.setCourseName(cbxModule.getSelectionModel().getSelectedItem(), course.getName());
 				sql.createCourse(course);
+				sql.setCourseName(cbxModule.getSelectionModel().getSelectedItem(), course.getName());
 				window.getScene().setRoot(courseOverviewScene.courseOverviewScene(window));
 			}
 		});
