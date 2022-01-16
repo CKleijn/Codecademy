@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import domain.Validation;
+
 public class MailToolsTest {
     /**
     * 
@@ -18,7 +20,7 @@ public class MailToolsTest {
         // Arrage
         String email = "@gmail.com";
         // Act
-        boolean result = MailTools.validateMailAddress(email);
+        boolean result = Validation.checkEmail(email);
         // Assert
         assertEquals(false, result);
     }
@@ -35,7 +37,7 @@ public class MailToolsTest {
         // Arrage
         String email = "testgmail.com";
         // Act
-        boolean result = MailTools.validateMailAddress(email);
+        boolean result = Validation.checkEmail(email);
         // Assert
         assertEquals(false, result);
     }
@@ -52,7 +54,7 @@ public class MailToolsTest {
         // Arrage
         String email = "test@.com";
         // Act
-        boolean result = MailTools.validateMailAddress(email);
+        boolean result = Validation.checkEmail(email);
         // Assert
         assertEquals(false, result);
     }
@@ -69,7 +71,7 @@ public class MailToolsTest {
         // Arrage
         String email = "test@gmail.";
         // Act
-        boolean result = MailTools.validateMailAddress(email);
+        boolean result = Validation.checkEmail(email);
         // Assert
         assertEquals(false, result);
     }
@@ -86,7 +88,7 @@ public class MailToolsTest {
         // Arrage
         String email = "test@gmail.com";
         // Act
-        boolean result = MailTools.validateMailAddress(email);
+        boolean result = Validation.checkEmail(email);
         // Assert
         assertEquals(true, result);
     }
@@ -103,7 +105,7 @@ public class MailToolsTest {
         // Arrage
         String email = "test@gmail.com@@@";
         // Act
-        boolean result = MailTools.validateMailAddress(email);
+        boolean result = Validation.checkEmail(email);
         // Assert
         assertEquals(false, result);
     }
@@ -120,7 +122,7 @@ public class MailToolsTest {
         // Arrage
         String email = "test@@@gmail.com";
         // Act
-        boolean result = MailTools.validateMailAddress(email);
+        boolean result = Validation.checkEmail(email);
         // Assert
         assertEquals(false, result);
     }    
@@ -137,7 +139,7 @@ public class MailToolsTest {
         // Arrage
         String email = "t@g.c";
         // Act
-        boolean result = MailTools.validateMailAddress(email);
+        boolean result = Validation.checkEmail(email);
         // Assert
         assertEquals(true, result);
     }
@@ -154,7 +156,7 @@ public class MailToolsTest {
         // Arrage
         String email = "TEST@GMAIL.COM";
         // Act
-        boolean result = MailTools.validateMailAddress(email);
+        boolean result = Validation.checkEmail(email);
         // Assert
         assertEquals(true, result);
     }
@@ -171,7 +173,7 @@ public class MailToolsTest {
         // Arrage
         String email = "test3@gmail.com";
         // Act
-        boolean result = MailTools.validateMailAddress(email);
+        boolean result = Validation.checkEmail(email);
         // Assert
         assertEquals(false, result);
     }
@@ -188,7 +190,7 @@ public class MailToolsTest {
         // Arrage
         String email = "test.test@gmail.com.com";
         // Act
-        boolean result = MailTools.validateMailAddress(email);
+        boolean result = Validation.checkEmail(email);
         // Assert
         assertEquals(false, result);
     }
@@ -205,7 +207,7 @@ public class MailToolsTest {
         // Arrage
         String email = "test.test@gmail.com";
         // Act
-        boolean result = MailTools.validateMailAddress(email);
+        boolean result = Validation.checkEmail(email);
         // Assert
         assertEquals(false, result);
     }

@@ -6,7 +6,7 @@ import java.util.Calendar;
 public abstract class Validation {
 
     //Method that checks a given email
-    public boolean checkEmail(String email){
+    public static boolean checkEmail(String email){
         //regex checks if the email starts with one or more letters followed by a "@" one or more letters a "." and at the end one or more letters
         String regex = "^[a-zA-z]{1,}[@][a-zA-Z]{1,}[.][a-zA-Z]{1,}";
         if(email.matches(regex)){
@@ -18,7 +18,7 @@ public abstract class Validation {
     }
 
     //Method that checks a given date
-    public boolean checkDate(int day, int month, int year){
+    public static boolean checkDate(int day, int month, int year){
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 
         //checks if the day is between 1 and 31 after that is checks if the month contains 31 days after that it checks if the year is between now and this year minus 120 years
@@ -43,7 +43,7 @@ public abstract class Validation {
     }
 
     //Method that checks a given postal code
-    public boolean checkPostalCode(String pc){
+    public static boolean checkPostalCode(String pc){
         //regex checks if the first digit is between the 1 and 9 and if the next three digits are between the 0 and 9 followed by a space and ends with two capital letters
         String regex = "[1-9][0-9]{3}[ ][A-Z]{2}";
 
@@ -58,7 +58,7 @@ public abstract class Validation {
     }
 
     //Method that checks a given url
-    public boolean checkUrl(String url){
+    public static boolean checkUrl(String url){
         //Regex checks if the url starts with https:// or with http:// that it checks if there are one or more caraters followed by a "." then another set of caraters another "." and if there are 1 or more caraters at the end
         String regex = "^(https://|http://)[a-zA-Z]{1,}[.][a-zA-Z]{1,}[.][a-zA-Z]{1,}";
 
@@ -72,7 +72,7 @@ public abstract class Validation {
     }
   
     //Method that checks a given grade
-    public boolean checkGrade(int grade){
+    public static boolean checkGrade(int grade){
         //checks if the given grad is greater or equal to 1 and less or equal to 10
         if(grade >= 1 && grade <= 10){
             System.out.println("The given grade is correct");
@@ -82,23 +82,23 @@ public abstract class Validation {
         return false;
     }
 
-    public boolean fieldIsEmpty(String text){
+    public static boolean fieldIsEmpty(String text){
         if(text.isEmpty()){   
             return true; 
         }
         return false;
     }
 
-    // public boolean percentage(int percentage){
-    //     String per = percentage + "";
-    //     String regex = "^([0-9]|([1-9][0-9])|100)$";
+    public static boolean percentage(int percentage){
+        String per = percentage + "";
+        String regex = "^([0-9]|([1-9][0-9])|100)$";
     
-    //     if(per.matches(regex)){
-    //         System.out.println("The percentage is right");
-    //         return true;
-    //     }
+        if(per.matches(regex)){
+            System.out.println("The percentage is right");
+            return true;
+        }
     
-    //     System.out.println("The percentage must be between 0-100");
-    //     return false;
-    // }
+        System.out.println("The percentage must be between 0-100");
+        return false;
+    }
 }

@@ -6,6 +6,8 @@ import java.util.Calendar;
 
 import org.junit.Test;
 
+import domain.Validation;
+
 public class DateToolsTest {
     /**
     * @subcontract 31 days in month {
@@ -22,7 +24,7 @@ public class DateToolsTest {
         int month = 10;
         int year = 2000;
         //Act
-        boolean result = DateTools.validateDate(day, month, year);
+        boolean result = Validation.checkDate(day, month, year);
         //Assert
         assertEquals(true, result);
     }
@@ -42,7 +44,7 @@ public class DateToolsTest {
         int month = 6;
         int year = 2000;
         //Act
-        boolean result = DateTools.validateDate(day, month, year);
+        boolean result = Validation.checkDate(day, month, year);
         //Assert
         assertEquals(true, result);
     }
@@ -62,7 +64,7 @@ public class DateToolsTest {
         int month = 2;
         int year = 1996;
         //Act
-        boolean result = DateTools.validateDate(day, month, year);
+        boolean result = Validation.checkDate(day, month, year);
         //Assert
         assertEquals(true, result);
     }
@@ -82,7 +84,7 @@ public class DateToolsTest {
         int month = 2;
         int year = 1999;
         //Act
-        boolean result = DateTools.validateDate(day, month, year);
+        boolean result = Validation.checkDate(day, month, year);
         //Assert
         assertEquals(true, result);
     }
@@ -101,7 +103,7 @@ public class DateToolsTest {
        int month = 6;
        int year = 2000;
         //Act
-       boolean result = DateTools.validateDate(day, month, year);
+       boolean result = Validation.checkDate(day, month, year);
         //Assert
         assertEquals(false, result);
     }
@@ -120,7 +122,7 @@ public class DateToolsTest {
         int month = 6;
         int year = 2000;
         //Act
-        boolean result = DateTools.validateDate(day, month, year);
+        boolean result = Validation.checkDate(day, month, year);
         //Assert
         assertEquals(false, result);
     }
@@ -139,7 +141,7 @@ public class DateToolsTest {
         int month = 6;
         int year = 2000;
         //Act
-        boolean result = DateTools.validateDate(day, month, year);
+        boolean result = Validation.checkDate(day, month, year);
         //Assert
         assertEquals(false, result);
     }
@@ -158,7 +160,7 @@ public class DateToolsTest {
         int month = 0;
         int year = 2000;
         //Act
-        boolean result = DateTools.validateDate(day, month, year);
+        boolean result = Validation.checkDate(day, month, year);
         //Assert
         assertEquals(false, result);
     } 
@@ -177,7 +179,7 @@ public class DateToolsTest {
         int month = -99;
         int year = 2000;
         //Act
-        boolean result = DateTools.validateDate(day, month, year);
+        boolean result = Validation.checkDate(day, month, year);
         //Assert
         assertEquals(false, result);
     }
@@ -196,7 +198,7 @@ public class DateToolsTest {
         int month = 13;
         int year = 2000;
         //Act
-        boolean result = DateTools.validateDate(day, month, year);
+        boolean result = Validation.checkDate(day, month, year);
         //Assert
         assertEquals(false, result);
     } 
@@ -215,7 +217,7 @@ public class DateToolsTest {
         int month = 2;
         int year = Calendar.getInstance().get(Calendar.YEAR) + 2;
         //Act
-        boolean result = DateTools.validateDate(day, month, year);
+        boolean result = Validation.checkDate(day, month, year);
         //Assert
         assertEquals(false, result);
     } 
@@ -234,7 +236,7 @@ public class DateToolsTest {
         int month = 2;
         int year = Calendar.getInstance().get(Calendar.YEAR) -150;
         //Act
-        boolean result = DateTools.validateDate(day, month, year);
+        boolean result = Validation.checkDate(day, month, year);
         //Assert
         assertEquals(false, result);
     }    

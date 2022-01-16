@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import domain.Validation;
+
 public class PostalCodeTest {
    /**
    * @subcontract null postalCode {
@@ -17,7 +19,7 @@ public class PostalCodeTest {
       // Arrage
       String postalCode = null;
       // Act
-      boolean result = PostalCode.formatPostalCode(postalCode);
+      boolean result = Validation.checkPostalCode(postalCode);
    }
 
    /**
@@ -32,7 +34,7 @@ public class PostalCodeTest {
       // Arrage
       String postalCode = "4824 RT";
       // Act
-      boolean result = PostalCode.formatPostalCode(postalCode);
+      boolean result = Validation.checkPostalCode(postalCode);
       // Assert
       assertEquals(result, true);
    }
@@ -49,7 +51,7 @@ public class PostalCodeTest {
       // Arrage
       String postalCode = "4824 RT ";
       // Act
-      boolean result = PostalCode.formatPostalCode(postalCode);
+      boolean result = Validation.checkPostalCode(postalCode);
       // Assert
       assertEquals(result, true);
    }
@@ -66,8 +68,7 @@ public class PostalCodeTest {
       // Arrage
       String postalCode = "999 ZZ";
       // Act
-      boolean result = PostalCode.formatPostalCode(postalCode);
-      // Assert      
+      boolean result = Validation.checkPostalCode(postalCode);
    }
 
    /**
@@ -82,8 +83,7 @@ public class PostalCodeTest {
       // Arrage
       String postalCode = "56721 TY";
       // Act
-      boolean result = PostalCode.formatPostalCode(postalCode);
-      // Assert      
+      boolean result = Validation.checkPostalCode(postalCode);
    }
 
    /**
@@ -98,8 +98,7 @@ public class PostalCodeTest {
       // Arrage
       String postalCode = "5129FN";
       // Act
-      boolean result = PostalCode.formatPostalCode(postalCode);
-      // Assert      
+      boolean result = Validation.checkPostalCode(postalCode);
    }
 
    /**
@@ -114,8 +113,7 @@ public class PostalCodeTest {
       // Arrage
       String postalCode = "2459 FND";
       // Act
-      boolean result = PostalCode.formatPostalCode(postalCode);
-      // Assert      
+      boolean result = Validation.checkPostalCode(postalCode);
    }
 
    /**
@@ -130,8 +128,7 @@ public class PostalCodeTest {
       // Arrage
       String postalCode = "6317 tr";
       // Act
-      boolean result = PostalCode.formatPostalCode(postalCode);
-      // Assert      
+      boolean result = Validation.checkPostalCode(postalCode);
    }
 
    /**
@@ -146,8 +143,7 @@ public class PostalCodeTest {
       // Arrage
       String postalCode = "0584 HQ";
       // Act
-      boolean result = PostalCode.formatPostalCode(postalCode);
-      // Assert      
+      boolean result = Validation.checkPostalCode(postalCode);
    }
 
    /**
@@ -162,8 +158,7 @@ public class PostalCodeTest {
       // Arrage
       String postalCode = "7451  TG";
       // Act
-      boolean result = PostalCode.formatPostalCode(postalCode);
-      // Assert      
+      boolean result = Validation.checkPostalCode(postalCode);
    }
 
    /**
@@ -178,8 +173,7 @@ public class PostalCodeTest {
       // Arrage
       String postalCode = "KFAP 43";
       // Act
-      boolean result = PostalCode.formatPostalCode(postalCode);
-      // Assert      
+      boolean result = Validation.checkPostalCode(postalCode);
    }
    
    /**
@@ -194,8 +188,7 @@ public class PostalCodeTest {
      // Arrage
      String postalCode = "1982";
      // Act
-     boolean result = PostalCode.formatPostalCode(postalCode);
-     // Assert      
+     boolean result = Validation.checkPostalCode(postalCode);
   }   
 
 

@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import domain.Validation;
+
 public class NumericRangeToolsTest {
     /**
     * @subcontract value within valid range {
@@ -17,7 +19,7 @@ public class NumericRangeToolsTest {
         // Arrange
         int percentage = 50;
         // Act
-        boolean result = NumericRangeTools.isValidPercentage(percentage);
+        boolean result = Validation.percentage(percentage);
         // Assert
         assertEquals(true, result);
     }
@@ -34,7 +36,7 @@ public class NumericRangeToolsTest {
         // Arrange
         int percentage = 0;
         // Act
-        boolean result = NumericRangeTools.isValidPercentage(percentage);
+        boolean result = Validation.percentage(percentage);
         // Assert
         assertEquals(true, result);
     }
@@ -51,7 +53,7 @@ public class NumericRangeToolsTest {
         // Arrange
         int percentage = 100;
         // Act
-        boolean result = NumericRangeTools.isValidPercentage(percentage);
+        boolean result = Validation.percentage(percentage);
         // Assert
         assertEquals(true, result);
     }
@@ -68,7 +70,7 @@ public class NumericRangeToolsTest {
         // Arrange
         int percentage = -1;
         // Act
-        boolean result = NumericRangeTools.isValidPercentage(percentage);
+        boolean result = Validation.percentage(percentage);
         // Assert
         assertEquals(false, result);
     }
@@ -85,7 +87,7 @@ public class NumericRangeToolsTest {
         // Arrange
         int percentage = 101;
         // Act
-        boolean result = NumericRangeTools.isValidPercentage(percentage);
+        boolean result = Validation.percentage(percentage);
         // Assert
         assertEquals(false, result);
     }
