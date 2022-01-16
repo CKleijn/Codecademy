@@ -115,6 +115,7 @@ public class CourseOverviewScene {
         
         //Creates a label that tells the user why the delete didn't succeed
         Label deleteFeedback = new Label("");
+        deleteFeedback.setId("errorLabel");
 
         //Creates a Callback and adds methods to it that delete given information
         Callback<TableColumn<Course, String>, TableCell<Course, String>> deletecellFactory = new Callback<TableColumn<Course, String>, TableCell<Course, String>>() {
